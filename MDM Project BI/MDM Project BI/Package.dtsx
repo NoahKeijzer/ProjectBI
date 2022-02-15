@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="2/8/2022 1:19:07 PM"
@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="DataLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{4536353A-714A-4E77-A998-EB720A7CBB89}">
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{E6B0D5E1-FB8D-4B84-B3CA-1B8141EDE5E1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -41,7 +41,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACQHm93n2J0CIkGKqC5UurgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADAbWMz3qFbk99/2t/FUeI98pycuvrBvzJtO6noiv/NNAAAAAAOgAAAAAIAACAAAABjcJTvYj7sVTSDGY60tabgquaXeG2uJPIiI+y+k+IceCAAAAAIovR4Sqe49bYN8QFWfd8axr3Wb4zRsrD3yiEMhz/t9kAAAADYm2SsVi5+vlDf9aQ07tP3FQkKzKXUXtz/Dbs1Z/SebMYjWEX7fNzsJOsuz4GQbjnoF2hE00iclT4ZIyazia+9</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACQHm93n2J0CIkGKqC5UurgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADFftivar5JaVBa57yo72iYLVQt7F8MpKq7xWqccEDBWwAAAAAOgAAAAAIAACAAAABD2uk83OEq0XfkIdjqIw0gUKYcSJRSVlPTSUfS5P7b1CAAAAAtJKVukYSOibLrMyMLXAWvO1GzeQlWO1T6zuaDWSLLrkAAAAB9D+6hREMVxAjT2z1r+yelJULVe2nB10f/JLlvlwWltiKcdpGMGdzHddAY5/7ZupVdnOni9+hJJ+uvIrnOhApp</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -62,7 +62,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{0E9E28AD-4484-4075-BDD4-1A4A099DE561}"
-          SQLTask:SqlStatementSource="DELETE FROM D_TIME;&#xA;DELETE FROM D_STORE;&#xA;DELETE FROM D_Product;&#xA;DELETE FROM D_Sales_Channel;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM F_Monthly_Sales;&#xA;DELETE FROM D_TIME;&#xA;DELETE FROM D_STORE;&#xA;DELETE FROM D_Product;&#xA;DELETE FROM D_Sales_Channel;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -3696,49 +3696,49 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         <NodeLayout
           Size="149.6,42.4"
           Id="Package\Load Calendar"
-          TopLeft="103.189098479258,123.280703842834" />
+          TopLeft="114.855764682333,128.48070388416" />
         <NodeLayout
           Size="153.6,42.4"
           Id="Package\Load Monthly Sales"
-          TopLeft="355.929479089717,235.736846129166" />
+          TopLeft="357.477098116387,222.787826376587" />
         <NodeLayout
           Size="142.4,42.4"
           Id="Package\Load Product"
-          TopLeft="455.208323859714,120.122808729498" />
+          TopLeft="444.374990956859,127.922808791487" />
         <NodeLayout
           Size="176,42.4"
           Id="Package\Load Sales Channel"
-          TopLeft="610.208321550034,121.456140594675" />
+          TopLeft="594.374988845861,126.656140636001" />
         <NodeLayout
           Size="153.6,42.4"
           Id="Package\Load Store"
-          TopLeft="273.95832656055,120.578949415218" />
+          TopLeft="277.291659761429,129.245616150761" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="370.85576065902,91.0666673202961">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-192.866662179762,32.2140365225384"
+              EndConnector="-181.199995976687,37.4140365638638"
               Start="0,0"
-              End="-192.866662179762,24.7140365225384">
+              End="-181.199995976687,29.9140365638638">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,5.66421095676151" />
+                    End="0,7.22421096915914" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,5.66421095676151"
-                    Point2="0,9.66421095676151"
-                    Point3="-4,9.66421095676151" />
+                    Point1="0,7.22421096915914"
+                    Point2="0,11.2242109691591"
+                    Point3="-4,11.2242109691591" />
                   <mssgle:LineSegment
-                    End="-188.866662179762,9.66421095676151" />
+                    End="-177.199995976687,11.2242109691591" />
                   <mssgle:CubicBezierSegment
-                    Point1="-188.866662179762,9.66421095676151"
-                    Point2="-192.866662179762,9.66421095676151"
-                    Point3="-192.866662179762,13.6642109567615" />
+                    Point1="-177.199995976687,11.2242109691591"
+                    Point2="-181.199995976687,11.2242109691591"
+                    Point3="-181.199995976687,15.2242109691591" />
                   <mssgle:LineSegment
-                    End="-192.866662179762,24.7140365225384" />
+                    End="-181.199995976687,29.9140365638638" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3753,26 +3753,26 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-52.09743409847,29.5122820949218"
+              EndConnector="-48.7641008975914,38.178948830465"
               Start="0,0"
-              End="-52.09743409847,22.0122820949218">
+              End="-48.7641008975914,30.678948830465">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,9.20286304246501" />
+                    End="0,13.0800560557344" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,9.20286304246501"
-                    Point2="0,13.202863042465"
-                    Point3="-4,13.202863042465" />
+                    Point1="0,13.0800560557344"
+                    Point2="0,17.0800560557344"
+                    Point3="-4,17.0800560557344" />
                   <mssgle:LineSegment
-                    End="-48.09743409847,13.202863042465" />
+                    End="-44.7641008975914,17.0800560557344" />
                   <mssgle:CubicBezierSegment
-                    Point1="-48.09743409847,13.202863042465"
-                    Point2="-52.09743409847,13.202863042465"
-                    Point3="-52.09743409847,17.202863042465" />
+                    Point1="-44.7641008975914,17.0800560557344"
+                    Point2="-48.7641008975914,17.0800560557344"
+                    Point3="-48.7641008975914,21.0800560557344" />
                   <mssgle:LineSegment
-                    End="-52.09743409847,22.0122820949218" />
+                    End="-48.7641008975914,30.678948830465" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3787,26 +3787,26 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="91.5525632006942,29.0561414092018"
+              EndConnector="80.7192302978387,36.8561414711907"
               Start="0,0"
-              End="91.5525632006942,21.5561414092018">
+              End="80.7192302978387,29.3561414711907">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.9988001041166" />
+                    End="0,12.488273816059" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,8.9988001041166"
-                    Point2="0,12.9988001041166"
-                    Point3="4,12.9988001041166" />
+                    Point1="0,12.488273816059"
+                    Point2="0,16.488273816059"
+                    Point3="4,16.488273816059" />
                   <mssgle:LineSegment
-                    End="87.5525632006942,12.9988001041166" />
+                    End="76.7192302978387,16.488273816059" />
                   <mssgle:CubicBezierSegment
-                    Point1="87.5525632006942,12.9988001041166"
-                    Point2="91.5525632006942,12.9988001041166"
-                    Point3="91.5525632006942,16.9988001041166" />
+                    Point1="76.7192302978387,16.488273816059"
+                    Point2="80.7192302978387,16.488273816059"
+                    Point3="80.7192302978387,20.488273816059" />
                   <mssgle:LineSegment
-                    End="91.5525632006942,21.5561414092018" />
+                    End="80.7192302978387,29.3561414711907" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3821,26 +3821,26 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="231.352560891015,30.3894732743788"
+              EndConnector="215.519228186841,35.5894733157048"
               Start="0,0"
-              End="231.352560891015,22.8894732743788">
+              End="215.519228186841,28.0894733157048">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,5.11684198231364" />
+                    End="0,6.67684199471143" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,5.11684198231364"
-                    Point2="0,9.11684198231364"
-                    Point3="4,9.11684198231364" />
+                    Point1="0,6.67684199471143"
+                    Point2="0,10.6768419947114"
+                    Point3="4,10.6768419947114" />
                   <mssgle:LineSegment
-                    End="227.352560891015,9.11684198231364" />
+                    End="211.519228186841,10.6768419947114" />
                   <mssgle:CubicBezierSegment
-                    Point1="227.352560891015,9.11684198231364"
-                    Point2="231.352560891015,9.11684198231364"
-                    Point3="231.352560891015,13.1168419823136" />
+                    Point1="211.519228186841,10.6768419947114"
+                    Point2="215.519228186841,10.6768419947114"
+                    Point3="215.519228186841,14.6768419947114" />
                   <mssgle:LineSegment
-                    End="231.352560891015,22.8894732743788" />
+                    End="215.519228186841,28.0894733157048" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3851,30 +3851,30 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="177.989098479258,165.680703842834">
+          TopLeft="189.655764682333,170.88070388416">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="211.060380610459,70.0561422863316"
+              EndConnector="200.941333434054,51.9071224924271"
               Start="0,0"
-              End="211.060380610459,62.5561422863316">
+              End="200.941333434054,44.4071224924271">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44.9475229948168" />
+                    End="0,32.2669851475473" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,44.9475229948168"
-                    Point2="0,48.9475229948168"
-                    Point3="4,48.9475229948168" />
+                    Point1="0,32.2669851475473"
+                    Point2="0,36.2669851475473"
+                    Point3="4,36.2669851475473" />
                   <mssgle:LineSegment
-                    End="207.060380610459,48.9475229948168" />
+                    End="196.941333434054,36.2669851475473" />
                   <mssgle:CubicBezierSegment
-                    Point1="207.060380610459,48.9475229948168"
-                    Point2="211.060380610459,48.9475229948168"
-                    Point3="211.060380610459,52.9475229948168" />
+                    Point1="196.941333434054,36.2669851475473"
+                    Point2="200.941333434054,36.2669851475473"
+                    Point3="200.941333434054,40.2669851475473" />
                   <mssgle:LineSegment
-                    End="211.060380610459,62.5561422863316" />
+                    End="200.941333434054,44.4071224924271" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3885,30 +3885,30 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="350.75832656055,162.978949415218">
+          TopLeft="354.091659761429,171.645616150761">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="67.4111525291675,72.7578967139482"
+              EndConnector="65.6254383549579,51.1422102258261"
               Start="0,0"
-              End="67.4111525291675,65.2578967139482">
+              End="65.6254383549579,43.6422102258261">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.1884814990738" />
+                    End="0,24.2488618048291" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.1884814990738"
-                    Point2="0,40.1884814990738"
-                    Point3="4,40.1884814990738" />
+                    Point1="0,24.2488618048291"
+                    Point2="0,28.2488618048291"
+                    Point3="4,28.2488618048291" />
                   <mssgle:LineSegment
-                    End="63.4111525291675,40.1884814990738" />
+                    End="61.6254383549579,28.2488618048291" />
                   <mssgle:CubicBezierSegment
-                    Point1="63.4111525291675,40.1884814990738"
-                    Point2="67.4111525291675,40.1884814990738"
-                    Point3="67.4111525291675,44.1884814990738" />
+                    Point1="61.6254383549579,28.2488618048291"
+                    Point2="65.6254383549579,28.2488618048291"
+                    Point3="65.6254383549579,32.2488618048291" />
                   <mssgle:LineSegment
-                    End="67.4111525291675,65.2578967139482" />
+                    End="65.6254383549579,43.6422102258261" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3919,30 +3919,30 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="526.408323859714,162.522808729498">
+          TopLeft="515.574990956859,170.322808791487">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-79.1188447699967,73.2140373996681"
+              EndConnector="-66.7378928404721,52.4650175851001"
               Start="0,0"
-              End="-79.1188447699967,65.7140373996681">
+              End="-66.7378928404721,44.9650175851001">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.4404349273196" />
+                    End="0,24.9795263991347" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.4404349273196"
-                    Point2="0,40.4404349273196"
-                    Point3="-4,40.4404349273196" />
+                    Point1="0,24.9795263991347"
+                    Point2="0,28.9795263991347"
+                    Point3="-4,28.9795263991347" />
                   <mssgle:LineSegment
-                    End="-75.1188447699967,40.4404349273196" />
+                    End="-62.7378928404721,28.9795263991347" />
                   <mssgle:CubicBezierSegment
-                    Point1="-75.1188447699967,40.4404349273196"
-                    Point2="-79.1188447699967,40.4404349273196"
-                    Point3="-79.1188447699967,44.4404349273196" />
+                    Point1="-62.7378928404721,28.9795263991347"
+                    Point2="-66.7378928404721,28.9795263991347"
+                    Point3="-66.7378928404721,32.9795263991347" />
                   <mssgle:LineSegment
-                    End="-79.1188447699967,65.7140373996681" />
+                    End="-66.7378928404721,44.9650175851001" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3953,30 +3953,30 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="698.208321550034,163.856140594675">
+          TopLeft="682.374988845861,169.056140636001">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-221.798842460317,71.8807055344911"
+              EndConnector="-204.417890729474,53.7316857405861"
               Start="0,0"
-              End="-221.798842460317,64.3807055344911">
+              End="-204.417890729474,46.2316857405861">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,46.2223270109982" />
+                    End="0,33.5417891637283" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,46.2223270109982"
-                    Point2="0,50.2223270109982"
-                    Point3="-4,50.2223270109982" />
+                    Point1="0,33.5417891637283"
+                    Point2="0,37.5417891637283"
+                    Point3="-4,37.5417891637283" />
                   <mssgle:LineSegment
-                    End="-217.798842460317,50.2223270109982" />
+                    End="-200.417890729474,37.5417891637283" />
                   <mssgle:CubicBezierSegment
-                    Point1="-217.798842460317,50.2223270109982"
-                    Point2="-221.798842460317,50.2223270109982"
-                    Point3="-221.798842460317,54.2223270109982" />
+                    Point1="-200.417890729474,37.5417891637283"
+                    Point2="-204.417890729474,37.5417891637283"
+                    Point3="-204.417890729474,41.5417891637283" />
                   <mssgle:LineSegment
-                    End="-221.798842460317,64.3807055344911" />
+                    End="-204.417890729474,46.2316857405861" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3996,25 +3996,37 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         <NodeLayout
           Size="174.4,42.4"
           Id="Package\Load Calendar\D_Time"
-          TopLeft="135,157" />
+          TopLeft="217.142858541742,180.705882685407" />
         <NodeLayout
           Size="176,42.4"
           Id="Package\Load Calendar\Calendar"
-          TopLeft="135.16666669978,65.1333333264457" />
+          TopLeft="135.88095242623,66.662745112601" />
         <EdgeLayout
           Id="Package\Load Calendar.Paths[OLE DB Source Output]"
-          TopLeft="222.68333334989,107.533333326446">
+          TopLeft="223.88095242623,109.062745112601">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,49.4666666735543"
+              EndConnector="80.4619061155118,71.6431375728063"
               Start="0,0"
-              End="0,41.9666666735543">
+              End="80.4619061155118,64.1431375728063">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.9666666735543" />
+                    End="0,31.8215687864031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.8215687864031"
+                    Point2="0,35.8215687864031"
+                    Point3="4,35.8215687864031" />
+                  <mssgle:LineSegment
+                    End="76.4619061155118,35.8215687864031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="76.4619061155118,35.8215687864031"
+                    Point2="80.4619061155118,35.8215687864031"
+                    Point3="80.4619061155118,39.8215687864031" />
+                  <mssgle:LineSegment
+                    End="80.4619061155118,64.1431375728063" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4058,43 +4070,55 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="209.6,41.6"
-          Id="Package\Load Monthly Sales\Daily Sales Europe"
-          TopLeft="136.16666669978,76.6" />
-        <NodeLayout
           Size="210.4,41.6"
           Id="Package\Load Monthly Sales\Lookup GetLastDayOfMonth"
-          TopLeft="215,181" />
+          TopLeft="217,176" />
         <NodeLayout
           Size="152.8,41.6"
           Id="Package\Load Monthly Sales\Convert to EUR"
-          TopLeft="401,265" />
+          TopLeft="397,268" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Load Monthly Sales\Daily Sales Europe"
+          TopLeft="132.16666669978,96.6" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load Monthly Sales\OLE DB Destination"
+          TopLeft="676,498" />
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Load Monthly Sales\Derived Column"
+          TopLeft="504,345" />
+        <NodeLayout
+          Size="126.4,41.6"
+          Id="Package\Load Monthly Sales\Aggregate"
+          TopLeft="605,417" />
         <EdgeLayout
           Id="Package\Load Monthly Sales.Paths[OLE DB Source Output]"
-          TopLeft="240.96666669978,118.2">
+          TopLeft="236.96666669978,138.2">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="79.2333333002199,62.8"
+              EndConnector="85.23333330022,37.8000000000001"
               Start="0,0"
-              End="79.2333333002199,55.3">
+              End="85.23333330022,30.3000000000001">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,27.4" />
+                    End="0,14.9" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,27.4"
-                    Point2="0,31.4"
-                    Point3="4,31.4" />
+                    Point1="0,14.9"
+                    Point2="0,18.9"
+                    Point3="4,18.9" />
                   <mssgle:LineSegment
-                    End="75.2333333002199,31.4" />
+                    End="81.23333330022,18.9" />
                   <mssgle:CubicBezierSegment
-                    Point1="75.2333333002199,31.4"
-                    Point2="79.2333333002199,31.4"
-                    Point3="79.2333333002199,35.4" />
+                    Point1="81.23333330022,18.9"
+                    Point2="85.23333330022,18.9"
+                    Point3="85.23333330022,22.9" />
                   <mssgle:LineSegment
-                    End="79.2333333002199,55.3" />
+                    End="85.23333330022,30.3000000000001" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4105,108 +4129,66 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Load Monthly Sales.Paths[Lookup Match Output]"
-          TopLeft="320.2,222.6">
+          TopLeft="322.2,217.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="157.2,42.4"
+              EndConnector="151.2,50.3999999999999"
               Start="0,0"
-              End="157.2,34.9">
+              End="151.2,42.8999999999999">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,17.2" />
+                    End="0,21.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,17.2"
-                    Point2="0,21.2"
-                    Point3="4,21.2" />
+                    Point1="0,21.2"
+                    Point2="0,25.2"
+                    Point3="4,25.2" />
                   <mssgle:LineSegment
-                    End="153.2,21.2" />
+                    End="147.2,25.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="153.2,21.2"
-                    Point2="157.2,21.2"
-                    Point3="157.2,25.2" />
+                    Point1="147.2,25.2"
+                    Point2="151.2,25.2"
+                    Point3="151.2,29.2" />
                   <mssgle:LineSegment
-                    End="157.2,34.9" />
+                    End="151.2,42.8999999999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="30.4086132812501,26.2,96.3827734375,11.609375"
+              BoundingBox="27.4086132812501,30.2,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="152.8,41.6"
-          Id="Package\Load Monthly Sales\Derived Column"
-          TopLeft="524,353" />
-        <EdgeLayout
-          Id="Package\Load Monthly Sales.Paths[Derived Column Output]"
-          TopLeft="477.4,306.6">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="123,46.3999999999999"
-              Start="0,0"
-              End="123,38.8999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.1999999999999" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.1999999999999"
-                    Point2="0,23.1999999999999"
-                    Point3="4,23.1999999999999" />
-                  <mssgle:LineSegment
-                    End="119,23.1999999999999" />
-                  <mssgle:CubicBezierSegment
-                    Point1="119,23.1999999999999"
-                    Point2="123,23.1999999999999"
-                    Point3="123,27.1999999999999" />
-                  <mssgle:LineSegment
-                    End="123,38.8999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="126.4,41.6"
-          Id="Package\Load Monthly Sales\Aggregate"
-          TopLeft="612,429" />
         <EdgeLayout
           Id="Package\Load Monthly Sales.Paths[Derived Column Output1]"
-          TopLeft="600.4,394.6">
+          TopLeft="580.4,386.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="74.8000000000001,34.4000000000001"
+              EndConnector="87.8000000000003,30.4"
               Start="0,0"
-              End="74.8000000000001,26.9000000000001">
+              End="87.8000000000003,22.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.2" />
+                    End="0,11.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.2"
-                    Point2="0,17.2"
-                    Point3="4,17.2" />
+                    Point1="0,11.2"
+                    Point2="0,15.2"
+                    Point3="4,15.2" />
                   <mssgle:LineSegment
-                    End="70.8000000000001,17.2" />
+                    End="83.8000000000003,15.2" />
                   <mssgle:CubicBezierSegment
-                    Point1="70.8000000000001,17.2"
-                    Point2="74.8000000000001,17.2"
-                    Point3="74.8000000000001,21.2" />
+                    Point1="83.8000000000003,15.2"
+                    Point2="87.8000000000003,15.2"
+                    Point3="87.8000000000003,19.2" />
                   <mssgle:LineSegment
-                    End="74.8000000000001,26.9000000000001" />
+                    End="87.8000000000003,22.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4215,36 +4197,66 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load Monthly Sales\OLE DB Destination"
-          TopLeft="686,530" />
         <EdgeLayout
-          Id="Package\Load Monthly Sales.Paths[Aggregate Output 1]"
-          TopLeft="675.2,470.6">
+          Id="Package\Load Monthly Sales.Paths[Derived Column Output]"
+          TopLeft="473.4,309.6">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="96.4000000000001,59.3999999999999"
+              EndConnector="107,35.4"
               Start="0,0"
-              End="96.4000000000001,51.8999999999999">
+              End="107,27.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,25.7" />
+                    End="0,13.7" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,25.7"
-                    Point2="0,29.7"
-                    Point3="4,29.7" />
+                    Point1="0,13.7"
+                    Point2="0,17.7"
+                    Point3="4,17.7" />
                   <mssgle:LineSegment
-                    End="92.4000000000001,29.7" />
+                    End="103,17.7" />
                   <mssgle:CubicBezierSegment
-                    Point1="92.4000000000001,29.7"
-                    Point2="96.4000000000001,29.7"
-                    Point3="96.4000000000001,33.7" />
+                    Point1="103,17.7"
+                    Point2="107,17.7"
+                    Point3="107,21.7" />
                   <mssgle:LineSegment
-                    End="96.4000000000001,51.8999999999999" />
+                    End="107,27.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Monthly Sales.Paths[Aggregate Output 1]"
+          TopLeft="668.2,458.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="93.3999999999996,39.3999999999999"
+              Start="0,0"
+              End="93.3999999999996,31.8999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.6999999999999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.6999999999999"
+                    Point2="0,19.6999999999999"
+                    Point3="4,19.6999999999999" />
+                  <mssgle:LineSegment
+                    End="89.3999999999996,19.6999999999999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="89.3999999999996,19.6999999999999"
+                    Point2="93.3999999999996,19.6999999999999"
+                    Point3="93.3999999999996,23.6999999999999" />
+                  <mssgle:LineSegment
+                    End="93.3999999999996,31.8999999999999" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4256,6 +4268,55 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Monthly Sales\Lookup GetLastDayOfMonth">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[ERP_M_CALENDAR]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Monthly Sales\Daily Sales Europe">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Monthly Sales\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Load Product">
     <LayoutInfo>
@@ -4542,55 +4603,6 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load Store\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Monthly Sales\Daily Sales Europe">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Monthly Sales\Lookup GetLastDayOfMonth">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[ERP_M_CALENDAR]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Monthly Sales\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
