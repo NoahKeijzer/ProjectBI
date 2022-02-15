@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{A16F600B-40DF-4835-B8E7-FAA5C9FDC8B3}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{7ABE36E1-F4B7-47A6-A841-AD0AA3AA74ED}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -1106,6 +1106,259 @@
               </outputs>
             </component>
             <component
+              refId="Package\Upload Sales Orders\Daily Sales PSA"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Daily Sales PSA"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PSA_T_DailySales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Upload Sales Orders\Daily Sales PSA.Connections[OleDbConnection]"
+                  connectionManagerID="{D13385B3-E5F3-4614-8BD5-60D6C084B7E0}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[ORDER_ID]"
+                      cachedDataType="i4"
+                      cachedName="ORDER_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[ORDER_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[ORDERPOS_ID]"
+                      cachedDataType="i4"
+                      cachedName="ORDERPOS_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDERPOS_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[ORDERPOS_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[MAT_ID]"
+                      cachedDataType="i4"
+                      cachedName="MAT_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[MAT_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[MAT_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[ORDER_DATE_ID]"
+                      cachedDataType="dbDate"
+                      cachedName="ORDER_DATE_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_DATE_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[ORDER_DATE_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[SALES_OFFICE_ID]"
+                      cachedDataType="i4"
+                      cachedName="SALES_OFFICE_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_OFFICE_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[SALES_OFFICE_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[SALES_CHANNEL_ID]"
+                      cachedDataType="i4"
+                      cachedName="SALES_CHANNEL_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_CHANNEL_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[SALES_CHANNEL_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[CUSTOMER_ID]"
+                      cachedDataType="i4"
+                      cachedName="CUSTOMER_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[CUSTOMER_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[CURRENCY_ID]"
+                      cachedDataType="i4"
+                      cachedName="CURRENCY_ID"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[CURRENCY_ID]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[CURRENCY_ID]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[SALES_AMOUNT]"
+                      cachedDataType="i4"
+                      cachedName="SALES_AMOUNT"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_AMOUNT]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[SALES_AMOUNT]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[UNIT_PRICE_LOC]"
+                      cachedDataType="cy"
+                      cachedName="UNIT_PRICE_LOC"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[UNIT_PRICE_LOC]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[UNIT_PRICE_LOC]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[TOTAL_DISCOUNT_LOC]"
+                      cachedDataType="cy"
+                      cachedName="TOTAL_DISCOUNT_LOC"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[TOTAL_DISCOUNT_LOC]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[TOTAL_DISCOUNT_LOC]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[TRANSFER_PRICE_EUR]"
+                      cachedDataType="cy"
+                      cachedName="TRANSFER_PRICE_EUR"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[TRANSFER_PRICE_EUR]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[TRANSFER_PRICE_EUR]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[REVENUE_LOC]"
+                      cachedDataType="cy"
+                      cachedName="REVENUE_LOC"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[REVENUE_LOC]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[REVENUE_LOC]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[VAT_PERCENT]"
+                      cachedDataType="r8"
+                      cachedName="VAT_PERCENT"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[VAT_PERCENT]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[VAT_PERCENT]" />
+                    <inputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].Columns[LAST_CHANGE_DATE]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="LAST_CHANGE_DATE"
+                      externalMetadataColumnId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[LAST_CHANGE_DATE]"
+                      lineageId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1].Columns[LAST_CHANGE_DATE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_ID]"
+                      dataType="i4"
+                      name="ORDER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDERPOS_ID]"
+                      dataType="i4"
+                      name="ORDERPOS_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[MAT_ID]"
+                      dataType="i4"
+                      name="MAT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_DATE_ID]"
+                      dataType="dbDate"
+                      name="ORDER_DATE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_OFFICE_ID]"
+                      dataType="i4"
+                      name="SALES_OFFICE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_CHANNEL_ID]"
+                      dataType="i4"
+                      name="SALES_CHANNEL_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_ID]"
+                      dataType="i4"
+                      name="CUSTOMER_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[CURRENCY_ID]"
+                      dataType="i4"
+                      name="CURRENCY_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[SALES_AMOUNT]"
+                      dataType="i4"
+                      name="SALES_AMOUNT" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[UNIT_PRICE_LOC]"
+                      dataType="cy"
+                      name="UNIT_PRICE_LOC" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[TOTAL_DISCOUNT_LOC]"
+                      dataType="cy"
+                      name="TOTAL_DISCOUNT_LOC" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[TRANSFER_PRICE_EUR]"
+                      dataType="cy"
+                      name="TRANSFER_PRICE_EUR" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[REVENUE_LOC]"
+                      dataType="cy"
+                      name="REVENUE_LOC" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[VAT_PERCENT]"
+                      dataType="r8"
+                      name="VAT_PERCENT" />
+                    <externalMetadataColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input].ExternalColumns[LAST_CHANGE_DATE]"
+                      dataType="dbTimeStamp"
+                      name="LAST_CHANGE_DATE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Upload Sales Orders\Daily Sales PSA.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Upload Sales Orders\Daily Sales PSA.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Upload Sales Orders\Daily Sales PSA.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Upload Sales Orders\Daily Sales PSA.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Upload Sales Orders\Union All"
               componentClassID="Microsoft.UnionAll"
               contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
@@ -1831,6 +2084,11 @@
               endId="Package\Upload Sales Orders\Union All.Inputs[Union All Input 3]"
               name="OLE DB Source Output"
               startId="Package\Upload Sales Orders\Daily Sales America.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Upload Sales Orders.Paths[Union All Output 1]"
+              endId="Package\Upload Sales Orders\Daily Sales PSA.Inputs[OLE DB Destination Input]"
+              name="Union All Output 1"
+              startId="Package\Upload Sales Orders\Union All.Outputs[Union All Output 1]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -1851,7 +2109,7 @@
         <NodeLayout
           Size="173.6,41.6"
           Id="Package\Upload Sales Orders"
-          TopLeft="166.428574262833,81.8235305593088" />
+          TopLeft="165.000002809933,82.5882364523865" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1859,71 +2117,49 @@
     design-time-name="Package\Upload Sales Orders">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Upload Sales Orders\Daily Sales Asia"
+          TopLeft="233.571432549126,72.6470598423769" />
+        <NodeLayout
+          Size="129.6,45.6"
+          Id="Package\Upload Sales Orders\Daily Sales Europe"
+          TopLeft="94.2857158913904,69.5882362700664" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Upload Sales Orders\Daily Sales America"
+          TopLeft="377.142863565562,71.8823539492993" />
         <NodeLayout
           Size="120,41.6"
           Id="Package\Upload Sales Orders\Union All"
           TopLeft="238.571432634276,156.764708080919" />
-        <NodeLayout
-          Size="129.6,45.6"
-          Id="Package\Upload Sales Orders\Daily Sales Europe"
-          TopLeft="95.7142873442902,65.0000009116005" />
-        <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Upload Sales Orders\Daily Sales Asia"
-          TopLeft="234.285718275576,68.8235303769887" />
-        <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Upload Sales Orders\Daily Sales America"
-          TopLeft="376.428577839112,68.8235303769887" />
         <EdgeLayout
           Id="Package\Upload Sales Orders.Paths[OLE DB Source Output]"
-          TopLeft="160.51428734429,110.6000009116">
+          TopLeft="159.08571589139,115.188236270066">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="110.057145289986,46.1647071693183"
+              EndConnector="111.485716742886,41.5764718108526"
               Start="0,0"
-              End="110.057145289986,38.6647071693183">
+              End="111.485716742886,34.0764718108526">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.1074177191206" />
+                    End="0,23.1150903114256" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.1074177191206"
-                    Point2="0,30.1074177191206"
-                    Point3="4,30.1074177191206" />
+                    Point1="0,23.1150903114256"
+                    Point2="0,27.1150903114256"
+                    Point3="4,27.1150903114256" />
                   <mssgle:LineSegment
-                    End="106.057145289986,30.1074177191206" />
+                    End="107.485716742886,27.1150903114256" />
                   <mssgle:CubicBezierSegment
-                    Point1="106.057145289986,30.1074177191206"
-                    Point2="110.057145289986,30.1074177191206"
-                    Point3="110.057145289986,34.1074177191206" />
+                    Point1="107.485716742886,27.1150903114256"
+                    Point2="111.485716742886,27.1150903114256"
+                    Point3="111.485716742886,31.1150903114256" />
                   <mssgle:LineSegment
-                    End="110.057145289986,38.6647071693183" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Upload Sales Orders.Paths[OLE DB Source Output1]"
-          TopLeft="298.828575454926,110.423530376989">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,46.34117770393"
-              Start="0,0"
-              End="0,38.84117770393">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.84117770393" />
+                    End="111.485716742886,34.0764718108526" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1934,30 +2170,78 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Upload Sales Orders.Paths[OLE DB Source Output2]"
-          TopLeft="441.228577839112,110.423530376989">
+          TopLeft="441.942863565562,113.482353949299">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-114.657145204836,46.34117770393"
+              EndConnector="-115.371430931286,43.2823541316197"
               Start="0,0"
-              End="-114.657145204836,38.84117770393">
+              End="-115.371430931286,35.7823541316197">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.2225071982152" />
+                    End="0,24.227622259752" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.2225071982152"
-                    Point2="0,30.2225071982152"
-                    Point3="-4,30.2225071982152" />
+                    Point1="0,24.227622259752"
+                    Point2="0,28.227622259752"
+                    Point3="-4,28.227622259752" />
                   <mssgle:LineSegment
-                    End="-110.657145204836,30.2225071982152" />
+                    End="-111.371430931286,28.227622259752" />
                   <mssgle:CubicBezierSegment
-                    Point1="-110.657145204836,30.2225071982152"
-                    Point2="-114.657145204836,30.2225071982152"
-                    Point3="-114.657145204836,34.2225071982152" />
+                    Point1="-111.371430931286,28.227622259752"
+                    Point2="-115.371430931286,28.227622259752"
+                    Point3="-115.371430931286,32.227622259752" />
                   <mssgle:LineSegment
-                    End="-114.657145204836,38.84117770393" />
+                    End="-115.371430931286,35.7823541316197" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Upload Sales Orders.Paths[OLE DB Source Output1]"
+          TopLeft="298.471432591701,114.247059842377">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5176482385421"
+              Start="0,0"
+              End="0,35.0176482385421">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.0176482385421" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,50.4"
+          Id="Package\Upload Sales Orders\Daily Sales PSA"
+          TopLeft="212.142860755628,234.764709174839" />
+        <EdgeLayout
+          Id="Package\Upload Sales Orders.Paths[Union All Output 1]"
+          TopLeft="297.957146694952,198.364708080919">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.4000010939202"
+              Start="0,0"
+              End="0,28.9000010939202">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.9000010939202" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1969,19 +2253,6 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Upload Sales Orders\Daily Sales Europe">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Upload Sales Orders\Daily Sales Asia">
     <Properties>
@@ -1996,7 +2267,33 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Upload Sales Orders\Daily Sales Europe">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Upload Sales Orders\Daily Sales America">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Upload Sales Orders\Daily Sales PSA">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
