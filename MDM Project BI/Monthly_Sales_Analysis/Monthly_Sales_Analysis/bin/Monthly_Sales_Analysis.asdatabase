@@ -1174,7 +1174,7 @@
           <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
           <Value>
             <dds xmlns="">
-              <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="28" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-10393" scrolltop="-2768" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="80" x="27517" y="17822" backcolor="2434342" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+              <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="28" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-10393" scrolltop="-2768" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="80" x="30903" y="18944" backcolor="2434342" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
                 <font>
                   <ddsxmlobjectstreamwrapper binary="010000009001b0300100065461686f6d61" />
                 </font>
@@ -1778,15 +1778,24 @@ The CALCULATE command controls the aggregation of leaf cells in the cube.
 If the CALCULATE command is deleted or modified, the data within the cube is affected.
 You should edit this command only if you manually specify how the cube is aggregated.
 */
-CALCULATE; 
+CALCULATE;  
+CREATE MEMBER CURRENTCUBE.[Measures].[Last Period Revenue]
+ AS ([Dim Calendar Month].[Calendar Year].CURRENTMEMBER.PREVMEMBER,[Measures].[Revenue]), 
+FORMAT_STRING = "Currency", 
+VISIBLE = 1;  
+CREATE MEMBER CURRENTCUBE.[Measures].[Revenue growth]
+ AS IIF ( [Measures].[Last Period Revenue] = 0, null,
+([Measures].[Revenue]-[Measures].[Last Period Revenue])/[Measures].[Last Period Revenue]), 
+FORMAT_STRING = "Percent", 
+VISIBLE = 1  ;   
 CREATE MEMBER CURRENTCUBE.[Measures].[Gross Profit Margin]
  AS [Measures].[Gross Profit] / [Measures].[Revenue], 
 FORMAT_STRING = "Percent", 
-VISIBLE = 1  ;  
+VISIBLE = 1;    
 CREATE MEMBER CURRENTCUBE.[Measures].[Gross Profit]
  AS [Measures].[Revenue] - [Measures].[Costs of Goods Sold], 
 FORMAT_STRING = "#,#", 
-VISIBLE = 1;   
+VISIBLE = 1;     
 CREATE MEMBER CURRENTCUBE.[Measures].[Costs of Goods Sold]
  AS [Measures].[Transfer Price] + [Measures].[Discount], 
 FORMAT_STRING = "#,#", 
@@ -2051,7 +2060,7 @@ VISIBLE = 1; </Text>
                       </connector>
                     </ddscontrol>
                   </dds>
-                </DiagramLayout>
+</DiagramLayout>
                 <ShowRelationshipNames>False</ShowRelationshipNames>
                 <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
                 <DiagramViewPortLeft>-4042</DiagramViewPortLeft>

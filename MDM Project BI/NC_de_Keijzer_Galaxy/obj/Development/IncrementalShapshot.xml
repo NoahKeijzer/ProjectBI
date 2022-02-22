@@ -89,7 +89,7 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>VspL6wUJHCg2dH+E1QInTrexU+E=9-2-2022 20:20:499-2-2022 20:11:19lND16BO5aB+m+pxcuCHKQEBjb1U=9-2-2022 20:11:209-2-2022 20:11:19</TimeStamp>
+        <TimeStamp>FYEodayhgoKSnHlB2lMasRFeO/c=22-2-2022 21:07:179-2-2022 20:11:19lND16BO5aB+m+pxcuCHKQEBjb1U=9-2-2022 20:11:209-2-2022 20:11:19</TimeStamp>
         <ID>
           <String>Data Cube Monthly Sales</String>
         </ID>
@@ -106,5 +106,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2022-02-09T19:20:53.85Z</LastDeployed>
+  <LastDeployed>2022-02-22T20:07:45.106667Z</LastDeployed>
 </DeploymentSnapshot>
