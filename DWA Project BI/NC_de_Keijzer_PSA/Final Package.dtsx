@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{0993CFB7-DCAD-4C28-9794-5EC85DD764BE}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{51B41580-3F51-405E-8327-C2F2B97743AD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -107,6 +107,10 @@
           Size="188.8,41.6"
           Id="Package\ERP to PSA (FactsData)"
           TopLeft="385.714292282961,221.764708992519" />
+        <NodeLayout
+          Size="198.4,41.6"
+          Id="Package\PSA to ODS (Dimensions)"
+          TopLeft="385.000006556511,296.705886514129" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="482.242863608137,176.952943074744">
@@ -129,24 +133,20 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="198.4,41.6"
-          Id="Package\PSA to ODS (Dimensions)"
-          TopLeft="386.428578009411,297.470592407207" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="482.871435146186,263.364708992519">
+          TopLeft="482.157149419736,263.364708992519">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,34.1058834146876"
+              EndConnector="0,33.3411775216103"
               Start="0,0"
-              End="0,26.6058834146876">
+              End="0,25.8411775216103">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.6058834146876" />
+                    End="0,25.8411775216103" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

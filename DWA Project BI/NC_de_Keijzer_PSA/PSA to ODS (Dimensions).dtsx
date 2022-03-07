@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="69"
-  DTS:VersionGUID="{EC60AEEC-A177-47BC-B7D4-FBEDAF795C94}">
+  DTS:VersionBuild="70"
+  DTS:VersionGUID="{E45A0398-6D08-4E8D-BEC6-F09BA9530867}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2095,7 +2095,7 @@
                   expressionType="Notify"
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[ODS_T_DailySales]) [refTable]
-where [refTable].[ORDER_ID] = ? and [refTable].[ORDER_DATE_ID] = ? and [refTable].[MAT_ROW_ID] = ? and [refTable].[SALES_OFFICE_ROW_ID] = ? and [refTable].[SALES_CHANNEL_ROW_ID] = ?</property>
+where [refTable].[ORDER_ID] = ? and [refTable].[ORDER_DATE_ID] = ? and [refTable].[CURRENCY_ID] = ? and [refTable].[MAT_ROW_ID] = ? and [refTable].[SALES_OFFICE_ROW_ID] = ? and [refTable].[SALES_CHANNEL_ROW_ID] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -2131,7 +2131,7 @@ where [refTable].[ORDER_ID] = ? and [refTable].[ORDER_DATE_ID] = ? and [refTable
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[ORDER_ID]};#{Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[ORDER_DATE_ID]};#{Package\Load Daily Sales\Lookup Material ID.Outputs[Lookup Match Output].Columns[MAT_ROW_ID]};#{Package\Load Daily Sales\Lookup Sales Office ID.Outputs[Lookup Match Output].Columns[SALES_OFFICE_ROW_ID]};#{Package\Load Daily Sales\Lookup Sales Channel ID.Outputs[Lookup Match Output].Columns[SALES_CHANNEL_ROW_ID]};</property>
+                  name="ParameterMap">#{Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[ORDER_ID]};#{Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[ORDER_DATE_ID]};#{Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[CURRENCY_ID]};#{Package\Load Daily Sales\Lookup Material ID.Outputs[Lookup Match Output].Columns[MAT_ROW_ID]};#{Package\Load Daily Sales\Lookup Sales Office ID.Outputs[Lookup Match Output].Columns[SALES_OFFICE_ROW_ID]};#{Package\Load Daily Sales\Lookup Sales Channel ID.Outputs[Lookup Match Output].Columns[SALES_CHANNEL_ROW_ID]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2234,6 +2234,22 @@ where [refTable].[ORDER_ID] = ? and [refTable].[ORDER_DATE_ID] = ? and [refTable
                           name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Daily Sales\Lookup Facts Increment.Inputs[Lookup Input].Columns[CURRENCY_ID]"
+                      cachedDataType="i4"
+                      cachedName="CURRENCY_ID"
+                      lineageId="Package\Load Daily Sales\PSA Sales Facts.Outputs[OLE DB Source Output].Columns[CURRENCY_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CURRENCY_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -2245,246 +2261,6 @@ where [refTable].[ORDER_ID] = ? and [refTable].[ORDER_DATE_ID] = ? and [refTable
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\Load Daily Sales\Lookup Facts Increment.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ROW_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ROW_ID]"
-                      name="ROW_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ROW_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDER_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDER_ID]"
-                      name="ORDER_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ORDER_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDERPOS_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDERPOS_ID]"
-                      name="ORDERPOS_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ORDERPOS_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[MAT_ROW_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[MAT_ROW_ID]"
-                      name="MAT_ROW_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">MAT_ROW_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDER_DATE_ID]"
-                      dataType="dbDate"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[ORDER_DATE_ID]"
-                      name="ORDER_DATE_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ORDER_DATE_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_OFFICE_ROW_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_OFFICE_ROW_ID]"
-                      name="SALES_OFFICE_ROW_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SALES_OFFICE_ROW_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_CHANNEL_ROW_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_CHANNEL_ROW_ID]"
-                      name="SALES_CHANNEL_ROW_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SALES_CHANNEL_ROW_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[CUSTOMER_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[CUSTOMER_ID]"
-                      name="CUSTOMER_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">CUSTOMER_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[CURRENCY_ID]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[CURRENCY_ID]"
-                      name="CURRENCY_ID"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">CURRENCY_ID</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_AMOUNT]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[SALES_AMOUNT]"
-                      name="SALES_AMOUNT"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">SALES_AMOUNT</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[UNIT_PRICE_LOC]"
-                      dataType="cy"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[UNIT_PRICE_LOC]"
-                      name="UNIT_PRICE_LOC"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">UNIT_PRICE_LOC</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[TOTAL_DISCOUNT_LOC]"
-                      dataType="cy"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[TOTAL_DISCOUNT_LOC]"
-                      name="TOTAL_DISCOUNT_LOC"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">TOTAL_DISCOUNT_LOC</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[TRANSFER_PRICE_EUR]"
-                      dataType="cy"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[TRANSFER_PRICE_EUR]"
-                      name="TRANSFER_PRICE_EUR"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">TRANSFER_PRICE_EUR</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[REVENUE_LOC]"
-                      dataType="cy"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[REVENUE_LOC]"
-                      name="REVENUE_LOC"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">REVENUE_LOC</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[VAT_PERCENT]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[VAT_PERCENT]"
-                      name="VAT_PERCENT"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">VAT_PERCENT</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[LAST_CHANGE_DATE]"
-                      dataType="dbTimeStamp"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[LAST_CHANGE_DATE]"
-                      name="LAST_CHANGE_DATE"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">LAST_CHANGE_DATE</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[EXTRACTION_DATE]"
-                      dataType="dbDate"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Daily Sales\Lookup Facts Increment.Outputs[Lookup Match Output].Columns[EXTRACTION_DATE]"
-                      name="EXTRACTION_DATE"
-                      truncationRowDisposition="RedirectRow">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">EXTRACTION_DATE</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
@@ -9285,7 +9061,7 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -9295,7 +9071,7 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
