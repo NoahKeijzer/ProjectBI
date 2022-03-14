@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="12"
-  DTS:VersionGUID="{CB83DAB1-D0B7-4950-B80F-EE39420C6007}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{D713D403-1691-4C0C-BC67-7CD79E827105}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -4695,7 +4695,7 @@
                       refId="Package\ShipmentDetail to RAW\RAW Destination.Inputs[OLE DB Destination Input].Columns[ContainertypeId]"
                       cachedDataType="i4"
                       cachedName="ContainertypeId"
-                      externalMetadataColumnId="Package\ShipmentDetail to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainertypeId]"
+                      externalMetadataColumnId="Package\ShipmentDetail to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       lineageId="Package\ShipmentDetail to RAW\ShipmentDetail Source.Outputs[ADO NET Source Output].Columns[ContainertypeId]" />
                   </inputColumns>
                   <externalMetadataColumns
@@ -4714,9 +4714,9 @@
                       dataType="i4"
                       name="Item" />
                     <externalMetadataColumn
-                      refId="Package\ShipmentDetail to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainertypeId]"
+                      refId="Package\ShipmentDetail to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       dataType="i4"
-                      name="ContainertypeId" />
+                      name="ContainerTypeId" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -5766,9 +5766,17 @@
           Id="Package\Container to RAW"
           TopLeft="421.718744386453,196.881582653176" />
         <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\Execute SQL Task"
+          TopLeft="499.687493224628,2.56578952197884" />
+        <NodeLayout
           Size="140,42.6666666666667"
           Id="Package\Item to RAW"
           TopLeft="973.593737317715,193.9736878616" />
+        <NodeLayout
+          Size="142.666666666667,42.6666666666667"
+          Id="Package\MRV to RAW"
+          TopLeft="794.999988824129,195.096492767059" />
         <NodeLayout
           Size="139.333333333334,42.6666666666667"
           Id="Package\Port to RAW"
@@ -5793,14 +5801,6 @@
           Size="174.666666666667,42.6666666666667"
           Id="Package\VoyagePort to RAW"
           TopLeft="870.312487701886,135.877193871077" />
-        <NodeLayout
-          Size="142.666666666667,42.6666666666667"
-          Id="Package\MRV to RAW"
-          TopLeft="794.999988824129,195.096492767059" />
-        <NodeLayout
-          Size="168,42.6666666666667"
-          Id="Package\Execute SQL Task"
-          TopLeft="499.687493224628,2.56578952197884" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="532.778402315538,45.2324561886455">
@@ -6028,6 +6028,40 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="590.960220497356,45.2324561886455">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="87.9356045425504,149.864037067799"
+              Start="0,0"
+              End="87.9356045425504,142.364037067799">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5414294599673" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,67.5414294599673"
+                    Point2="0,71.5414294599673"
+                    Point3="4,71.5414294599673" />
+                  <mssgle:LineSegment
+                    End="83.9356045425504,71.5414294599673" />
+                  <mssgle:CubicBezierSegment
+                    Point1="83.9356045425504,71.5414294599673"
+                    Point2="87.9356045425504,71.5414294599673"
+                    Point3="87.9356045425504,75.5414294599673" />
+                  <mssgle:LineSegment
+                    End="87.9356045425504,142.364037067799" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 8]"
           TopLeft="634.596584133719,45.2324561886455">
           <EdgeLayout.Curve>
@@ -6087,40 +6121,6 @@
                     Point3="246.282192569198,45.4036181132332" />
                   <mssgle:LineSegment
                     End="246.282192569198,142.364036578413" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="590.960220497356,45.2324561886455">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="87.9356045425504,149.864037067799"
-              Start="0,0"
-              End="87.9356045425504,142.364037067799">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,67.5414294599673" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,67.5414294599673"
-                    Point2="0,71.5414294599673"
-                    Point3="4,71.5414294599673" />
-                  <mssgle:LineSegment
-                    End="83.9356045425504,71.5414294599673" />
-                  <mssgle:CubicBezierSegment
-                    Point1="83.9356045425504,71.5414294599673"
-                    Point2="87.9356045425504,71.5414294599673"
-                    Point3="87.9356045425504,75.5414294599673" />
-                  <mssgle:LineSegment
-                    End="87.9356045425504,142.364037067799" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6279,15 +6279,15 @@
     design-time-name="Package\Item to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="137.333333333334,42.6666666666667"
-          Id="Package\Item to RAW\Item Source"
-          TopLeft="252.499996237457,49.947369361188" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="157.333333333334,42.6666666666667"
           Id="Package\Item to RAW\Raw Destination"
           TopLeft="358.124994663522,139.75438823154" />
+        <NodeLayout
+          Size="137.333333333334,42.6666666666667"
+          Id="Package\Item to RAW\Item Source"
+          TopLeft="252.499996237457,49.947369361188" />
         <EdgeLayout
           Id="Package\Item to RAW.Paths[ADO NET Source Output]"
           TopLeft="321.166662904124,92.6140360278546">
@@ -6319,7 +6319,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6347,18 +6349,96 @@
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
+    design-time-name="Package\MRV to RAW">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\MRV to RAW\OLE DB Destination"
+          TopLeft="594,164" />
+        <NodeLayout
+          Size="142.666666666667,42.6666666666667"
+          Id="Package\MRV to RAW\Excel Source"
+          TopLeft="508,55" />
+        <EdgeLayout
+          Id="Package\MRV to RAW.Paths[Excel Source Output]"
+          TopLeft="579.333333333333,97.6666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102,66.3333333333333"
+              Start="0,0"
+              End="102,58.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.1666666666667"
+                    Point2="0,33.1666666666667"
+                    Point3="4,33.1666666666667" />
+                  <mssgle:LineSegment
+                    End="98.0000000000001,33.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98.0000000000001,33.1666666666667"
+                    Point2="102,33.1666666666667"
+                    Point3="102,37.1666666666667" />
+                  <mssgle:LineSegment
+                    End="102,58.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\MRV to RAW\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\MRV to RAW\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
     design-time-name="Package\Port to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="136,42.6666666666667"
-          Id="Package\Port to RAW\Port Source"
-          TopLeft="523,65" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="161.333333333334,42.6666666666667"
           Id="Package\Port to RAW\RAW Destination"
           TopLeft="658,158" />
+        <NodeLayout
+          Size="136,42.6666666666667"
+          Id="Package\Port to RAW\Port Source"
+          TopLeft="523,65" />
         <EdgeLayout
           Id="Package\Port to RAW.Paths[ADO NET Source Output]"
           TopLeft="591,107.666666666667">
@@ -6390,7 +6470,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6421,7 +6503,7 @@
     design-time-name="Package\Ship to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="137.333333333334,42.6666666666667"
           Id="Package\Ship to RAW\Ship Source"
@@ -6461,20 +6543,14 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Ship to RAW\Ship Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Ship to RAW\RAW Destination">
     <Properties>
@@ -6488,11 +6564,19 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Ship to RAW\Ship Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Shipment to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="161.333333333334,42.6666666666667"
           Id="Package\Shipment to RAW\Shipment Source"
@@ -6532,20 +6616,14 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Shipment to RAW\Shipment Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Shipment to RAW\RAW Destination">
     <Properties>
@@ -6559,11 +6637,19 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Shipment to RAW\Shipment Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\ShipmentDetail to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="189.333333333334,42.6666666666667"
           Id="Package\ShipmentDetail to RAW\ShipmentDetail Source"
@@ -6603,20 +6689,14 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="72.5,32.1666666666667,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\ShipmentDetail to RAW\ShipmentDetail Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\ShipmentDetail to RAW\RAW Destination">
     <Properties>
@@ -6630,19 +6710,27 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ShipmentDetail to RAW\ShipmentDetail Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Voyage to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="152,42.6666666666667"
-          Id="Package\Voyage to RAW\Voyage Source"
-          TopLeft="490,65" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="161.333333333334,42.6666666666667"
           Id="Package\Voyage to RAW\RAW Destination"
           TopLeft="622,171" />
+        <NodeLayout
+          Size="152,42.6666666666667"
+          Id="Package\Voyage to RAW\Voyage Source"
+          TopLeft="490,65" />
         <EdgeLayout
           Id="Package\Voyage to RAW.Paths[ADO NET Source Output]"
           TopLeft="566,107.666666666667">
@@ -6674,20 +6762,14 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Voyage to RAW\Voyage Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Voyage to RAW\RAW Destination">
     <Properties>
@@ -6701,11 +6783,19 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Voyage to RAW\Voyage Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\VoyagePort to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="172,42.6666666666667"
           Id="Package\VoyagePort to RAW\VoyagePort Source"
@@ -6745,20 +6835,14 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\VoyagePort to RAW\VoyagePort Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\VoyagePort to RAW\RAW Destination">
     <Properties>
@@ -6772,79 +6856,11 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\MRV to RAW">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="142.666666666667,42.6666666666667"
-          Id="Package\MRV to RAW\Excel Source"
-          TopLeft="508,55" />
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\MRV to RAW\OLE DB Destination"
-          TopLeft="594,164" />
-        <EdgeLayout
-          Id="Package\MRV to RAW.Paths[Excel Source Output]"
-          TopLeft="579.333333333333,97.6666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="102,66.3333333333333"
-              Start="0,0"
-              End="102,58.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,29.1666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,29.1666666666667"
-                    Point2="0,33.1666666666667"
-                    Point3="4,33.1666666666667" />
-                  <mssgle:LineSegment
-                    End="98.0000000000001,33.1666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="98.0000000000001,33.1666666666667"
-                    Point2="102,33.1666666666667"
-                    Point3="102,37.1666666666667" />
-                  <mssgle:LineSegment
-                    End="102,58.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\MRV to RAW\Excel Source">
+    design-time-name="Package\VoyagePort to RAW\VoyagePort Source">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\MRV to RAW\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

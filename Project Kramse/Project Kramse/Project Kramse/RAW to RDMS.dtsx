@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{A49482FA-F7C0-4CC5-8DDF-5DE1372891B9}">
+  DTS:VersionBuild="61"
+  DTS:VersionGUID="{502BF9FD-AA9D-4AC9-89D8-2C39A2C7C042}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -470,7 +470,7 @@
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].ExternalColumns[Id]"
-                      length="1"
+                      length="50"
                       lineageId="Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]"
                       name="Id"
                       truncationRowDisposition="FailComponent" />
@@ -675,7 +675,7 @@
                       refId="Package\Container RAW to RDMS\Derived Column.Inputs[Derived Column Input].Columns[Id]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="1"
+                      cachedLength="50"
                       cachedName="Id"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
@@ -687,13 +687,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">(DT_I8)#{Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]}</property>
+                          name="Expression">[ISNULL](#{Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]}) || [TRIM](#{Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]}) == "" ? (DT_I4)0 : (DT_I4)#{Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
-                          name="FriendlyExpression">(DT_I8)Id</property>
+                          name="FriendlyExpression">ISNULL(Id) || TRIM(Id) == "" ? (DT_I4)0 : (DT_I4)Id</property>
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -810,7 +810,7 @@
                       refId="Package\Container RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Id]"
                       cachedCodepage="1252"
                       cachedDataType="str"
-                      cachedLength="1"
+                      cachedLength="50"
                       cachedName="Id"
                       externalMetadataColumnId="Package\Container RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
                       lineageId="Package\Container RAW to RDMS\Container RAW.Outputs[OLE DB Source Output].Columns[Id]" />
@@ -963,7 +963,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{252365B0-6B7A-4928-BC46-07AE522642BD}"
-          SQLTask:SqlStatementSource="DELETE FROM dbo.Item&#xA;&#xA; DELETE FROM dbo.Port&#xA;&#xA;DELETE FROM dbo.Consignor&#xA;&#xA;DELETE FROM dbo.Container&#xA;&#xA;DELETE FROM dbo.MRV&#xA;&#xA;DELETE FROM dbo.Ship&#xA;&#xA;DELETE FROM dbo.Shipment&#xA;&#xA;DELETE FROM dbo.ShipmentDetail&#xA;&#xA;DELETE FROM dbo.Voyage&#xA;&#xA;DELETE FROM dbo.VoyagePort" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM dbo.ShipmentDetail;&#xA;DELETE FROM dbo.Container;&#xA;DELETE FROM dbo.Item;&#xA;DELETE FROM dbo.Shipment;&#xA;DELETE FROM dbo.Voyage;&#xA;DELETE FROM dbo.VoyagePort;&#xA;DELETE FROM dbo.Ship;&#xA;DELETE FROM dbo.Consignor;&#xA;DELETE FROM dbo.Port;&#xA;DELETE FROM dbo.MRV;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -3488,86 +3488,11 @@
           version="1">
           <components>
             <component
-              refId="Package\Port RAW to RDMS\Derived Column"
-              componentClassID="Microsoft.DerivedColumn"
-              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Derived Column"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Port RAW to RDMS\Derived Column.Inputs[Derived Column Input]"
-                  description="Input to the Derived Column Transformation"
-                  name="Derived Column Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Port RAW to RDMS\Derived Column.Inputs[Derived Column Input].Columns[P_PortOrder]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="P_PortOrder"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">(DT_I8)#{Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortOrder]}</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">(DT_I8)P_PortOrder</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Output]"
-                  description="Default Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  name="Derived Column Output"
-                  synchronousInputId="Package\Port RAW to RDMS\Derived Column.Inputs[Derived Column Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Error Output]"
-                  description="Error Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Derived Column Error Output"
-                  synchronousInputId="Package\Port RAW to RDMS\Derived Column.Inputs[Derived Column Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\Port RAW to RDMS\OLE DB Source"
+              refId="Package\Port RAW to RDMS\Port RAW"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
-              name="OLE DB Source"
+              name="Port RAW"
               usesDispositions="true"
               version="7">
               <properties>
@@ -3612,7 +3537,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Port RAW to RDMS\OLE DB Source.Connections[OleDbConnection]"
+                  refId="Package\Port RAW to RDMS\Port RAW.Connections[OleDbConnection]"
                   connectionManagerID="{9A7ED5BF-7402-4079-BCAE-F37B32F2535B}:external"
                   connectionManagerRefId="Project.ConnectionManagers[LocalHost.RAW]"
                   description="The OLE DB runtime connection used to access the database."
@@ -3620,146 +3545,221 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output]"
+                  refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_PortOrder]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_PortOrder]"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
                       name="P_PortOrder"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[VPS_PortId]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[VPS_PortId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VPS_PortId]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[VPS_PortId]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[VPS_PortId]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[VPS_PortId]"
                       name="VPS_PortId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortName]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortName]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_PortName]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_PortName]"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortName]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortName]"
                       name="P_PortName"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_Country]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_Country]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_Country]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_Country]"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_Country]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_Country]"
                       name="P_Country"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromOslo]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromOslo]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]"
                       name="P_DistanceFromOslo"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromPiraeus]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]"
+                      externalMetadataColumnId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromPiraeus]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]"
                       name="P_DistanceFromPiraeus"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_PortOrder]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_PortOrder]"
                       dataType="wstr"
                       length="50"
                       name="P_PortOrder" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[VPS_PortId]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[VPS_PortId]"
                       dataType="i4"
                       name="VPS_PortId" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_PortName]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_PortName]"
                       dataType="wstr"
                       length="50"
                       name="P_PortName" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_Country]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_Country]"
                       dataType="wstr"
                       length="50"
                       name="P_Country" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromOslo]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromOslo]"
                       dataType="i4"
                       name="P_DistanceFromOslo" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromPiraeus]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].ExternalColumns[P_DistanceFromPiraeus]"
                       dataType="i4"
                       name="P_DistanceFromPiraeus" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_PortOrder]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_PortOrder]"
                       dataType="wstr"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_PortOrder]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_PortOrder]"
                       name="P_PortOrder" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VPS_PortId]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[VPS_PortId]"
                       dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[VPS_PortId]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[VPS_PortId]"
                       name="VPS_PortId" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_PortName]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_PortName]"
                       dataType="wstr"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_PortName]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_PortName]"
                       name="P_PortName" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_Country]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_Country]"
                       dataType="wstr"
                       length="50"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_Country]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_Country]"
                       name="P_Country" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromOslo]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromOslo]"
                       dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromOslo]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromOslo]"
                       name="P_DistanceFromOslo" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromPiraeus]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromPiraeus]"
                       dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromPiraeus]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[P_DistanceFromPiraeus]"
                       name="P_DistanceFromPiraeus" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Port RAW to RDMS\P_PortOrder cast to int"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="P_PortOrder cast to int"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Inputs[Derived Column Input].Columns[P_PortOrder]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="P_PortOrder"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortOrder]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I8)#{Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortOrder]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I8)P_PortOrder</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Port RAW to RDMS\P_PortOrder cast to int.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Port RAW to RDMS\P_PortOrder cast to int.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -3783,7 +3783,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[Port]</property>
+                  name="OpenRowset">[dbo].[Port]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -3826,8 +3826,8 @@
               <connections>
                 <connection
                   refId="Package\Port RAW to RDMS\RDMS Destination.Connections[OleDbConnection]"
-                  connectionManagerID="{9A7ED5BF-7402-4079-BCAE-F37B32F2535B}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RAW]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3844,70 +3844,70 @@
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="P_PortOrder"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_PortOrder]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortOrder]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortOrder]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortOrder]" />
                     <inputColumn
                       refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[VPS_PortId]"
                       cachedDataType="i4"
                       cachedName="VPS_PortId"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VPS_PortId]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[VPS_PortId]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[VPS_PortId]" />
                     <inputColumn
                       refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[P_PortName]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="P_PortName"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_PortName]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_PortName]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_PortName]" />
                     <inputColumn
                       refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[P_Country]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="P_Country"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_Country]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_Country]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_Country]" />
                     <inputColumn
                       refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[P_DistanceFromOslo]"
                       cachedDataType="i4"
                       cachedName="P_DistanceFromOslo"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_DistanceFromOslo]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[DistanceFromOslo]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromOslo]" />
                     <inputColumn
                       refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[P_DistanceFromPiraeus]"
                       cachedDataType="i4"
                       cachedName="P_DistanceFromPiraeus"
-                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_DistanceFromPiraeus]"
-                      lineageId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]" />
+                      externalMetadataColumnId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[DistanceFromPiraeus]"
+                      lineageId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output].Columns[P_DistanceFromPiraeus]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_PortOrder]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortOrder]"
                       dataType="wstr"
                       length="50"
-                      name="P_PortOrder" />
+                      name="PortOrder" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VPS_PortId]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
                       dataType="i4"
-                      name="VPS_PortId" />
+                      name="Id" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_PortName]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
                       dataType="wstr"
                       length="50"
-                      name="P_PortName" />
+                      name="Name" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_Country]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
                       dataType="wstr"
                       length="50"
-                      name="P_Country" />
+                      name="Country" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_DistanceFromOslo]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[DistanceFromOslo]"
                       dataType="i4"
-                      name="P_DistanceFromOslo" />
+                      name="DistanceFromOslo" />
                     <externalMetadataColumn
-                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[P_DistanceFromPiraeus]"
+                      refId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[DistanceFromPiraeus]"
                       dataType="i4"
-                      name="P_DistanceFromPiraeus" />
+                      name="DistanceFromPiraeus" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -3942,12 +3942,12 @@
               refId="Package\Port RAW to RDMS.Paths[Derived Column Output]"
               endId="Package\Port RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\Port RAW to RDMS\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\Port RAW to RDMS\P_PortOrder cast to int.Outputs[Derived Column Output]" />
             <path
               refId="Package\Port RAW to RDMS.Paths[OLE DB Source Output]"
-              endId="Package\Port RAW to RDMS\Derived Column.Inputs[Derived Column Input]"
+              endId="Package\Port RAW to RDMS\P_PortOrder cast to int.Inputs[Derived Column Input]"
               name="OLE DB Source Output"
-              startId="Package\Port RAW to RDMS\OLE DB Source.Outputs[OLE DB Source Output]" />
+              startId="Package\Port RAW to RDMS\Port RAW.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -4889,24 +4889,24 @@
                       externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipmentId]"
                       lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ShipmentId]" />
                     <inputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[ContainerNr]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="ContainerNr"
-                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerId]"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerNr]" />
-                    <inputColumn
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Item]"
                       cachedDataType="i4"
                       cachedName="Item"
                       externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemId]"
                       lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[Item]" />
                     <inputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[ContainertypeId]"
+                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[ContainerTypeId]"
                       cachedDataType="i4"
-                      cachedName="ContainertypeId"
+                      cachedName="ContainerTypeId"
                       externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainertypeId]" />
+                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerTypeId]" />
+                    <inputColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[ContainerNr]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="ContainerNr"
+                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerNr]"
+                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerNr]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -4915,10 +4915,6 @@
                       dataType="i4"
                       name="ShipmentId" />
                     <externalMetadataColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerId]"
-                      dataType="i4"
-                      name="ContainerId" />
-                    <externalMetadataColumn
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemId]"
                       dataType="i4"
                       name="ItemId" />
@@ -4926,6 +4922,11 @@
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       dataType="i4"
                       name="ContainerTypeId" />
+                    <externalMetadataColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerNr]"
+                      dataType="wstr"
+                      length="50"
+                      name="ContainerNr" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -5044,13 +5045,13 @@
                       name="Item"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainertypeId]"
+                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerTypeId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].ExternalColumns[ContainertypeId]"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainertypeId]"
-                      name="ContainertypeId"
+                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].ExternalColumns[ContainerTypeId]"
+                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerTypeId]"
+                      name="ContainerTypeId"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -5069,9 +5070,9 @@
                       dataType="i4"
                       name="Item" />
                     <externalMetadataColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].ExternalColumns[ContainertypeId]"
+                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].ExternalColumns[ContainerTypeId]"
                       dataType="i4"
-                      name="ContainertypeId" />
+                      name="ContainerTypeId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -5096,10 +5097,10 @@
                       lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[Item]"
                       name="Item" />
                     <outputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[ContainertypeId]"
+                      refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
                       dataType="i4"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[ContainertypeId]"
-                      name="ContainertypeId" />
+                      lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
+                      name="ContainerTypeId" />
                     <outputColumn
                       refId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -5485,13 +5486,13 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\VoyagePort to RAW"
+      DTS:refId="Package\VoyagePort RAW to RDMS"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{3af58e66-dcf0-466e-af0c-805009e398e2}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="VoyagePort to RAW"
+      DTS:ObjectName="VoyagePort RAW to RDMS"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -5499,7 +5500,7 @@
           version="1">
           <components>
             <component
-              refId="Package\VoyagePort to RAW\Derived Column"
+              refId="Package\VoyagePort RAW to RDMS\Derived Column"
               componentClassID="Microsoft.DerivedColumn"
               contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
@@ -5507,18 +5508,18 @@
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\VoyagePort to RAW\Derived Column.Inputs[Derived Column Input]"
+                  refId="Package\VoyagePort RAW to RDMS\Derived Column.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\Derived Column.Inputs[Derived Column Input].Columns[Vp_PortOrder]"
+                      refId="Package\VoyagePort RAW to RDMS\Derived Column.Inputs[Derived Column Input].Columns[Vp_PortOrder]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="Vp_PortOrder"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
                       truncationRowDisposition="FailComponent"
                       usageType="readWrite">
                       <properties>
@@ -5526,7 +5527,7 @@
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">(DT_I8)#{Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]}</property>
+                          name="Expression">(DT_I8)#{Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]}</property>
                         <property
                           containsID="true"
                           dataType="System.String"
@@ -5541,31 +5542,31 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Output]"
+                  refId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Output]"
                   description="Default Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   name="Derived Column Output"
-                  synchronousInputId="Package\VoyagePort to RAW\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\VoyagePort RAW to RDMS\Derived Column.Inputs[Derived Column Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Error Output]"
+                  refId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Error Output]"
                   description="Error Output of the Derived Column Transformation"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Derived Column Error Output"
-                  synchronousInputId="Package\VoyagePort to RAW\Derived Column.Inputs[Derived Column Input]">
+                  synchronousInputId="Package\VoyagePort RAW to RDMS\Derived Column.Inputs[Derived Column Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      refId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      lineageId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      refId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -5574,7 +5575,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\VoyagePort to RAW\RDMS Destination"
+              refId="Package\VoyagePort RAW to RDMS\RDMS Destination"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
@@ -5631,7 +5632,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\VoyagePort to RAW\RDMS Destination.Connections[OleDbConnection]"
+                  refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Connections[OleDbConnection]"
                   connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
                   connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
                   description="The OLE DB runtime connection used to access the database."
@@ -5639,84 +5640,84 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[VV_VoyageId]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[VV_VoyageId]"
                       cachedDataType="i4"
                       cachedName="VV_VoyageId"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[VP_PortIdCurrent]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[VP_PortIdCurrent]"
                       cachedDataType="i4"
                       cachedName="VP_PortIdCurrent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_PortIdNext]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_PortIdNext]"
                       cachedDataType="i4"
                       cachedName="Vp_PortIdNext"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_LegDateDepart]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_LegDateDepart]"
                       cachedDataType="dbTimeStamp"
                       cachedName="Vp_LegDateDepart"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_LegDateArrival]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_LegDateArrival]"
                       cachedDataType="dbTimeStamp"
                       cachedName="Vp_LegDateArrival"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_Traject_Distance]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_Traject_Distance]"
                       cachedDataType="i4"
                       cachedName="Vp_Traject_Distance"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Traject_Distance]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Traject_Distance]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]" />
                     <inputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_PortOrder]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Vp_PortOrder]"
                       cachedDataType="wstr"
                       cachedLength="50"
                       cachedName="Vp_PortOrder"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortId]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]" />
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortId]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
                       dataType="i4"
                       name="VoyageId" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdCurrent]"
                       dataType="i4"
                       name="PortIdCurrent" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdNext]"
                       dataType="i4"
                       name="PortIdNext" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateDepart]"
                       dataType="dbTimeStamp"
                       name="LegDateDepart" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[LegDateArrival]"
                       dataType="dbTimeStamp"
                       name="LegDateArrival" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Traject_Distance]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Traject_Distance]"
                       dataType="i4"
                       name="Traject_Distance" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortId]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortId]"
                       dataType="i4"
                       name="PortId" />
                   </externalMetadataColumns>
@@ -5724,22 +5725,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\VoyagePort to RAW\RDMS Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\VoyagePort RAW to RDMS\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\VoyagePort RAW to RDMS\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\VoyagePort RAW to RDMS\RDMS Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -5748,7 +5749,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\VoyagePort to RAW\VoyagePort RAW"
+              refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
@@ -5797,7 +5798,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\VoyagePort to RAW\VoyagePort RAW.Connections[OleDbConnection]"
+                  refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Connections[OleDbConnection]"
                   connectionManagerID="{9A7ED5BF-7402-4079-BCAE-F37B32F2535B}:external"
                   connectionManagerRefId="Project.ConnectionManagers[LocalHost.RAW]"
                   description="The OLE DB runtime connection used to access the database."
@@ -5805,158 +5806,158 @@
               </connections>
               <outputs>
                 <output
-                  refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output]"
+                  refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VV_VoyageId]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VV_VoyageId]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VV_VoyageId]"
                       name="VV_VoyageId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VP_PortIdCurrent]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VP_PortIdCurrent]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[VP_PortIdCurrent]"
                       name="VP_PortIdCurrent"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortIdNext]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortIdNext]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortIdNext]"
                       name="Vp_PortIdNext"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]"
                       dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateDepart]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateDepart]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateDepart]"
                       name="Vp_LegDateDepart"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]"
                       dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateArrival]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateArrival]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_LegDateArrival]"
                       name="Vp_LegDateArrival"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_Traject_Distance]"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_Traject_Distance]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_Traject_Distance]"
                       name="Vp_Traject_Distance"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortOrder]"
+                      externalMetadataColumnId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortOrder]"
                       length="50"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].Columns[Vp_PortOrder]"
                       name="Vp_PortOrder"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VV_VoyageId]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VV_VoyageId]"
                       dataType="i4"
                       name="VV_VoyageId" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VP_PortIdCurrent]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[VP_PortIdCurrent]"
                       dataType="i4"
                       name="VP_PortIdCurrent" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortIdNext]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortIdNext]"
                       dataType="i4"
                       name="Vp_PortIdNext" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateDepart]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateDepart]"
                       dataType="dbTimeStamp"
                       name="Vp_LegDateDepart" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateArrival]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_LegDateArrival]"
                       dataType="dbTimeStamp"
                       name="Vp_LegDateArrival" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_Traject_Distance]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_Traject_Distance]"
                       dataType="i4"
                       name="Vp_Traject_Distance" />
                     <externalMetadataColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortOrder]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output].ExternalColumns[Vp_PortOrder]"
                       dataType="wstr"
                       length="50"
                       name="Vp_PortOrder" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output]"
+                  refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VV_VoyageId]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VV_VoyageId]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VV_VoyageId]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VV_VoyageId]"
                       name="VV_VoyageId" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VP_PortIdCurrent]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VP_PortIdCurrent]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VP_PortIdCurrent]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[VP_PortIdCurrent]"
                       name="VP_PortIdCurrent" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortIdNext]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortIdNext]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortIdNext]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortIdNext]"
                       name="Vp_PortIdNext" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateDepart]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateDepart]"
                       dataType="dbTimeStamp"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateDepart]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateDepart]"
                       name="Vp_LegDateDepart" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateArrival]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateArrival]"
                       dataType="dbTimeStamp"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateArrival]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_LegDateArrival]"
                       name="Vp_LegDateArrival" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_Traject_Distance]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_Traject_Distance]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_Traject_Distance]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_Traject_Distance]"
                       name="Vp_Traject_Distance" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortOrder]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortOrder]"
                       dataType="wstr"
                       length="50"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortOrder]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[Vp_PortOrder]"
                       name="Vp_PortOrder" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -5967,15 +5968,15 @@
           </components>
           <paths>
             <path
-              refId="Package\VoyagePort to RAW.Paths[Derived Column Output]"
-              endId="Package\VoyagePort to RAW\RDMS Destination.Inputs[OLE DB Destination Input]"
+              refId="Package\VoyagePort RAW to RDMS.Paths[Derived Column Output]"
+              endId="Package\VoyagePort RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\VoyagePort to RAW\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\VoyagePort RAW to RDMS\Derived Column.Outputs[Derived Column Output]" />
             <path
-              refId="Package\VoyagePort to RAW.Paths[OLE DB Source Output]"
-              endId="Package\VoyagePort to RAW\Derived Column.Inputs[Derived Column Input]"
+              refId="Package\VoyagePort RAW to RDMS.Paths[OLE DB Source Output]"
+              endId="Package\VoyagePort RAW to RDMS\Derived Column.Inputs[Derived Column Input]"
               name="OLE DB Source Output"
-              startId="Package\VoyagePort to RAW\VoyagePort RAW.Outputs[OLE DB Source Output]" />
+              startId="Package\VoyagePort RAW to RDMS\VoyagePort RAW.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -5985,7 +5986,7 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
-      DTS:DTSID="{E035ED8F-ED2E-47BB-9E0E-4AE06863C140}"
+      DTS:DTSID="{63940678-6D28-4F98-87A5-E004FE6104B6}"
       DTS:From="Package\Execute SQL Task"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
@@ -5993,67 +5994,51 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{C2C72DC8-1C46-42F9-81BB-999709518113}"
-      DTS:From="Package\Execute SQL Task"
+      DTS:DTSID="{591852E4-FD36-4B1F-9B0E-73FD94696E01}"
+      DTS:From="Package\Port RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\Ship RAW to RDMS" />
+      DTS:To="Package\Consignor RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
       DTS:CreationName=""
-      DTS:DTSID="{7E5CC7EC-7E16-4281-B2AC-9A5CEDDF43D5}"
-      DTS:From="Package\Execute SQL Task"
+      DTS:DTSID="{FF6AEE26-C4C7-4889-AC7C-6D032B035F06}"
+      DTS:From="Package\Container RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 10"
-      DTS:To="Package\Item RAW to RDMS" />
+      DTS:To="Package\ShipmentDetail RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 11]"
       DTS:CreationName=""
-      DTS:DTSID="{438FD55B-6420-4A5B-9D63-6733A57842A9}"
-      DTS:From="Package\Execute SQL Task"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 11"
-      DTS:To="Package\Container RAW to RDMS" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
-      DTS:CreationName=""
-      DTS:DTSID="{7AFAB466-7D99-444E-8283-AC7000CF3FFE}"
+      DTS:DTSID="{9F8436D2-10ED-4218-92A4-0C4DA43ADF73}"
       DTS:From="Package\Item RAW to RDMS"
       DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 12"
-      DTS:To="Package\ShipmentDetail RAW to RDMS" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 13]"
-      DTS:CreationName=""
-      DTS:DTSID="{BBD138DF-C5CE-49A5-9C56-407E9ED8C4AA}"
-      DTS:From="Package\Container RAW to RDMS"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 13"
+      DTS:ObjectName="Constraint 11"
       DTS:To="Package\ShipmentDetail RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{3186F999-D885-4395-A318-E4C627F95DEF}"
-      DTS:From="Package\Shipment RAW to RDMS"
+      DTS:DTSID="{5799513E-A8CA-4F73-BBB5-E76A9B2790D7}"
+      DTS:From="Package\VoyagePort RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\ShipmentDetail RAW to RDMS" />
+      DTS:To="Package\Voyage RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
-      DTS:DTSID="{EDC8EB80-B9CD-460B-A2A1-EA06FD858F49}"
-      DTS:From="Package\Ship RAW to RDMS"
+      DTS:DTSID="{D595F9FB-EBC0-43D6-B2DE-262AB1FA8A2E}"
+      DTS:From="Package\Consignor RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
-      DTS:To="Package\Voyage RAW to RDMS" />
+      DTS:To="Package\VoyagePort RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
       DTS:CreationName=""
-      DTS:DTSID="{9C96D917-CBE0-41F7-9C9F-1DFF3567B505}"
-      DTS:From="Package\Voyage RAW to RDMS"
+      DTS:DTSID="{204667C9-4D92-4E5A-96E9-7383FABE97A1}"
+      DTS:From="Package\Ship RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
-      DTS:To="Package\VoyagePort to RAW" />
+      DTS:To="Package\Voyage RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
       DTS:CreationName=""
@@ -6065,35 +6050,35 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
       DTS:CreationName=""
-      DTS:DTSID="{CAAA84BA-5A48-410C-BEBF-8F402FBD7A7C}"
-      DTS:From="Package\Port RAW to RDMS"
+      DTS:DTSID="{53F22E06-7F91-44E7-B260-C5C21531D015}"
+      DTS:From="Package\Consignor RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 6"
-      DTS:To="Package\VoyagePort to RAW" />
+      DTS:To="Package\Ship RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
       DTS:CreationName=""
-      DTS:DTSID="{267F50DC-B2FC-4124-988B-0F181650F726}"
-      DTS:From="Package\Port RAW to RDMS"
+      DTS:DTSID="{BD24986C-75F9-4C36-9E50-7C8AC6BCFD9F}"
+      DTS:From="Package\Voyage RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 7"
       DTS:To="Package\Shipment RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
       DTS:CreationName=""
-      DTS:DTSID="{6CF620B7-CEEE-48F0-815F-BFC2A9994290}"
-      DTS:From="Package\Execute SQL Task"
+      DTS:DTSID="{09CAB8BF-BE96-4E2A-BA47-D2F35A019C30}"
+      DTS:From="Package\Shipment RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 8"
-      DTS:To="Package\Consignor RAW to RDMS" />
+      DTS:To="Package\Container RAW to RDMS" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
       DTS:CreationName=""
-      DTS:DTSID="{087EC531-3F50-4239-A539-F81D86901092}"
-      DTS:From="Package\Consignor RAW to RDMS"
+      DTS:DTSID="{516D3559-AA84-4102-95E4-2C3F6115B975}"
+      DTS:From="Package\Shipment RAW to RDMS"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 9"
-      DTS:To="Package\Shipment RAW to RDMS" />
+      DTS:To="Package\Item RAW to RDMS" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -6110,19 +6095,19 @@
         <NodeLayout
           Size="202.666666666667,42.6666666666667"
           Id="Package\Consignor RAW to RDMS"
-          TopLeft="555.037194731136,171.03759607497" />
+          TopLeft="244.412199359809,217.563912740187" />
         <NodeLayout
           Size="200,42.6666666666667"
           Id="Package\Container RAW to RDMS"
-          TopLeft="754.821418217782,235.966795363793" />
+          TopLeft="606.07142043433,361.861534575555" />
         <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\Execute SQL Task"
           TopLeft="436.562494388782,60.855263173993" />
         <NodeLayout
-          Size="174.666666666667,42.6666666666667"
+          Size="174.666666666667,44"
           Id="Package\Item RAW to RDMS"
-          TopLeft="750.915169430831,116.520677755591" />
+          TopLeft="610.290171526307,431.257525784994" />
         <NodeLayout
           Size="177.333333333334,42.6666666666667"
           Id="Package\MRV RAW to RDMS"
@@ -6130,53 +6115,41 @@
         <NodeLayout
           Size="173.333333333334,42.6666666666667"
           Id="Package\Port RAW to RDMS"
-          TopLeft="363.169638339563,168.642859187789" />
+          TopLeft="438.794637212663,145.379700855181" />
         <NodeLayout
           Size="174.666666666667,42.6666666666667"
           Id="Package\Ship RAW to RDMS"
-          TopLeft="166.517855555617,129.174186150822" />
+          TopLeft="633.392848598637,289.279452322301" />
         <NodeLayout
           Size="198.666666666667,42.6666666666667"
           Id="Package\Shipment RAW to RDMS"
-          TopLeft="374.977673877895,310.768801034972" />
+          TopLeft="851.852666771905,395.610907895072" />
         <NodeLayout
           Size="225.333333333334,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS"
-          TopLeft="650.044634064792,315.129702996243" />
+          TopLeft="299.419639289511,393.1297044644" />
         <NodeLayout
           Size="189.333333333334,42.6666666666667"
           Id="Package\Voyage RAW to RDMS"
-          TopLeft="164.21874844702,217.782582779666" />
+          TopLeft="851.093738211785,239.677320033887" />
         <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\VoyagePort to RAW"
-          TopLeft="172.29910546947,309.382835105283" />
+          Size="209.333333333334,42.6666666666667"
+          Id="Package\VoyagePort RAW to RDMS"
+          TopLeft="630.424098642876,192.382832903049" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="504.562494388782,103.52192984066">
+          TopLeft="523.011899134056,103.52192984066">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-54.7261893825519,65.1209293471298"
+              EndConnector="0,41.8577710145213"
               Start="0,0"
-              End="-54.7261893825519,57.6209293471298">
+              End="0,34.3577710145213">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,25.1330473395054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,25.1330473395054"
-                    Point2="0,29.1330473395054"
-                    Point3="-4,29.1330473395054" />
-                  <mssgle:LineSegment
-                    End="-50.7261893825519,29.1330473395054" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-50.7261893825519,29.1330473395054"
-                    Point2="-54.7261893825519,29.1330473395054"
-                    Point3="-54.7261893825519,33.1330473395054" />
-                  <mssgle:LineSegment
-                    End="-54.7261893825519,57.6209293471298" />
+                    End="0,34.3577710145213" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6187,30 +6160,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="493.895827722115,103.52192984066">
+          TopLeft="525.46130387933,188.046367521848">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-240.044638833165,25.6522563101626"
+              EndConnector="-179.715771186187,29.5175452183389"
               Start="0,0"
-              End="-240.044638833165,18.1522563101626">
+              End="-179.715771186187,22.0175452183389">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,6.40610397487729" />
+                    End="0,10.7587726091694" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,6.40610397487729"
-                    Point2="0,10.4061039748773"
-                    Point3="-4,10.4061039748773" />
+                    Point1="0,10.7587726091694"
+                    Point2="0,14.7587726091694"
+                    Point3="-4,14.7587726091694" />
                   <mssgle:LineSegment
-                    End="-236.044638833165,10.4061039748773" />
+                    End="-175.715771186187,14.7587726091694" />
                   <mssgle:CubicBezierSegment
-                    Point1="-236.044638833165,10.4061039748773"
-                    Point2="-240.044638833165,10.4061039748773"
-                    Point3="-240.044638833165,14.4061039748773" />
+                    Point1="-175.715771186187,14.7587726091694"
+                    Point2="-179.715771186187,14.7587726091694"
+                    Point3="-179.715771186187,18.7587726091694" />
                   <mssgle:LineSegment
-                    End="-240.044638833165,18.1522563101626" />
+                    End="-179.715771186187,22.0175452183389" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6221,30 +6194,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 10]"
-          TopLeft="604.562494388782,90.855263173993">
+          TopLeft="606.07142043433,383.194867908888">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="146.352675042049,46.9987479149309"
+              EndConnector="-81.3184478114856,25.4903921110669"
               Start="0,0"
-              End="138.852675042049,46.9987479149309">
+              End="-73.8184478114856,25.4903921110669">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="50.5235456039007,0" />
+                    End="-43.0275360837507,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="50.5235456039007,0"
-                    Point2="54.5235456039007,0"
-                    Point3="54.5235456039007,4" />
+                    Point1="-43.0275360837507,0"
+                    Point2="-47.0275360837507,0"
+                    Point3="-47.0275360837507,4" />
                   <mssgle:LineSegment
-                    End="54.5235456039007,42.9987479149309" />
+                    End="-47.0275360837507,21.4903921110669" />
                   <mssgle:CubicBezierSegment
-                    Point1="54.5235456039007,42.9987479149309"
-                    Point2="54.5235456039007,46.9987479149309"
-                    Point3="58.5235456039007,46.9987479149309" />
+                    Point1="-47.0275360837507,21.4903921110669"
+                    Point2="-47.0275360837507,25.4903921110669"
+                    Point3="-51.0275360837507,25.4903921110669" />
                   <mssgle:LineSegment
-                    End="138.852675042049,46.9987479149309" />
+                    End="-73.8184478114856,25.4903921110669" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6255,98 +6228,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 11]"
-          TopLeft="568.562494388782,103.52192984066">
+          TopLeft="610.290171526307,453.257525784994">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="286.258923829,132.444865523134"
+              EndConnector="-85.5371989034626,-33.0167102094833"
               Start="0,0"
-              End="286.258923829,124.944865523134">
+              End="-78.0371989034626,-33.0167102094833">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.7334596569401" />
+                    End="-45.4672957514,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,35.7334596569401"
-                    Point2="0,39.7334596569401"
-                    Point3="4,39.7334596569401" />
+                    Point1="-45.4672957514,0"
+                    Point2="-49.4672957514,0"
+                    Point3="-49.4672957514,-4" />
                   <mssgle:LineSegment
-                    End="282.258923829,39.7334596569401" />
+                    End="-49.4672957514,-29.0167102094833" />
                   <mssgle:CubicBezierSegment
-                    Point1="282.258923829,39.7334596569401"
-                    Point2="286.258923829,39.7334596569401"
-                    Point3="286.258923829,43.7334596569401" />
+                    Point1="-49.4672957514,-29.0167102094833"
+                    Point2="-49.4672957514,-33.0167102094833"
+                    Point3="-53.4672957514,-33.0167102094833" />
                   <mssgle:LineSegment
-                    End="286.258923829,124.944865523134" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 12]"
-          TopLeft="838.248502764165,159.187344422257">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-111.759424254928,155.942358573986"
-              Start="0,0"
-              End="-111.759424254928,148.442358573986">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.7177589040611" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,53.7177589040611"
-                    Point2="0,57.7177589040611"
-                    Point3="-4,57.7177589040611" />
-                  <mssgle:LineSegment
-                    End="-107.759424254928,57.7177589040611" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-107.759424254928,57.7177589040611"
-                    Point2="-111.759424254928,57.7177589040611"
-                    Point3="-111.759424254928,61.7177589040611" />
-                  <mssgle:LineSegment
-                    End="-111.759424254928,148.442358573986" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 13]"
-          TopLeft="854.821418217782,278.63346203046">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-55.8878952641012,36.4962409657831"
-              Start="0,0"
-              End="-55.8878952641012,28.9962409657831">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,17.7433539008837" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,17.7433539008837"
-                    Point2="0,21.7433539008837"
-                    Point3="-4,21.7433539008837" />
-                  <mssgle:LineSegment
-                    End="-51.8878952641012,21.7433539008837" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-51.8878952641012,21.7433539008837"
-                    Point2="-55.8878952641012,21.7433539008837"
-                    Point3="-55.8878952641012,25.7433539008837" />
-                  <mssgle:LineSegment
-                    End="-55.8878952641012,28.9962409657831" />
+                    End="-78.0371989034626,-33.0167102094833" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6357,18 +6262,24 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="573.644340544562,334.282585348941">
+          TopLeft="839.757431976209,213.716166236382">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="76.4002935202302,0"
+              EndConnector="106.002972902242,25.961153797505"
               Start="0,0"
-              End="68.9002935202302,0">
+              End="106.002972902242,18.461153797505">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="68.9002935202302,0" />
+                    End="102.002972902242,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="102.002972902242,0"
+                    Point2="106.002972902242,0"
+                    Point3="106.002972902242,4" />
+                  <mssgle:LineSegment
+                    End="106.002972902242,18.461153797505" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6379,18 +6290,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="256.368302001318,171.840852817489">
+          TopLeft="447.078866026476,238.89724607352">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,45.9417299621769"
+              EndConnector="183.3452326164,-25.1810798371383"
               Start="0,0"
-              End="0,38.4417299621769">
+              End="175.8452326164,-25.1810798371383">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,38.4417299621769" />
+                    End="87.6726163082002,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="87.6726163082002,0"
+                    Point2="91.6726163082002,0"
+                    Point3="91.6726163082002,-4" />
+                  <mssgle:LineSegment
+                    End="91.6726163082002,-21.1810798371383" />
+                  <mssgle:CubicBezierSegment
+                    Point1="91.6726163082002,-21.1810798371383"
+                    Point2="91.6726163082002,-25.1810798371383"
+                    Point3="95.6726163082002,-25.1810798371383" />
+                  <mssgle:LineSegment
+                    End="175.8452326164,-25.1810798371383" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6401,18 +6324,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="259.258926958245,260.449249446332">
+          TopLeft="808.059515265304,310.612785655635">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,48.9335856589508"
+              EndConnector="43.0342229464812,-43.824354510637"
               Start="0,0"
-              End="0,41.4335856589508">
+              End="35.5342229464812,-43.824354510637">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,41.4335856589508" />
+                    End="20.8872614630253,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="20.8872614630253,0"
+                    Point2="24.8872614630253,0"
+                    Point3="24.8872614630253,-4" />
+                  <mssgle:LineSegment
+                    End="24.8872614630253,-39.824354510637" />
+                  <mssgle:CubicBezierSegment
+                    Point1="24.8872614630253,-39.824354510637"
+                    Point2="24.8872614630253,-43.824354510637"
+                    Point3="28.8872614630253,-43.824354510637" />
+                  <mssgle:LineSegment
+                    End="35.5342229464812,-43.824354510637" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6423,30 +6358,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="604.562494388782,73.5219298406597">
+          TopLeft="604.562494388782,82.1885965073263">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="157.0446380136,-51.8383491367375"
+              EndConnector="157.0446380136,-60.5050158034041"
               Start="0,0"
-              End="149.5446380136,-51.8383491367375">
+              End="149.5446380136,-60.5050158034041">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="54.5068259266352,0" />
+                    End="74.5223190068,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="54.5068259266352,0"
-                    Point2="58.5068259266352,0"
-                    Point3="58.5068259266352,-4" />
+                    Point1="74.5223190068,0"
+                    Point2="78.5223190068,0"
+                    Point3="78.5223190068,-4" />
                   <mssgle:LineSegment
-                    End="58.5068259266352,-47.8383491367375" />
+                    End="78.5223190068,-56.5050158034041" />
                   <mssgle:CubicBezierSegment
-                    Point1="58.5068259266352,-47.8383491367375"
-                    Point2="58.5068259266352,-51.8383491367375"
-                    Point3="62.5068259266352,-51.8383491367375" />
+                    Point1="78.5223190068,-56.5050158034041"
+                    Point2="78.5223190068,-60.5050158034041"
+                    Point3="82.5223190068,-60.5050158034041" />
                   <mssgle:LineSegment
-                    End="149.5446380136,-51.8383491367375" />
+                    End="149.5446380136,-60.5050158034041" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6457,30 +6392,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="422.280749450675,211.309525854456">
+          TopLeft="345.745532693143,260.230579406853">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-134.870532870093,98.0733092508268"
+              EndConnector="374.980649238828,29.0488729154482"
               Start="0,0"
-              End="-134.870532870093,90.5733092508268">
+              End="374.980649238828,21.5488729154482">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,69.4769673917996" />
+                    End="0,10.5244364577241" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,69.4769673917996"
-                    Point2="0,73.4769673917996"
-                    Point3="-4,73.4769673917996" />
+                    Point1="0,10.5244364577241"
+                    Point2="0,14.5244364577241"
+                    Point3="4,14.5244364577241" />
                   <mssgle:LineSegment
-                    End="-130.870532870093,73.4769673917996" />
+                    End="370.980649238828,14.5244364577241" />
                   <mssgle:CubicBezierSegment
-                    Point1="-130.870532870093,73.4769673917996"
-                    Point2="-134.870532870093,73.4769673917996"
-                    Point3="-134.870532870093,77.4769673917996" />
+                    Point1="370.980649238828,14.5244364577241"
+                    Point2="374.980649238828,14.5244364577241"
+                    Point3="374.980649238828,18.5244364577241" />
                   <mssgle:LineSegment
-                    End="-134.870532870093,90.5733092508268" />
+                    End="374.980649238828,21.5488729154482" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6491,30 +6426,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="477.391860561786,211.309525854456">
+          TopLeft="948.473202491845,282.343986700553">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-34.8586311283349,99.4592751805157"
+              EndConnector="0,113.266921194519"
               Start="0,0"
-              End="-34.8586311283349,91.9592751805157">
+              End="0,105.766921194519">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,45.8012597279299" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,45.8012597279299"
-                    Point2="0,49.8012597279299"
-                    Point3="-4,49.8012597279299" />
-                  <mssgle:LineSegment
-                    End="-30.8586311283349,49.8012597279299" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-30.8586311283349,49.8012597279299"
-                    Point2="-34.8586311283349,49.8012597279299"
-                    Point3="-34.8586311283349,53.8012597279299" />
-                  <mssgle:LineSegment
-                    End="-34.8586311283349,91.9592751805157" />
+                    End="0,105.766921194519" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6525,30 +6448,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 8]"
-          TopLeft="536.562494388782,103.52192984066">
+          TopLeft="851.852666771905,416.944241228406">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="119.808033675687,67.5156662343098"
+              EndConnector="-45.7812463375747,-33.749373319517"
               Start="0,0"
-              End="119.808033675687,60.0156662343098">
+              End="-38.2812463375747,-33.749373319517">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.2043769995597" />
+                    End="-18.8906231687873,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.2043769995597"
-                    Point2="0,30.2043769995597"
-                    Point3="4,30.2043769995597" />
+                    Point1="-18.8906231687873,0"
+                    Point2="-22.8906231687873,0"
+                    Point3="-22.8906231687873,-4" />
                   <mssgle:LineSegment
-                    End="115.808033675687,30.2043769995597" />
+                    End="-22.8906231687873,-29.749373319517" />
                   <mssgle:CubicBezierSegment
-                    Point1="115.808033675687,30.2043769995597"
-                    Point2="119.808033675687,30.2043769995597"
-                    Point3="119.808033675687,34.2043769995597" />
+                    Point1="-22.8906231687873,-29.749373319517"
+                    Point2="-22.8906231687873,-33.749373319517"
+                    Point3="-26.8906231687873,-33.749373319517" />
                   <mssgle:LineSegment
-                    End="119.808033675687,60.0156662343098" />
+                    End="-38.2812463375747,-33.749373319517" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6559,30 +6482,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 9]"
-          TopLeft="656.370528064469,213.704262741636">
+          TopLeft="851.852666771905,422.722019006183">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-150.281743075463,97.0645382933357"
+              EndConnector="-66.8958285789314,30.5355067788101"
               Start="0,0"
-              End="-150.281743075463,89.5645382933357">
+              End="-59.3958285789314,30.5355067788101">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,53.7734335780573" />
+                    End="-24.2090843405132,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,53.7734335780573"
-                    Point2="0,57.7734335780573"
-                    Point3="-4,57.7734335780573" />
+                    Point1="-24.2090843405132,0"
+                    Point2="-28.2090843405132,0"
+                    Point3="-28.2090843405132,4" />
                   <mssgle:LineSegment
-                    End="-146.281743075463,57.7734335780573" />
+                    End="-28.2090843405132,26.5355067788101" />
                   <mssgle:CubicBezierSegment
-                    Point1="-146.281743075463,57.7734335780573"
-                    Point2="-150.281743075463,57.7734335780573"
-                    Point3="-150.281743075463,61.7734335780573" />
+                    Point1="-28.2090843405132,26.5355067788101"
+                    Point2="-28.2090843405132,30.5355067788101"
+                    Point3="-32.2090843405132,30.5355067788101" />
                   <mssgle:LineSegment
-                    End="-150.281743075463,89.5645382933357" />
+                    End="-59.3958285789314,30.5355067788101" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6682,39 +6605,39 @@
           Id="Package\Container RAW to RDMS\RDMS Destination"
           TopLeft="623.875000046566,222.210526470332" />
         <NodeLayout
+          Size="156,42.6666666666667"
+          Id="Package\Container RAW to RDMS\Derived Column"
+          TopLeft="538.124991981313,156.789474753132" />
+        <NodeLayout
           Size="153.333333333334,42.6666666666667"
           Id="Package\Container RAW to RDMS\Container RAW"
           TopLeft="450,75.6666666666667" />
-        <NodeLayout
-          Size="156,42.6666666666667"
-          Id="Package\Container RAW to RDMS\Derived Column"
-          TopLeft="517.499992288649,149.947369361188" />
         <EdgeLayout
           Id="Package\Container RAW to RDMS.Paths[OLE DB Source Output]"
           TopLeft="526.666666666667,118.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="68.8333256219825,31.6140360278546"
+              EndConnector="89.458325314646,38.4561414197982"
               Start="0,0"
-              End="68.8333256219825,24.1140360278546">
+              End="89.458325314646,30.9561414197982">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.8070180139273" />
+                    End="0,15.2280707098991" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,11.8070180139273"
-                    Point2="0,15.8070180139273"
-                    Point3="4,15.8070180139273" />
+                    Point1="0,15.2280707098991"
+                    Point2="0,19.2280707098991"
+                    Point3="4,19.2280707098991" />
                   <mssgle:LineSegment
-                    End="64.8333256219825,15.8070180139273" />
+                    End="85.458325314646,19.2280707098991" />
                   <mssgle:CubicBezierSegment
-                    Point1="64.8333256219825,15.8070180139273"
-                    Point2="68.8333256219825,15.8070180139273"
-                    Point3="68.8333256219825,19.8070180139273" />
+                    Point1="85.458325314646,19.2280707098991"
+                    Point2="89.458325314646,19.2280707098991"
+                    Point3="89.458325314646,23.2280707098991" />
                   <mssgle:LineSegment
-                    End="68.8333256219825,24.1140360278546" />
+                    End="89.458325314646,30.9561414197982" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6725,30 +6648,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Container RAW to RDMS.Paths[Derived Column Output]"
-          TopLeft="595.499992288649,192.614036027855">
+          TopLeft="616.124991981313,199.456141419798">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="112.375007757917,29.5964904424776"
+              EndConnector="91.7500080652534,22.7543850505338"
               Start="0,0"
-              End="112.375007757917,22.0964904424776">
+              End="91.7500080652534,15.2543850505338">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.7982452212388" />
+                    End="0,7.37719252526691" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.7982452212388"
-                    Point2="0,14.7982452212388"
-                    Point3="4,14.7982452212388" />
+                    Point1="0,7.37719252526691"
+                    Point2="0,11.3771925252669"
+                    Point3="4,11.3771925252669" />
                   <mssgle:LineSegment
-                    End="108.375007757917,14.7982452212388" />
+                    End="87.7500080652534,11.3771925252669" />
                   <mssgle:CubicBezierSegment
-                    Point1="108.375007757917,14.7982452212388"
-                    Point2="112.375007757917,14.7982452212388"
-                    Point3="112.375007757917,18.7982452212388" />
+                    Point1="87.7500080652534,11.3771925252669"
+                    Point2="91.7500080652534,11.3771925252669"
+                    Point3="91.7500080652534,15.3771925252669" />
                   <mssgle:LineSegment
-                    End="112.375007757917,22.0964904424776" />
+                    End="91.7500080652534,15.2543850505338" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6948,43 +6871,43 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="154.666666666667,42.6666666666667"
-          Id="Package\Port RAW to RDMS\OLE DB Source"
-          TopLeft="500,49.6666666666667" />
-        <NodeLayout
-          Size="156,42"
-          Id="Package\Port RAW to RDMS\Derived Column"
-          TopLeft="585,117.333333333333" />
-        <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\Port RAW to RDMS\RDMS Destination"
-          TopLeft="659,197" />
+          TopLeft="669.624999841675,211.368421323081" />
+        <NodeLayout
+          Size="126.666666666667,42.6666666666667"
+          Id="Package\Port RAW to RDMS\Port RAW"
+          TopLeft="501.87499997206,50.3508772058611" />
+        <NodeLayout
+          Size="188,42.6666666666667"
+          Id="Package\Port RAW to RDMS\P_PortOrder cast to int"
+          TopLeft="591.249999906868,133.754386273998" />
         <EdgeLayout
           Id="Package\Port RAW to RDMS.Paths[OLE DB Source Output]"
-          TopLeft="577.333333333333,92.3333333333334">
+          TopLeft="565.208333305394,93.0175438725277">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="85.6666666666666,24.9999999999999"
+              EndConnector="120.041666601474,40.7368424014698"
               Start="0,0"
-              End="85.6666666666666,17.4999999999999">
+              End="120.041666601474,33.2368424014698">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.49999999999997" />
+                    End="0,16.3684212007349" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,8.49999999999997"
-                    Point2="0,12.5"
-                    Point3="4,12.5" />
+                    Point1="0,16.3684212007349"
+                    Point2="0,20.3684212007349"
+                    Point3="4,20.3684212007349" />
                   <mssgle:LineSegment
-                    End="81.6666666666666,12.5" />
+                    End="116.041666601474,20.3684212007349" />
                   <mssgle:CubicBezierSegment
-                    Point1="81.6666666666666,12.5"
-                    Point2="85.6666666666666,12.5"
-                    Point3="85.6666666666666,16.5" />
+                    Point1="116.041666601474,20.3684212007349"
+                    Point2="120.041666601474,20.3684212007349"
+                    Point3="120.041666601474,24.3684212007349" />
                   <mssgle:LineSegment
-                    End="85.6666666666666,17.4999999999999" />
+                    End="120.041666601474,33.2368424014698" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6997,30 +6920,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Port RAW to RDMS.Paths[Derived Column Output]"
-          TopLeft="663,159.333333333333">
+          TopLeft="685.249999906868,176.421052940664">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="80,37.6666666666667"
+              EndConnector="68.3749999348074,34.9473683824173"
               Start="0,0"
-              End="80,30.1666666666667">
+              End="68.3749999348074,27.4473683824173">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14.8333333333333" />
+                    End="0,13.4736841912086" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,14.8333333333333"
-                    Point2="0,18.8333333333333"
-                    Point3="4,18.8333333333333" />
+                    Point1="0,13.4736841912086"
+                    Point2="0,17.4736841912086"
+                    Point3="4,17.4736841912086" />
                   <mssgle:LineSegment
-                    End="76,18.8333333333333" />
+                    End="64.3749999348074,17.4736841912086" />
                   <mssgle:CubicBezierSegment
-                    Point1="76,18.8333333333333"
-                    Point2="80,18.8333333333333"
-                    Point3="80,22.8333333333333" />
+                    Point1="64.3749999348074,17.4736841912086"
+                    Point2="68.3749999348074,17.4736841912086"
+                    Point3="68.3749999348074,21.4736841912086" />
                   <mssgle:LineSegment
-                    End="80,30.1666666666667" />
+                    End="68.3749999348074,27.4473683824173" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7035,7 +6958,20 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Port RAW to RDMS\OLE DB Source">
+    design-time-name="Package\Port RAW to RDMS\RDMS Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Port RAW to RDMS\Port RAW">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7177,32 +7113,6 @@
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Shipment RAW to RDMS\RADMS Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Shipment RAW to RDMS\Shipment RAW">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\ShipmentDetail RAW to RDMS">
     <LayoutInfo>
@@ -7211,44 +7121,44 @@
         <NodeLayout
           Size="180,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW"
-          TopLeft="586,61" />
+          TopLeft="561,80" />
         <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\RDMS Destination"
-          TopLeft="659,134" />
+          TopLeft="716,224" />
         <EdgeLayout
           Id="Package\ShipmentDetail RAW to RDMS.Paths[OLE DB Source Output]"
-          TopLeft="676,103.666666666667">
+          TopLeft="651,122.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="67,30.3333333333333"
+              EndConnector="149,101.333333333333"
               Start="0,0"
-              End="67,22.8333333333333">
+              End="149,93.8333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.1666666666667" />
+                    End="0,46.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,11.1666666666667"
-                    Point2="0,15.1666666666667"
-                    Point3="4,15.1666666666667" />
+                    Point1="0,46.6666666666667"
+                    Point2="0,50.6666666666667"
+                    Point3="4,50.6666666666667" />
                   <mssgle:LineSegment
-                    End="63,15.1666666666667" />
+                    End="145,50.6666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="63,15.1666666666667"
-                    Point2="67,15.1666666666667"
-                    Point3="67,19.1666666666667" />
+                    Point1="145,50.6666666666667"
+                    Point2="149,50.6666666666667"
+                    Point3="149,54.6666666666667" />
                   <mssgle:LineSegment
-                    End="67,22.8333333333333" />
+                    End="149,93.8333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
+              BoundingBox="66.5,55.6666666666667,16,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -7360,48 +7270,48 @@
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\VoyagePort to RAW">
+    design-time-name="Package\VoyagePort RAW to RDMS">
     <LayoutInfo>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="168,42.6666666666667"
-          Id="Package\VoyagePort to RAW\RDMS Destination"
-          TopLeft="725,200" />
+          Id="Package\VoyagePort RAW to RDMS\RDMS Destination"
+          TopLeft="734,244" />
         <NodeLayout
           Size="156,42.6666666666667"
-          Id="Package\VoyagePort to RAW\Derived Column"
-          TopLeft="665,128" />
+          Id="Package\VoyagePort RAW to RDMS\Derived Column"
+          TopLeft="667,141.5" />
         <NodeLayout
           Size="162.666666666667,42.6666666666667"
-          Id="Package\VoyagePort to RAW\VoyagePort RAW"
+          Id="Package\VoyagePort RAW to RDMS\VoyagePort RAW"
           TopLeft="623,60" />
         <EdgeLayout
-          Id="Package\VoyagePort to RAW.Paths[OLE DB Source Output]"
+          Id="Package\VoyagePort RAW to RDMS.Paths[OLE DB Source Output]"
           TopLeft="704.333333333333,102.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="38.6666666666667,25.3333333333333"
+              EndConnector="40.6666666666666,38.8333333333333"
               Start="0,0"
-              End="38.6666666666667,17.8333333333333">
+              End="40.6666666666666,31.3333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,8.66666666666667" />
+                    End="0,15.4166666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,8.66666666666667"
-                    Point2="0,12.6666666666667"
-                    Point3="4,12.6666666666667" />
+                    Point1="0,15.4166666666667"
+                    Point2="0,19.4166666666667"
+                    Point3="4,19.4166666666667" />
                   <mssgle:LineSegment
-                    End="34.6666666666667,12.6666666666667" />
+                    End="36.6666666666666,19.4166666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="34.6666666666667,12.6666666666667"
-                    Point2="38.6666666666667,12.6666666666667"
-                    Point3="38.6666666666667,16.6666666666667" />
+                    Point1="36.6666666666666,19.4166666666667"
+                    Point2="40.6666666666666,19.4166666666667"
+                    Point3="40.6666666666666,23.4166666666667" />
                   <mssgle:LineSegment
-                    End="38.6666666666667,17.8333333333333" />
+                    End="40.6666666666666,31.3333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7413,31 +7323,31 @@
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\VoyagePort to RAW.Paths[Derived Column Output]"
-          TopLeft="743,170.666666666667">
+          Id="Package\VoyagePort RAW to RDMS.Paths[Derived Column Output]"
+          TopLeft="745,184.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="65.9999999999995,29.3333333333333"
+              EndConnector="73,59.8333333333333"
               Start="0,0"
-              End="65.9999999999995,21.8333333333333">
+              End="73,52.3333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.6666666666667" />
+                    End="0,25.9166666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.6666666666667"
-                    Point2="0,14.6666666666667"
-                    Point3="4,14.6666666666667" />
+                    Point1="0,25.9166666666667"
+                    Point2="0,29.9166666666667"
+                    Point3="4,29.9166666666667" />
                   <mssgle:LineSegment
-                    End="61.9999999999995,14.6666666666667" />
+                    End="69,29.9166666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="61.9999999999995,14.6666666666667"
-                    Point2="65.9999999999995,14.6666666666667"
-                    Point3="65.9999999999995,18.6666666666667" />
+                    Point1="69,29.9166666666667"
+                    Point2="73,29.9166666666667"
+                    Point3="73,33.9166666666667" />
                   <mssgle:LineSegment
-                    End="65.9999999999995,21.8333333333333" />
+                    End="73,52.3333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7452,7 +7362,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\VoyagePort to RAW\RDMS Destination">
+    design-time-name="Package\VoyagePort RAW to RDMS\RDMS Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7465,7 +7375,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\VoyagePort to RAW\VoyagePort RAW">
+    design-time-name="Package\VoyagePort RAW to RDMS\VoyagePort RAW">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
