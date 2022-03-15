@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{D713D403-1691-4C0C-BC67-7CD79E827105}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{13915922-9489-402F-B5B0-69285BCFA1DA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -320,7 +320,7 @@
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\Consignor to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      dataType="i4"
+                      dataType="r8"
                       name="Id" />
                     <externalMetadataColumn
                       refId="Package\Consignor to RAW\RAW Destination.Inputs[OLE DB Destination Input].ExternalColumns[Consignor]"
@@ -6136,7 +6136,7 @@
     design-time-name="Package\Consignor to RAW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="161.333333333334,42.6666666666667"
           Id="Package\Consignor to RAW\RAW Destination"
@@ -6176,9 +6176,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
