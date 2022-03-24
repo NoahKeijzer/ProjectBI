@@ -1,0 +1,2890 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/24/2022 2:32:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LAPTOP-9OBLRT43"
+  DTS:CreatorName="LAPTOP-9OBLRT43\dekei"
+  DTS:DTSID="{D01BFCAD-9C35-4F63-B665-48B4933DFF3B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1043"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{74F16342-B5FB-4C17-B0D5-C4C70B3C225A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0D3E0A93-3A65-4941-8F07-4C149EA76015}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}"
+          SQLTask:SqlStatementSource="DELETE FROM dbo.Trip;&#xA;DELETE FROM dbo.Shipment;&#xA;DELETE FROM dbo.Containers;&#xA;DELETE FROM dbo.Item;&#xA;DELETE FROM dbo.Ship;&#xA;DELETE FROM dbo.Consignor;&#xA;DELETE FROM dbo.Port;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Consignor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{88BFEB6B-8856-4967-BD31-64CCD24E1455}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Consignor"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Consignor\PSA Consignor Dim Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PSA Consignor Dim Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Consignor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Consignor\PSA Consignor Dim Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].Columns[Consignor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Consignor"
+                      externalMetadataColumnId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Consignor]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Consignor]" />
+                    <inputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].Columns[Discount]"
+                      cachedDataType="i4"
+                      cachedName="Discount"
+                      externalMetadataColumnId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Discount]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Discount]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Consignor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Consignor" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="255"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="255"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Discount]"
+                      dataType="i4"
+                      name="Discount" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Consignor\PSA Consignor Dim Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\PSA Consignor Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Consignor\PSA Consignor Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\PSA Consignor Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Consignor\RDMS Consignor"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Consignor"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Consignor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Consignor\RDMS Consignor.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Consignor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Consignor]"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Consignor]"
+                      name="Consignor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Discount]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Discount]"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].Columns[Discount]"
+                      name="Discount"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Consignor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Consignor" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="255"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="255"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output].ExternalColumns[Discount]"
+                      dataType="i4"
+                      name="Discount" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Consignor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Consignor]"
+                      name="Consignor" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Discount]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[Discount]"
+                      name="Discount" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Consignor.Paths[OLE DB Source Output]"
+              endId="Package\Load Consignor\PSA Consignor Dim Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Consignor\RDMS Consignor.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Containers"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{FBE16635-796F-4117-B5C1-3111BF2CAD20}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Containers"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Containers\PSA Containers Dim Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PSA Containers Dim Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Containers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Containers\PSA Containers Dim Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[Type]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Type"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Type]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[RefrigerationFlag]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="RefrigerationFlag"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[RefrigerationFlag]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[RefrigerationFlag]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[PowerFlag]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PowerFlag"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[PowerFlag]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[PowerFlag]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[Length]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Length"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Length]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Length]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[Cubes]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Cubes"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Cubes]" />
+                    <inputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].Columns[EuroPricePerKm]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="EuroPricePerKm"
+                      externalMetadataColumnId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[EuroPricePerKm]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[EuroPricePerKm]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Type" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[RefrigerationFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="RefrigerationFlag" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[PowerFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PowerFlag" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Length]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Length" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Cubes" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[EuroPricePerKm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EuroPricePerKm" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Containers\PSA Containers Dim Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Containers\PSA Containers Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Containers\PSA Containers Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Containers\PSA Containers Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Containers\RDMS Containers"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Containers"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Container]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Containers\RDMS Containers.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Type]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Type]"
+                      name="Type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[RefrigerationFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[RefrigerationFlag]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[RefrigerationFlag]"
+                      name="RefrigerationFlag"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[PowerFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[PowerFlag]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[PowerFlag]"
+                      name="PowerFlag"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Length]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Length]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Length]"
+                      name="Length"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Cubes]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Cubes]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[Cubes]"
+                      name="Cubes"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[EuroPricePerKm]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[EuroPricePerKm]"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].Columns[EuroPricePerKm]"
+                      name="EuroPricePerKm"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Type" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[RefrigerationFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="RefrigerationFlag" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[PowerFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PowerFlag" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Length]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Length" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[Cubes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Cubes" />
+                    <externalMetadataColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output].ExternalColumns[EuroPricePerKm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EuroPricePerKm" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Type]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Type]"
+                      name="Type" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[RefrigerationFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[RefrigerationFlag]"
+                      name="RefrigerationFlag" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[PowerFlag]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[PowerFlag]"
+                      name="PowerFlag" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Length]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Length]"
+                      name="Length" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Cubes]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[Cubes]"
+                      name="Cubes" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[EuroPricePerKm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[EuroPricePerKm]"
+                      name="EuroPricePerKm" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Containers.Paths[OLE DB Source Output]"
+              endId="Package\Load Containers\PSA Containers Dim Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Containers\RDMS Containers.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Item"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{759AAB78-6544-4E91-873D-9AFE8CDD4942}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Item"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Item\PSA Item Dim Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PSA Item Dim Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Item\PSA Item Dim Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Category"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[Manufacturer]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Manufacturer"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Manufacturer]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Manufacturer]" />
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[StorageType]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="StorageType"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[StorageType]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[StorageType]" />
+                    <inputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].Columns[HazardFlag]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="HazardFlag"
+                      externalMetadataColumnId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[HazardFlag]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[HazardFlag]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="50"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Manufacturer]"
+                      dataType="wstr"
+                      length="50"
+                      name="Manufacturer" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[StorageType]"
+                      dataType="wstr"
+                      length="50"
+                      name="StorageType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[HazardFlag]"
+                      dataType="wstr"
+                      length="50"
+                      name="HazardFlag" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Item\PSA Item Dim Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Item\PSA Item Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Item\PSA Item Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Item\PSA Item Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Item\RDMS Item"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Item"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Item]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Item\RDMS Item.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Manufacturer]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Manufacturer]"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[Manufacturer]"
+                      name="Manufacturer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[StorageType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[StorageType]"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[StorageType]"
+                      name="StorageType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[HazardFlag]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[HazardFlag]"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].Columns[HazardFlag]"
+                      name="HazardFlag"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="50"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[Manufacturer]"
+                      dataType="wstr"
+                      length="50"
+                      name="Manufacturer" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[StorageType]"
+                      dataType="wstr"
+                      length="50"
+                      name="StorageType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output].ExternalColumns[HazardFlag]"
+                      dataType="wstr"
+                      length="50"
+                      name="HazardFlag" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Manufacturer]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[Manufacturer]"
+                      name="Manufacturer" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[StorageType]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[StorageType]"
+                      name="StorageType" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[HazardFlag]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[HazardFlag]"
+                      name="HazardFlag" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Item.Paths[OLE DB Source Output]"
+              endId="Package\Load Item\PSA Item Dim Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Item\RDMS Item.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Port"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{BBD6F3FC-D612-481C-B6F5-3183A7AC6C64}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Port"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Port\PSA Port Dim Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PSA Port Dim Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Port]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Port\PSA Port Dim Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].Columns[PortOrder]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PortOrder"
+                      externalMetadataColumnId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortOrder]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[PortOrder]" />
+                    <inputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortOrder]"
+                      dataType="wstr"
+                      length="50"
+                      name="PortOrder" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Port\PSA Port Dim Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\PSA Port Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Port\PSA Port Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\PSA Port Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Port\RDMS Port"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Port"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Port]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Port\RDMS Port.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[PortOrder]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[PortOrder]"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[PortOrder]"
+                      name="PortOrder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[DistanceFromOslo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[DistanceFromOslo]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[DistanceFromOslo]"
+                      name="DistanceFromOslo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[DistanceFromPiraeus]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[DistanceFromPiraeus]"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].Columns[DistanceFromPiraeus]"
+                      name="DistanceFromPiraeus"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[PortOrder]"
+                      dataType="wstr"
+                      length="50"
+                      name="PortOrder" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[DistanceFromOslo]"
+                      dataType="i4"
+                      name="DistanceFromOslo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output].ExternalColumns[DistanceFromPiraeus]"
+                      dataType="i4"
+                      name="DistanceFromPiraeus" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[PortOrder]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[PortOrder]"
+                      name="PortOrder" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[DistanceFromOslo]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[DistanceFromOslo]"
+                      name="DistanceFromOslo" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[DistanceFromPiraeus]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[DistanceFromPiraeus]"
+                      name="DistanceFromPiraeus" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Port.Paths[OLE DB Source Output]"
+              endId="Package\Load Port\PSA Port Dim Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Port\RDMS Port.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Ship"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{132AA5DC-B655-42AF-947D-0DF383F9A218}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Ship"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Ship\PSA Ship Dim Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PSA Ship Dim Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[Ship]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Ship\PSA Ship Dim Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[MaxTEU]"
+                      cachedDataType="i4"
+                      cachedName="MaxTEU"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[MaxTEU]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[SpeedInKnots]"
+                      cachedDataType="i4"
+                      cachedName="SpeedInKnots"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[SpeedInKnots]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKnots]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[SpeedInKm_H]"
+                      cachedDataType="i4"
+                      cachedName="SpeedInKm_H"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[SpeedInKm_H]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKm_H]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Yearcost]"
+                      cachedDataType="numeric"
+                      cachedName="Yearcost"
+                      cachedPrecision="38"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Yearcost]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Yearcost]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Annual Total time spent at sea (hours)]"
+                      cachedDataType="r8"
+                      cachedName="Annual Total time spent at sea (hours)"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual Total time spent at sea (hours)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual Total time spent at sea (hours)]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]" />
+                    <inputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average Fuel consumption per distance (kg / n mile)"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      dataType="i4"
+                      name="MaxTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[SpeedInKnots]"
+                      dataType="i4"
+                      name="SpeedInKnots" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[SpeedInKm_H]"
+                      dataType="i4"
+                      name="SpeedInKm_H" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Yearcost]"
+                      dataType="numeric"
+                      name="Yearcost"
+                      precision="38"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual Total time spent at sea (hours)]"
+                      dataType="r8"
+                      name="Annual Total time spent at sea (hours)" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="r8"
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="r8"
+                      name="Annual average Fuel consumption per distance (kg / n mile)" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Ship\PSA Ship Dim Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\PSA Ship Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\PSA Ship Dim Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Ship\RDMS Ship Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Ship Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Ship]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Ship\RDMS Ship Source.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      length="50"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[MaxTEU]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[MaxTEU]"
+                      name="MaxTEU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKnots]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[SpeedInKnots]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKnots]"
+                      name="SpeedInKnots"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKm_H]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[SpeedInKm_H]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[SpeedInKm_H]"
+                      name="SpeedInKm_H"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="50"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Yearcost]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Yearcost]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Yearcost]"
+                      name="Yearcost"
+                      precision="38"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual Total time spent at sea (hours)]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual Total time spent at sea (hours)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual Total time spent at sea (hours)]"
+                      name="Annual Total time spent at sea (hours)"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      name="Annual average Fuel consumption per distance (kg / n mile)"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
+                      dataType="i4"
+                      name="MaxTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[SpeedInKnots]"
+                      dataType="i4"
+                      name="SpeedInKnots" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[SpeedInKm_H]"
+                      dataType="i4"
+                      name="SpeedInKm_H" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Yearcost]"
+                      dataType="numeric"
+                      name="Yearcost"
+                      precision="38"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual Total time spent at sea (hours)]"
+                      dataType="r8"
+                      name="Annual Total time spent at sea (hours)" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="r8"
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" />
+                    <externalMetadataColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="r8"
+                      name="Annual average Fuel consumption per distance (kg / n mile)" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      name="MaxTEU" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[SpeedInKnots]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[SpeedInKnots]"
+                      name="SpeedInKnots" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[SpeedInKm_H]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[SpeedInKm_H]"
+                      name="SpeedInKm_H" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Yearcost]"
+                      dataType="numeric"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Yearcost]"
+                      name="Yearcost"
+                      precision="38"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual Total time spent at sea (hours)]"
+                      dataType="r8"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual Total time spent at sea (hours)]"
+                      name="Annual Total time spent at sea (hours)" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="r8"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="r8"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      name="Annual average Fuel consumption per distance (kg / n mile)" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Ship.Paths[OLE DB Source Output]"
+              endId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load ShipmentDetail"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6F77A40D-3F13-4A5C-A408-B492B5CE5EB9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load ShipmentDetail"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1FF51FDF-F520-4C46-A3B6-1A4DCB0A39F6}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Port" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{96EF420C-089C-4C7D-8299-29320CF00380}"
+      DTS:From="Package\Load Port"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Consignor" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1210D0F7-330B-425E-A7CC-B230770C7C04}"
+      DTS:From="Package\Load Consignor"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Load Ship" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{46E480F5-8720-442B-A464-072EDC9387E6}"
+      DTS:From="Package\Load Ship"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Load Containers" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{27EA2A9E-FC0F-4543-BFB8-17FA52785B1B}"
+      DTS:From="Package\Load Containers"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Load Item" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{B2710EA8-1194-4272-975E-90996B0E0D24}"
+      DTS:From="Package\Load Item"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Load ShipmentDetail" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168,42.6666666666667"
+          Id="Package\Execute SQL Task"
+          TopLeft="377.499994374812,35.5789480381065" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Load Consignor"
+          TopLeft="377.499994374812,201.157898523141" />
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\Load Containers"
+          TopLeft="462.499993108213,276.42105783452" />
+        <NodeLayout
+          Size="126.666666666667,42.6666666666667"
+          Id="Package\Load Item"
+          TopLeft="396.249994095416,359.263162737078" />
+        <NodeLayout
+          Size="125.333333333334,42.6666666666667"
+          Id="Package\Load Port"
+          TopLeft="398.124994067475,114.263160045458" />
+        <NodeLayout
+          Size="128,42.6666666666667"
+          Id="Package\Load Ship"
+          TopLeft="281.249995809048,281.894742148074" />
+        <NodeLayout
+          Size="178.666666666667,42.6666666666667"
+          Id="Package\Load ShipmentDetail"
+          TopLeft="373.749994430691,444.894743371538" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="461.145827554477,78.2456147047732">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.0175453406846"
+              Start="0,0"
+              End="0,28.5175453406846">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5175453406846" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="457.812494221144,156.929826712124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.2280718110166"
+              Start="0,0"
+              End="0,36.7280718110166">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.7280718110166" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="454.833327708145,243.824565189807">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-109.583331899097,38.0701769582672"
+              Start="0,0"
+              End="-109.583331899097,30.5701769582672">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.0350884791336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.0350884791336"
+                    Point2="0,19.0350884791336"
+                    Point3="-4,19.0350884791336" />
+                  <mssgle:LineSegment
+                    End="-105.583331899097,19.0350884791336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-105.583331899097,19.0350884791336"
+                    Point2="-109.583331899097,19.0350884791336"
+                    Point3="-109.583331899097,23.0350884791336" />
+                  <mssgle:LineSegment
+                    End="-109.583331899097,30.5701769582672" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="409.249995809048,300.49123332463">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53.249997299165,0"
+              Start="0,0"
+              End="45.749997299165,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="45.749997299165,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="541.16665977488,319.087724501187">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-81.5833323461308,40.1754382358909"
+              Start="0,0"
+              End="-81.5833323461308,32.6754382358909">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.0877191179455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.0877191179455"
+                    Point2="0,20.0877191179455"
+                    Point3="-4,20.0877191179455" />
+                  <mssgle:LineSegment
+                    End="-77.5833323461308,20.0877191179455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-77.5833323461308,20.0877191179455"
+                    Point2="-81.5833323461308,20.0877191179455"
+                    Point3="-81.5833323461308,24.0877191179455" />
+                  <mssgle:LineSegment
+                    End="-81.5833323461308,32.6754382358909" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="461.333327596387,401.929829403744">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.9649139677934"
+              Start="0,0"
+              End="0,35.4649139677934">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.4649139677934" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Consignor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="230.666666666667,42.6666666666667"
+          Id="Package\Load Consignor\PSA Consignor Dim Destination"
+          TopLeft="726,227" />
+        <NodeLayout
+          Size="162.666666666667,42.6666666666667"
+          Id="Package\Load Consignor\RDMS Consignor"
+          TopLeft="615,139" />
+        <EdgeLayout
+          Id="Package\Load Consignor.Paths[OLE DB Source Output]"
+          TopLeft="696.333333333333,181.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="145,45.3333333333333"
+              Start="0,0"
+              End="145,37.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.6666666666667"
+                    Point2="0,22.6666666666667"
+                    Point3="4,22.6666666666667" />
+                  <mssgle:LineSegment
+                    End="141,22.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="141,22.6666666666667"
+                    Point2="145,22.6666666666667"
+                    Point3="145,26.6666666666667" />
+                  <mssgle:LineSegment
+                    End="145,37.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Consignor\PSA Consignor Dim Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Consignor\RDMS Consignor">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Containers">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="165.333333333334,42.6666666666667"
+          Id="Package\Load Containers\RDMS Containers"
+          TopLeft="76,60" />
+        <NodeLayout
+          Size="233.333333333334,42.6666666666667"
+          Id="Package\Load Containers\PSA Containers Dim Destination"
+          TopLeft="101.874999376014,175.631581123846" />
+        <EdgeLayout
+          Id="Package\Load Containers.Paths[OLE DB Source Output]"
+          TopLeft="158.666666666667,102.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59.8749993760139,72.9649144571793"
+              Start="0,0"
+              End="59.8749993760139,65.4649144571793">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.4824572285897"
+                    Point2="0,36.4824572285897"
+                    Point3="4,36.4824572285897" />
+                  <mssgle:LineSegment
+                    End="55.8749993760139,36.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55.8749993760139,36.4824572285897"
+                    Point2="59.8749993760139,36.4824572285897"
+                    Point3="59.8749993760139,40.4824572285897" />
+                  <mssgle:LineSegment
+                    End="59.8749993760139,65.4649144571793" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Containers\PSA Containers Dim Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Containers\RDMS Containers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Item">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="134,42.6666666666667"
+          Id="Package\Load Item\RDMS Item"
+          TopLeft="60,60" />
+        <NodeLayout
+          Size="202.666666666667,42.6666666666667"
+          Id="Package\Load Item\PSA Item Dim Destination"
+          TopLeft="101.874999376014,175.631581123846" />
+        <EdgeLayout
+          Id="Package\Load Item.Paths[OLE DB Source Output]"
+          TopLeft="127,102.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="76.2083327093473,72.9649144571793"
+              Start="0,0"
+              End="76.2083327093473,65.4649144571793">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.4824572285897"
+                    Point2="0,36.4824572285897"
+                    Point3="4,36.4824572285897" />
+                  <mssgle:LineSegment
+                    End="72.2083327093473,36.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="72.2083327093473,36.4824572285897"
+                    Point2="76.2083327093473,36.4824572285897"
+                    Point3="76.2083327093473,40.4824572285897" />
+                  <mssgle:LineSegment
+                    End="76.2083327093473,65.4649144571793" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Item\PSA Item Dim Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Item\RDMS Item">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Port">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="133.333333333334,42.6666666666667"
+          Id="Package\Load Port\RDMS Port"
+          TopLeft="311,97" />
+        <NodeLayout
+          Size="201.333333333334,42.6666666666667"
+          Id="Package\Load Port\PSA Port Dim Destination"
+          TopLeft="386,195" />
+        <EdgeLayout
+          Id="Package\Load Port.Paths[OLE DB Source Output]"
+          TopLeft="377.666666666667,139.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="109,55.3333333333333"
+              Start="0,0"
+              End="109,47.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.6666666666667"
+                    Point2="0,27.6666666666667"
+                    Point3="4,27.6666666666667" />
+                  <mssgle:LineSegment
+                    End="105,27.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="105,27.6666666666667"
+                    Point2="109,27.6666666666667"
+                    Point3="109,31.6666666666667" />
+                  <mssgle:LineSegment
+                    End="109,47.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Port\PSA Port Dim Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Port\RDMS Port">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Ship">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load Ship\RDMS Ship Source"
+          TopLeft="409.999993890524,93.7368438696267" />
+        <NodeLayout
+          Size="204,42.6666666666667"
+          Id="Package\Load Ship\PSA Ship Dim Destination"
+          TopLeft="451.874993266538,209.368424993473" />
+        <EdgeLayout
+          Id="Package\Load Ship.Paths[OLE DB Source Output]"
+          TopLeft="495.999993890524,136.403510536293">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="57.874999376014,72.9649144571794"
+              Start="0,0"
+              End="57.874999376014,65.4649144571794">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.4824572285897"
+                    Point2="0,36.4824572285897"
+                    Point3="4,36.4824572285897" />
+                  <mssgle:LineSegment
+                    End="53.874999376014,36.4824572285897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="53.874999376014,36.4824572285897"
+                    Point2="57.874999376014,36.4824572285897"
+                    Point3="57.874999376014,40.4824572285897" />
+                  <mssgle:LineSegment
+                    End="57.874999376014,65.4649144571794" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Ship\PSA Ship Dim Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Ship\RDMS Ship Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load ShipmentDetail">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="186.666666666667,42.6666666666667"
+          Id="37"
+          TopLeft="64,73" />
+        <NodeLayout
+          Size="198.666666666667,42.6666666666667"
+          Id="2"
+          TopLeft="175,169" />
+        <EdgeLayout
+          Id="79"
+          TopLeft="157.333333333333,115.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117,53.3333333333333"
+              Start="0,0"
+              End="117,45.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.6666666666667"
+                    Point2="0,26.6666666666667"
+                    Point3="4,26.6666666666667" />
+                  <mssgle:LineSegment
+                    End="113,26.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113,26.6666666666667"
+                    Point2="117,26.6666666666667"
+                    Point3="117,30.6666666666667" />
+                  <mssgle:LineSegment
+                    End="117,45.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
