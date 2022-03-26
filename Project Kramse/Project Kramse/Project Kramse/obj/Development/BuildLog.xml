@@ -2,7 +2,7 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>Project Kramse</Name>
-    <LastWriteTime>2022-03-24T14:58:05.7277932Z</LastWriteTime>
+    <LastWriteTime>2022-03-24T23:07:05.9264559Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
@@ -18,17 +18,27 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>Final Package.dtsx</Name>
-      <LastWriteTime>2022-03-24T14:59:05.2797833Z</LastWriteTime>
+      <LastWriteTime>2022-03-24T23:07:04.3990489Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RDMS to PSA (FactData).dtsx</Name>
-      <LastWriteTime>2022-03-24T20:36:08.6772029Z</LastWriteTime>
+      <LastWriteTime>2022-03-24T23:09:29.6160778Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RDMS to PSA (DimData).dtsx</Name>
-      <LastWriteTime>2022-03-24T15:12:37.292119Z</LastWriteTime>
+      <LastWriteTime>2022-03-24T21:58:36.4027665Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PSA to ODS (DimData).dtsx</Name>
+      <LastWriteTime>2022-03-24T22:47:58.4993965Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PSA to ODS (FactData).dtsx</Name>
+      <LastWriteTime>2022-03-24T23:05:43.2538642Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

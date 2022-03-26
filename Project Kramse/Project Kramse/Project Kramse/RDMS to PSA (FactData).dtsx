@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{CACBB0B2-44A9-4941-8D75-6805082D1792}">
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{884EF884-C3D2-4B52-B388-E7D822DB41D9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -887,23 +887,11 @@ where [refTable].[ShipmentId] = ?</property>
                       externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[DaysWait]"
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[DaysWait]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[CurrentTEU]"
-                      cachedDataType="r8"
-                      cachedName="CurrentTEU"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[CurrentTEU]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[CurrentTEU]" />
-                    <inputColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[ConsignorId]"
                       cachedDataType="i4"
                       cachedName="ConsignorId"
                       externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]" />
-                    <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[PricePerKmPerTonPerContainer]"
-                      cachedDataType="r8"
-                      cachedName="PricePerKmPerTonPerContainer"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]" />
                     <inputColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[VoyageId]"
                       cachedDataType="i4"
@@ -950,10 +938,6 @@ where [refTable].[ShipmentId] = ?</property>
                       dataType="i4"
                       name="DaysWait" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[CurrentTEU]"
-                      dataType="r8"
-                      name="CurrentTEU" />
-                    <externalMetadataColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
                       dataType="i4"
                       name="Id" />
@@ -961,10 +945,6 @@ where [refTable].[ShipmentId] = ?</property>
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
                       dataType="i4"
                       name="ConsignorId" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
-                      dataType="r8"
-                      name="PricePerKmPerTonPerContainer" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1362,44 +1342,44 @@ where [refTable].[ShipmentId] = ?</property>
         <NodeLayout
           Size="114.666666666667,42.6666666666667"
           Id="Package\RDMS to PSA (Shipment)\Lookup"
-          TopLeft="486.749992717058,200.807020093816" />
+          TopLeft="482.749992717058,209.807020093816" />
         <NodeLayout
           Size="174.666666666667,42.6666666666667"
           Id="Package\RDMS to PSA (Shipment)\OLE DB Destination"
           TopLeft="509.624993136153,286.684216167128" />
         <EdgeLayout
           Id="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output]"
-          TopLeft="544.083326050391,243.473686760483">
+          TopLeft="540.083326050391,252.473686760483">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="52.8750004190952,43.2105294066454"
+              EndConnector="56.8750004190952,34.2105294066454"
               Start="0,0"
-              End="52.8750004190952,35.7105294066454">
+              End="56.8750004190952,26.7105294066454">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,17.6052647033227" />
+                    End="0,13.1052647033227" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,17.6052647033227"
-                    Point2="0,21.6052647033227"
-                    Point3="4,21.6052647033227" />
+                    Point1="0,13.1052647033227"
+                    Point2="0,17.1052647033227"
+                    Point3="4,17.1052647033227" />
                   <mssgle:LineSegment
-                    End="48.8750004190952,21.6052647033227" />
+                    End="52.8750004190952,17.1052647033227" />
                   <mssgle:CubicBezierSegment
-                    Point1="48.8750004190952,21.6052647033227"
-                    Point2="52.8750004190952,21.6052647033227"
-                    Point3="52.8750004190952,25.6052647033227" />
+                    Point1="52.8750004190952,17.1052647033227"
+                    Point2="56.8750004190952,17.1052647033227"
+                    Point3="56.8750004190952,21.1052647033227" />
                   <mssgle:LineSegment
-                    End="52.8750004190952,35.7105294066454" />
+                    End="56.8750004190952,26.7105294066454" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-30.6225388529524,26.6052647033227,114.120078125,16"
+              BoundingBox="-28.6225388529524,22.1052647033227,114.120078125,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1409,26 +1389,26 @@ where [refTable].[ShipmentId] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="81.249998118729,30.4035093128293"
+              EndConnector="77.249998118729,39.4035093128293"
               Start="0,0"
-              End="81.249998118729,22.9035093128293">
+              End="77.249998118729,31.9035093128293">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.2017546564147" />
+                    End="0,15.7017546564147" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,11.2017546564147"
-                    Point2="0,15.2017546564147"
-                    Point3="4,15.2017546564147" />
+                    Point1="0,15.7017546564147"
+                    Point2="0,19.7017546564147"
+                    Point3="4,19.7017546564147" />
                   <mssgle:LineSegment
-                    End="77.249998118729,15.2017546564147" />
+                    End="73.249998118729,19.7017546564147" />
                   <mssgle:CubicBezierSegment
-                    Point1="77.249998118729,15.2017546564147"
-                    Point2="81.249998118729,15.2017546564147"
-                    Point3="81.249998118729,19.2017546564147" />
+                    Point1="73.249998118729,19.7017546564147"
+                    Point2="77.249998118729,19.7017546564147"
+                    Point3="77.249998118729,23.7017546564147" />
                   <mssgle:LineSegment
-                    End="81.249998118729,22.9035093128293" />
+                    End="77.249998118729,31.9035093128293" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1459,7 +1439,7 @@ where [refTable].[ShipmentId] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1469,7 +1449,7 @@ where [refTable].[ShipmentId] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1493,7 +1473,7 @@ where [refTable].[ShipmentId] = ?</property>
     design-time-name="Package\RDMS to PSA (Trip)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="158.666666666667,42.6666666666667"
           Id="Package\RDMS to PSA (Trip)\RDMS View Trip"
@@ -1533,9 +1513,7 @@ where [refTable].[ShipmentId] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="37.4166659402353,49.6929836989219,16,16"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

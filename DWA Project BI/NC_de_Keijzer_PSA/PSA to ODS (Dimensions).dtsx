@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="70"
-  DTS:VersionGUID="{E45A0398-6D08-4E8D-BEC6-F09BA9530867}">
+  DTS:VersionBuild="71"
+  DTS:VersionGUID="{83CE74AD-0AE4-4108-8054-A57FDBBDB736}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -8230,27 +8230,27 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="182.4,41.6"
+          Size="182.666666666667,41.3333333333334"
           Id="Package\Load Calendar to ODS"
           TopLeft="319.285719723118,178.176473087093" />
         <NodeLayout
-          Size="183.2,41.6"
+          Size="183.333333333334,41.3333333333334"
           Id="Package\Load Currency to ODS"
           TopLeft="677.857154400982,127.705884143968" />
         <NodeLayout
-          Size="155.2,41.6"
+          Size="155.333333333334,41.3333333333334"
           Id="Package\Load Daily Sales"
           TopLeft="448.571436210555,288.294121690275" />
         <NodeLayout
-          Size="178.4,41.6"
+          Size="178.666666666667,41.3333333333334"
           Id="Package\Load Material to ODS"
           TopLeft="198.57143195308,125.411766464735" />
         <NodeLayout
-          Size="206.4,41.6"
+          Size="206.666666666667,41.3333333333334"
           Id="Package\Load Sales Channel to ODS"
           TopLeft="417.857149973208,126.94117825089" />
         <NodeLayout
-          Size="196,41.6"
+          Size="196,41.3333333333334"
           Id="Package\Load Sales Office to ODS"
           TopLeft="542.142866375496,178.941178980171" />
         <EdgeLayout
@@ -8851,29 +8851,29 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="192,41.6"
-          Id="Package\Load Daily Sales\Lookup Facts Increment"
-          TopLeft="447.857150484105,425.941182444252" />
-        <NodeLayout
-          Size="196,41.6"
+          Size="196,41.3333333333334"
           Id="Package\Load Daily Sales\Lookup Sales Channel ID"
           TopLeft="407.142864076459,347.176475457254" />
         <NodeLayout
-          Size="170.4,41.6"
+          Size="170.666666666667,41.3333333333334"
           Id="Package\Load Daily Sales\OLE DB Destination"
           TopLeft="517.857151676198,511.58824246895" />
         <NodeLayout
-          Size="152,41.6"
+          Size="152,41.3333333333334"
           Id="Package\Load Daily Sales\PSA Sales Facts"
           TopLeft="201,109" />
         <NodeLayout
-          Size="168,41.6"
+          Size="168,41.3333333333334"
           Id="Package\Load Daily Sales\Lookup Material ID"
           TopLeft="296.42857647672,186.588237910947" />
         <NodeLayout
-          Size="185.6,41.6"
+          Size="185.333333333334,41.3333333333334"
           Id="Package\Load Daily Sales\Lookup Sales Office ID"
           TopLeft="355.000006045614,264.588239004868" />
+        <NodeLayout
+          Size="192,41.3333333333334"
+          Id="Package\Load Daily Sales\Lookup Facts Increment"
+          TopLeft="447.857150484105,425.941182444252" />
         <EdgeLayout
           Id="Package\Load Daily Sales.Paths[OLE DB Source Output]"
           TopLeft="277,150.6">
@@ -9056,29 +9056,6 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Daily Sales\Lookup Facts Increment">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[ODS_T_DailySales]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Load Daily Sales\OLE DB Destination">
     <Properties>
       <Property>
@@ -9115,7 +9092,7 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q3:string">0</Value>
+          type="q3:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -9124,6 +9101,29 @@ where [refTable].[PRODUCT_CATEGORY_ID] = ?</property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
           type="q4:string">true</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Daily Sales\Lookup Facts Increment">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[ODS_T_DailySales]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

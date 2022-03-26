@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="20"
-  DTS:VersionGUID="{74F16342-B5FB-4C17-B0D5-C4C70B3C225A}">
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{AACB3468-D83C-4364-A4E4-7D0EB2FDC835}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -2181,21 +2181,6 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Load ShipmentDetail"
-      DTS:CreationName="Microsoft.Pipeline"
-      DTS:Description="Data Flow Task"
-      DTS:DTSID="{6F77A40D-3F13-4A5C-A408-B492B5CE5EB9}"
-      DTS:ExecutableType="Microsoft.Pipeline"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Load ShipmentDetail"
-      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <pipeline
-          version="1" />
-      </DTS:ObjectData>
-    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -2238,14 +2223,6 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
       DTS:To="Package\Load Item" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
-      DTS:CreationName=""
-      DTS:DTSID="{B2710EA8-1194-4272-975E-90996B0E0D24}"
-      DTS:From="Package\Load Item"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 5"
-      DTS:To="Package\Load ShipmentDetail" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -2283,24 +2260,20 @@
           Size="128,42.6666666666667"
           Id="Package\Load Ship"
           TopLeft="281.249995809048,281.894742148074" />
-        <NodeLayout
-          Size="178.666666666667,42.6666666666667"
-          Id="Package\Load ShipmentDetail"
-          TopLeft="373.749994430691,444.894743371538" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="461.145827554477,78.2456147047732">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,36.0175453406846"
+              EndConnector="0,36.0175453406848"
               Start="0,0"
-              End="0,28.5175453406846">
+              End="0,28.5175453406848">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.5175453406846" />
+                    End="0,28.5175453406848" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2413,28 +2386,6 @@
                     Point3="-81.5833323461308,24.0877191179455" />
                   <mssgle:LineSegment
                     End="-81.5833323461308,32.6754382358909" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="461.333327596387,401.929829403744">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42.9649139677934"
-              Start="0,0"
-              End="0,35.4649139677934">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,35.4649139677934" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2834,57 +2785,5 @@
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Load ShipmentDetail">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="186.666666666667,42.6666666666667"
-          Id="37"
-          TopLeft="64,73" />
-        <NodeLayout
-          Size="198.666666666667,42.6666666666667"
-          Id="2"
-          TopLeft="175,169" />
-        <EdgeLayout
-          Id="79"
-          TopLeft="157.333333333333,115.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="117,53.3333333333333"
-              Start="0,0"
-              End="117,45.8333333333333">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,22.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,22.6666666666667"
-                    Point2="0,26.6666666666667"
-                    Point3="4,26.6666666666667" />
-                  <mssgle:LineSegment
-                    End="113,26.6666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="113,26.6666666666667"
-                    Point2="117,26.6666666666667"
-                    Point3="117,30.6666666666667" />
-                  <mssgle:LineSegment
-                    End="117,45.8333333333333" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
