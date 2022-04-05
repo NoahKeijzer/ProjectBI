@@ -4,11 +4,13 @@
       <Name>Development</Name>
       <Options>
         <TargetServer>localhost</TargetServer>
-        <TargetDatabase>MultidimensionalProject1</TargetDatabase>
+        <TargetDatabase>Cube Kramse</TargetDatabase>
         <StartObject>
           <ObjectId></ObjectId>
           <ObjectType>Current</ObjectType>
         </StartObject>
+        <ProcessingOption>Full</ProcessingOption>
+        <DeploymentMode>DeployAll</DeploymentMode>
       </Options>
     </Configuration>
   </Configurations>

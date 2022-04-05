@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{884EF884-C3D2-4B52-B388-E7D822DB41D9}">
+  DTS:VersionBuild="90"
+  DTS:VersionGUID="{27B5EDB9-8A00-4A53-B5EF-2077DD2A7F4D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -32,11 +32,11 @@
           version="1">
           <components>
             <component
-              refId="Package\RDMS to PSA (Shipment)\Lookup"
+              refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
               description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup"
+              name="Lookup Correct Voyage Id"
               usesDispositions="true"
               version="6">
               <properties>
@@ -45,14 +45,14 @@
                   description="Specifies the SQL statement that generates the lookup table."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[ShipmentDetail]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Voyage]</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[ShipmentDetail]) [refTable]
-where [refTable].[ShipmentId] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Voyage]) [refTable]
+where [refTable].[PortIdFrom] = ? and [refTable].[PortIdTo] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -83,12 +83,12 @@ where [refTable].[ShipmentId] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ShipmentId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ItemId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerTypeId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerStart" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerEnd" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TotalContainers" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainersTEU" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Cubes" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PricePerKmPerTonPerContainer" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageString" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[Id]};</property>
+                  name="ParameterMap">#{Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]};#{Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -100,27 +100,43 @@ where [refTable].[ShipmentId] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\RDMS to PSA (Shipment)\Lookup.Connections[OleDbConnection]"
-                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
               <inputs>
                 <input
-                  refId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input]"
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input]"
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input].Columns[Id]"
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input].Columns[PortIdFrom]"
                       cachedDataType="i4"
-                      cachedName="Id"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[Id]">
+                      cachedName="PortIdFrom"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">ShipmentId</property>
+                          name="JoinToReferenceColumn">PortIdFrom</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdTo</property>
                         <property
                           dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
@@ -133,167 +149,213 @@ where [refTable].[ShipmentId] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output]"
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
                   errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
-                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ShipmentId]"
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]"
                       dataType="i4"
                       errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ShipmentId]"
-                      name="ShipmentId"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]"
+                      name="NewVoyageId"
                       truncationRowDisposition="FailComponent">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ShipmentId</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ItemId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ItemId]"
-                      name="ItemId"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ItemId</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerTypeId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerTypeId]"
-                      name="ContainerTypeId"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ContainerTypeId</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerStart]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerStart]"
-                      name="ContainerStart"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ContainerStart</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerEnd]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerEnd]"
-                      name="ContainerEnd"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ContainerEnd</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[TotalContainers]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[TotalContainers]"
-                      name="TotalContainers"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">TotalContainers</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainersTEU]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainersTEU]"
-                      name="ContainersTEU"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ContainersTEU</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[Cubes]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[Cubes]"
-                      name="Cubes"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">Cubes</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[PricePerKmPerTonPerContainer]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[PricePerKmPerTonPerContainer]"
-                      name="PricePerKmPerTonPerContainer"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">PricePerKmPerTonPerContainer</property>
+                          name="CopyFromReferenceColumn">Id</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup No Match Output]"
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup No Match Output]"
                   description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
                   exclusionGroup="1"
                   name="Lookup No Match Output"
-                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Error Output]"
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Lookup Error Output"
-                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Ship Id"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Voyage]) [refTable]
+where [refTable].[Id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DateDepart" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdStart" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdEnd" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipId]"
+                      name="ShipId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ShipId</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -374,71 +436,59 @@ where [refTable].[ShipmentId] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[NewVoyageId]"
                       cachedDataType="i4"
-                      cachedName="Id"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[Id]" />
+                      cachedName="NewVoyageId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdFrom]"
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VoyageId]"
                       cachedDataType="i4"
-                      cachedName="PortIdFrom"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]" />
+                      cachedName="VoyageId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipmentId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdTo]"
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ShipId]"
                       cachedDataType="i4"
-                      cachedName="PortIdTo"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]" />
+                      cachedName="ShipId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipId]" />
                     <inputColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ItemId]"
                       cachedDataType="i4"
                       cachedName="ItemId"
                       externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemId]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ItemId]" />
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ItemId]" />
                     <inputColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerTypeId]"
                       cachedDataType="i4"
                       cachedName="ContainerTypeId"
                       externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerTypeId]" />
-                    <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerStart]"
-                      cachedDataType="i4"
-                      cachedName="ContainerStart"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerStart]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerStart]" />
-                    <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerEnd]"
-                      cachedDataType="i4"
-                      cachedName="ContainerEnd"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerEnd]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainerEnd]" />
-                    <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalContainers]"
-                      cachedDataType="i4"
-                      cachedName="TotalContainers"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainers]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[TotalContainers]" />
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainerTypeId]" />
                     <inputColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainersTEU]"
                       cachedDataType="r8"
                       cachedName="ContainersTEU"
                       externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[ContainersTEU]" />
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cubes]"
-                      cachedDataType="r8"
-                      cachedName="Cubes"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[Cubes]" />
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Distance]"
+                      cachedDataType="i4"
+                      cachedName="Distance"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[Distance]" />
                     <inputColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PricePerKmPerTonPerContainer]"
                       cachedDataType="r8"
                       cachedName="PricePerKmPerTonPerContainer"
                       externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
-                      lineageId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output].Columns[PricePerKmPerTonPerContainer]" />
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ConsignorId]"
+                      cachedDataType="i4"
+                      cachedName="ConsignorId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ConsignorId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -455,39 +505,33 @@ where [refTable].[ShipmentId] = ?</property>
                       dataType="i4"
                       name="ContainerTypeId" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerStart]"
-                      dataType="i4"
-                      name="ContainerStart" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerEnd]"
-                      dataType="i4"
-                      name="ContainerEnd" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainers]"
-                      dataType="i4"
-                      name="TotalContainers" />
-                    <externalMetadataColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
                       dataType="r8"
                       name="ContainersTEU" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="Cubes" />
                     <externalMetadataColumn
                       refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
                       dataType="r8"
                       name="PricePerKmPerTonPerContainer" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
                       dataType="i4"
-                      name="PortIdFrom" />
+                      name="ConsignorId" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
                       dataType="i4"
-                      name="PortIdTo" />
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipmentId]"
+                      dataType="i4"
+                      name="ShipmentId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -532,7 +576,7 @@ where [refTable].[ShipmentId] = ?</property>
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[Shipment]</property>
+                  name="OpenRowset">[dbo].[ShipmentFact]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -632,13 +676,40 @@ where [refTable].[ShipmentId] = ?</property>
                       name="Distance"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[NumberContainers]"
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainersTEU]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]"
+                      name="ContainersTEU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ItemId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[NumberContainers]"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[NumberContainers]"
-                      name="NumberContainers"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ItemId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ItemId]"
+                      name="ItemId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainerTypeId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerTypeId]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[ContainerTypeId]"
+                      name="ContainerTypeId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PricePerKmPerTonPerContainer]"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]"
+                      name="PricePerKmPerTonPerContainer"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -668,9 +739,21 @@ where [refTable].[ShipmentId] = ?</property>
                       dataType="i4"
                       name="Distance" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[NumberContainers]"
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainersTEU]"
+                      dataType="r8"
+                      name="ContainersTEU" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ItemId]"
                       dataType="i4"
-                      name="NumberContainers" />
+                      name="ItemId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerTypeId]"
+                      dataType="i4"
+                      name="ContainerTypeId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PricePerKmPerTonPerContainer]"
+                      dataType="r8"
+                      name="PricePerKmPerTonPerContainer" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -709,10 +792,25 @@ where [refTable].[ShipmentId] = ?</property>
                       lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[Distance]"
                       name="Distance" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[NumberContainers]"
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ContainersTEU]"
+                      dataType="r8"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ContainersTEU]"
+                      name="ContainersTEU" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ItemId]"
                       dataType="i4"
-                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[NumberContainers]"
-                      name="NumberContainers" />
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ItemId]"
+                      name="ItemId" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
+                      name="ContainerTypeId" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
+                      dataType="r8"
+                      lineageId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
+                      name="PricePerKmPerTonPerContainer" />
                     <outputColumn
                       refId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -736,10 +834,15 @@ where [refTable].[ShipmentId] = ?</property>
               refId="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output]"
               endId="Package\RDMS to PSA (Shipment)\OLE DB Destination.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\RDMS to PSA (Shipment)\Lookup.Outputs[Lookup Match Output]" />
+              startId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output1]"
+              endId="Package\RDMS to PSA (Shipment)\Lookup Ship Id.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Outputs[Lookup Match Output]" />
             <path
               refId="Package\RDMS to PSA (Shipment).Paths[OLE DB Source Output]"
-              endId="Package\RDMS to PSA (Shipment)\Lookup.Inputs[Lookup Input]"
+              endId="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id.Inputs[Lookup Input]"
               name="OLE DB Source Output"
               startId="Package\RDMS to PSA (Shipment)\RDMS Shipment.Outputs[OLE DB Source Output]" />
           </paths>
@@ -760,6 +863,564 @@ where [refTable].[ShipmentId] = ?</property>
         <pipeline
           version="1">
           <components>
+            <component
+              refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Calculate CO2 and Fuel"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input].Columns[Distance]"
+                      cachedDataType="i4"
+                      cachedName="Distance"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[Distance]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average Fuel consumption per distance (kg / n mile)"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg CO2]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg CO2]"
+                      name="kg CO2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[Distance]} * #{Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Distance * [Annual average CO₂ emissions per distance (kg CO₂ / n mile)]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg Fuel Consumption]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg Fuel Consumption]"
+                      name="kg Fuel Consumption"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[Distance]} * #{Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Distance * [Annual average Fuel consumption per distance (kg / n mile)]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\RDMS to PSA (Trip)\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      cachedDataType="r8"
+                      cachedName="Annual average Fuel consumption per distance (kg / n mile)"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      name="Copy of Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Annual average Fuel consumption per distance (kg / n mile)]"
+                      name="Copy of Annual average Fuel consumption per distance (kg / n mile)"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup new Voyage Id"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Voyage]) [refTable]
+where [refTable].[PortIdFrom] = ? and [refTable].[PortIdTo] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageString" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]};#{Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdFrom</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdTo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]"
+                      name="NewVoyageId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\RDMS to PSA (Trip)\Lookup Ship Id"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Ship Id"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Ship]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Ship]) [refTable]
+where [refTable].[Id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaxTEU" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKnots" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKm_H" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Yearcost" dataType="DT_NUMERIC" length="0" precision="38" scale="2" codePage="0"/&gt;&lt;referenceColumn name="Annual Total time spent at sea (hours)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average Fuel consumption per distance (kg / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ShipId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input].Columns[ShipId]"
+                      cachedDataType="i4"
+                      cachedName="ShipId"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ShipId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Annual average CO₂ emissions per distance (kg CO₂ / n mile)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      name="Annual average Fuel consumption per distance (kg / n mile)"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Annual average Fuel consumption per distance (kg / n mile)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
             <component
               refId="Package\RDMS to PSA (Trip)\PSA Fact Trip"
               componentClassID="Microsoft.OLEDBDestination"
@@ -833,18 +1494,6 @@ where [refTable].[ShipmentId] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[PortIdFrom]"
-                      cachedDataType="i4"
-                      cachedName="PortIdFrom"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]" />
-                    <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[PortIdTo]"
-                      cachedDataType="i4"
-                      cachedName="PortIdTo"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]" />
-                    <inputColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[Distance]"
                       cachedDataType="i4"
                       cachedName="Distance"
@@ -887,40 +1536,58 @@ where [refTable].[ShipmentId] = ?</property>
                       externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[DaysWait]"
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[DaysWait]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[ConsignorId]"
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[MaxTEU]"
                       cachedDataType="i4"
-                      cachedName="ConsignorId"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]" />
+                      cachedName="MaxTEU"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]" />
                     <inputColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[VoyageId]"
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[NewVoyageId]"
                       cachedDataType="i4"
-                      cachedName="VoyageId"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[VoyageId]" />
+                      cachedName="NewVoyageId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Match Output].Columns[NewVoyageId]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[TriptId]"
+                      cachedDataType="i4"
+                      cachedName="TriptId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[TripId]"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[TriptId]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[kg CO2]"
+                      cachedDataType="r8"
+                      cachedName="kg CO2"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[kgCO2]"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg CO2]" />
+                    <inputColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].Columns[kg Fuel Consumption]"
+                      cachedDataType="r8"
+                      cachedName="kg Fuel Consumption"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[kgFuelConsumption]"
+                      lineageId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output].Columns[kg Fuel Consumption]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      dataType="i4"
-                      name="PortIdFrom" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      dataType="i4"
-                      name="PortIdTo" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
-                      dataType="i4"
-                      name="Distance" />
                     <externalMetadataColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
                       dataType="i4"
                       name="ShipId" />
                     <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
+                    <externalMetadataColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[CurrentNumberOfContainers]"
                       dataType="i4"
                       name="CurrentNumberOfContainers" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      dataType="i4"
+                      name="MaxTEU" />
                     <externalMetadataColumn
                       refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Depart]"
                       dataType="dbTimeStamp"
@@ -938,13 +1605,21 @@ where [refTable].[ShipmentId] = ?</property>
                       dataType="i4"
                       name="DaysWait" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[TripId]"
                       dataType="i4"
-                      name="Id" />
+                      name="TripId" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
-                      dataType="i4"
-                      name="ConsignorId" />
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[kgCO2]"
+                      dataType="numeric"
+                      name="kgCO2"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input].ExternalColumns[kgFuelConsumption]"
+                      dataType="numeric"
+                      name="kgFuelConsumption"
+                      precision="10"
+                      scale="2" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -989,7 +1664,7 @@ where [refTable].[ShipmentId] = ?</property>
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[Trip]</property>
+                  name="OpenRowset">[dbo].[TripFact]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -1116,40 +1791,22 @@ where [refTable].[ShipmentId] = ?</property>
                       name="DaysWait"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[CurrentTEU]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentTEU]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[CurrentTEU]"
-                      name="CurrentTEU"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[PricePerKmPerTonPerContainer]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]"
-                      name="PricePerKmPerTonPerContainer"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]"
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]"
-                      name="ConsignorId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]"
+                      name="MaxTEU"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[TriptId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[VoyageId]"
-                      name="VoyageId"
+                      externalMetadataColumnId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[TriptId]"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].Columns[TriptId]"
+                      name="TriptId"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -1191,21 +1848,13 @@ where [refTable].[ShipmentId] = ?</property>
                       dataType="i4"
                       name="DaysWait" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentTEU]"
-                      dataType="r8"
-                      name="CurrentTEU" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[PricePerKmPerTonPerContainer]"
-                      dataType="r8"
-                      name="PricePerKmPerTonPerContainer" />
-                    <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
                       dataType="i4"
-                      name="ConsignorId" />
+                      name="MaxTEU" />
                     <externalMetadataColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output].ExternalColumns[TriptId]"
                       dataType="i4"
-                      name="VoyageId" />
+                      name="TriptId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1214,10 +1863,10 @@ where [refTable].[ShipmentId] = ?</property>
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[TriptId]"
                       dataType="i4"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
-                      name="VoyageId" />
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[TriptId]"
+                      name="TriptId" />
                     <outputColumn
                       refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[ShipId]"
                       dataType="i4"
@@ -1234,15 +1883,15 @@ where [refTable].[ShipmentId] = ?</property>
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
                       name="PortIdTo" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
-                      dataType="i4"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
-                      name="ConsignorId" />
-                    <outputColumn
                       refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[CurrentNumberOfContainers]"
                       dataType="i4"
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[CurrentNumberOfContainers]"
                       name="CurrentNumberOfContainers" />
+                    <outputColumn
+                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      dataType="i4"
+                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      name="MaxTEU" />
                     <outputColumn
                       refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[Depart]"
                       dataType="dbTimeStamp"
@@ -1269,16 +1918,6 @@ where [refTable].[ShipmentId] = ?</property>
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[DaysWait]"
                       name="DaysWait" />
                     <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[CurrentTEU]"
-                      dataType="r8"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[CurrentTEU]"
-                      name="CurrentTEU" />
-                    <outputColumn
-                      refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
-                      dataType="r8"
-                      lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
-                      name="PricePerKmPerTonPerContainer" />
-                    <outputColumn
                       refId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -1298,8 +1937,28 @@ where [refTable].[ShipmentId] = ?</property>
           </components>
           <paths>
             <path
-              refId="Package\RDMS to PSA (Trip).Paths[OLE DB Source Output]"
+              refId="Package\RDMS to PSA (Trip).Paths[Data Conversion Output]"
               endId="Package\RDMS to PSA (Trip)\PSA Fact Trip.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\RDMS to PSA (Trip)\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\RDMS to PSA (Trip).Paths[Derived Column Output]"
+              endId="Package\RDMS to PSA (Trip)\Data Conversion.Inputs[Data Conversion Input]"
+              name="Derived Column Output"
+              startId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\RDMS to PSA (Trip).Paths[Lookup Match Output]"
+              endId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\RDMS to PSA (Trip).Paths[Lookup Match Output1]"
+              endId="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\RDMS to PSA (Trip)\Lookup Ship Id.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\RDMS to PSA (Trip).Paths[OLE DB Source Output]"
+              endId="Package\RDMS to PSA (Trip)\Lookup new Voyage Id.Inputs[Lookup Input]"
               name="OLE DB Source Output"
               startId="Package\RDMS to PSA (Trip)\RDMS View Trip.Outputs[OLE DB Source Output]" />
           </paths>
@@ -1336,120 +1995,149 @@ where [refTable].[ShipmentId] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\RDMS to PSA (Shipment)\RDMS Shipment"
-          TopLeft="383.499994598329,127.73684411432" />
+          Size="202.666666666667,42.6666666666667"
+          Id="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id"
+          TopLeft="360.125000102446,244.266666387717" />
         <NodeLayout
-          Size="114.666666666667,42.6666666666667"
-          Id="Package\RDMS to PSA (Shipment)\Lookup"
-          TopLeft="482.749992717058,209.807020093816" />
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
+          Size="172,42.6666666666667"
           Id="Package\RDMS to PSA (Shipment)\OLE DB Destination"
-          TopLeft="509.624993136153,286.684216167128" />
+          TopLeft="502.74999286607,415.867548001106" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\RDMS to PSA (Shipment)\RDMS Shipment"
+          TopLeft="330.374997178093,158.836846276181" />
         <EdgeLayout
-          Id="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output]"
-          TopLeft="540.083326050391,252.473686760483">
+          Id="Package\RDMS to PSA (Shipment).Paths[OLE DB Source Output]"
+          TopLeft="407.708330511426,201.503512942848">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="56.8750004190952,34.2105294066454"
+              EndConnector="53.7500029243525,42.7631534448697"
               Start="0,0"
-              End="56.8750004190952,26.7105294066454">
+              End="53.7500029243525,35.2631534448697">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.1052647033227" />
+                    End="0,17.3815767224348" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.1052647033227"
-                    Point2="0,17.1052647033227"
-                    Point3="4,17.1052647033227" />
+                    Point1="0,17.3815767224348"
+                    Point2="0,21.3815767224348"
+                    Point3="4,21.3815767224348" />
                   <mssgle:LineSegment
-                    End="52.8750004190952,17.1052647033227" />
+                    End="49.7500029243525,21.3815767224348" />
                   <mssgle:CubicBezierSegment
-                    Point1="52.8750004190952,17.1052647033227"
-                    Point2="56.8750004190952,17.1052647033227"
-                    Point3="56.8750004190952,21.1052647033227" />
+                    Point1="49.7500029243525,21.3815767224348"
+                    Point2="53.7500029243525,21.3815767224348"
+                    Point3="53.7500029243525,25.3815767224348" />
                   <mssgle:LineSegment
-                    End="56.8750004190952,26.7105294066454" />
+                    End="53.7500029243525,35.2631534448697" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-28.6225388529524,22.1052647033227,114.120078125,16"
+              BoundingBox="18.8750014621762,26.3815767224348,16,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\RDMS to PSA (Shipment)\Lookup Ship Id"
+          TopLeft="455.624993210659,333.166660971442" />
         <EdgeLayout
-          Id="Package\RDMS to PSA (Shipment).Paths[OLE DB Source Output]"
-          TopLeft="462.833327931662,170.403510780987">
+          Id="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output]"
+          TopLeft="530.958326543992,375.833327638109">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="77.249998118729,39.4035093128293"
+              EndConnector="57.7916663220781,40.0342203629967"
               Start="0,0"
-              End="77.249998118729,31.9035093128293">
+              End="57.7916663220781,32.5342203629967">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,15.7017546564147" />
+                    End="0,16.0171101814984" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,15.7017546564147"
-                    Point2="0,19.7017546564147"
-                    Point3="4,19.7017546564147" />
+                    Point1="0,16.0171101814984"
+                    Point2="0,20.0171101814984"
+                    Point3="4,20.0171101814984" />
                   <mssgle:LineSegment
-                    End="73.249998118729,19.7017546564147" />
+                    End="53.7916663220781,20.0171101814984" />
                   <mssgle:CubicBezierSegment
-                    Point1="73.249998118729,19.7017546564147"
-                    Point2="77.249998118729,19.7017546564147"
-                    Point3="77.249998118729,23.7017546564147" />
+                    Point1="53.7916663220781,20.0171101814984"
+                    Point2="57.7916663220781,20.0171101814984"
+                    Point3="57.7916663220781,24.0171101814984" />
                   <mssgle:LineSegment
-                    End="77.249998118729,31.9035093128293" />
+                    End="57.7916663220781,32.5342203629967" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-28.164205901461,25.0171101814984,114.120078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\RDMS to PSA (Shipment).Paths[Lookup Match Output1]"
+          TopLeft="461.458333435779,286.933333054384">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="69.4999931082133,46.2333279170582"
+              Start="0,0"
+              End="69.4999931082133,38.7333279170582">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1166639585291" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.1166639585291"
+                    Point2="0,23.1166639585291"
+                    Point3="4,23.1166639585291" />
+                  <mssgle:LineSegment
+                    End="65.4999931082133,23.1166639585291" />
+                  <mssgle:CubicBezierSegment
+                    Point1="65.4999931082133,23.1166639585291"
+                    Point2="69.4999931082133,23.1166639585291"
+                    Point3="69.4999931082133,27.1166639585291" />
+                  <mssgle:LineSegment
+                    End="69.4999931082133,38.7333279170582" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-13.4413901646433,28.1166639585291,96.3827734375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\RDMS to PSA (Shipment)\RDMS Shipment">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\RDMS to PSA (Shipment)\Lookup">
+    design-time-name="Package\RDMS to PSA (Shipment)\Lookup Correct Voyage Id">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[ShipmentDetail]</Value>
+          type="q3:string">[dbo].[Voyage]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1469,45 +2157,214 @@ where [refTable].[ShipmentId] = ?</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\RDMS to PSA (Shipment)\RDMS Shipment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\RDMS to PSA (Trip)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\RDMS to PSA (Trip)\RDMS View Trip"
-          TopLeft="354.374994719401,125.210528672567" />
-        <NodeLayout
-          Size="145.333333333334,42.6666666666667"
+          Size="142.666666666667,42.6666666666667"
           Id="Package\RDMS to PSA (Trip)\PSA Fact Trip"
-          TopLeft="451.874993266538,257.263162737078" />
+          TopLeft="498.571423356023,448.448880207468" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\RDMS to PSA (Trip)\RDMS View Trip"
+          TopLeft="253.214281057673,86.5391007287749" />
+        <NodeLayout
+          Size="188,42.6666666666667"
+          Id="Package\RDMS to PSA (Trip)\Lookup new Voyage Id"
+          TopLeft="306.249995436519,158.199997349978" />
         <EdgeLayout
           Id="Package\RDMS to PSA (Trip).Paths[OLE DB Source Output]"
-          TopLeft="433.708328052734,167.877195339234">
+          TopLeft="330.547614391007,129.205767395442">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="90.8333318804706,89.3859673978438"
+              EndConnector="69.7023810455129,28.994229954536"
               Start="0,0"
-              End="90.8333318804706,81.8859673978438">
+              End="69.7023810455129,21.494229954536">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,40.6929836989219" />
+                    End="0,10.497114977268" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,40.6929836989219"
-                    Point2="0,44.6929836989219"
-                    Point3="4,44.6929836989219" />
+                    Point1="0,10.497114977268"
+                    Point2="0,14.497114977268"
+                    Point3="4,14.497114977268" />
                   <mssgle:LineSegment
-                    End="86.8333318804706,44.6929836989219" />
+                    End="65.7023810455129,14.497114977268" />
                   <mssgle:CubicBezierSegment
-                    Point1="86.8333318804706,44.6929836989219"
-                    Point2="90.8333318804706,44.6929836989219"
-                    Point3="90.8333318804706,48.6929836989219" />
+                    Point1="65.7023810455129,14.497114977268"
+                    Point2="69.7023810455129,14.497114977268"
+                    Point3="69.7023810455129,18.497114977268" />
                   <mssgle:LineSegment
-                    End="90.8333318804706,81.8859673978438" />
+                    End="69.7023810455129,21.494229954536" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\RDMS to PSA (Trip)\Lookup Ship Id"
+          TopLeft="375,233" />
+        <EdgeLayout
+          Id="Package\RDMS to PSA (Trip).Paths[Lookup Match Output]"
+          TopLeft="400.249995436519,200.866664016645">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="50.0833378968143,32.1333359833553"
+              Start="0,0"
+              End="50.0833378968143,24.6333359833553">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.0666679916777" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.0666679916777"
+                    Point2="0,16.0666679916777"
+                    Point3="4,16.0666679916777" />
+                  <mssgle:LineSegment
+                    End="46.0833378968143,16.0666679916777" />
+                  <mssgle:CubicBezierSegment
+                    Point1="46.0833378968143,16.0666679916777"
+                    Point2="50.0833378968143,16.0666679916777"
+                    Point3="50.0833378968143,20.0666679916777" />
+                  <mssgle:LineSegment
+                    End="50.0833378968143,24.6333359833553" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-23.1497177703429,21.0666679916777,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="189.333333333334,42.6666666666667"
+          Id="Package\RDMS to PSA (Trip)\Calculate CO2 and Fuel"
+          TopLeft="390,306" />
+        <EdgeLayout
+          Id="Package\RDMS to PSA (Trip).Paths[Lookup Match Output1]"
+          TopLeft="450.333333333333,275.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="34.3333333333335,30.3333333333334"
+              Start="0,0"
+              End="34.3333333333335,22.8333333333334">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.1666666666667"
+                    Point2="0,15.1666666666667"
+                    Point3="4,15.1666666666667" />
+                  <mssgle:LineSegment
+                    End="30.3333333333335,15.1666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="30.3333333333335,15.1666666666667"
+                    Point2="34.3333333333335,15.1666666666667"
+                    Point3="34.3333333333335,19.1666666666667" />
+                  <mssgle:LineSegment
+                    End="34.3333333333335,22.8333333333334" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.0247200520832,20.1666666666667,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="157.333333333334,42.6666666666667"
+          Id="Package\RDMS to PSA (Trip)\Data Conversion"
+          TopLeft="450,374" />
+        <EdgeLayout
+          Id="Package\RDMS to PSA (Trip).Paths[Derived Column Output]"
+          TopLeft="484.666666666667,348.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.9999999999998,25.3333333333333"
+              Start="0,0"
+              End="43.9999999999998,17.8333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,8.66666666666666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,8.66666666666666"
+                    Point2="0,12.6666666666667"
+                    Point3="4,12.6666666666667" />
+                  <mssgle:LineSegment
+                    End="39.9999999999998,12.6666666666667" />
+                  <mssgle:CubicBezierSegment
+                    Point1="39.9999999999998,12.6666666666667"
+                    Point2="43.9999999999998,12.6666666666667"
+                    Point3="43.9999999999998,16.6666666666667" />
+                  <mssgle:LineSegment
+                    End="43.9999999999998,17.8333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\RDMS to PSA (Trip).Paths[Data Conversion Output]"
+          TopLeft="528.666666666667,416.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="41.2380900226898,31.7822135408014"
+              Start="0,0"
+              End="41.2380900226898,24.2822135408014">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.8911067704007" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.8911067704007"
+                    Point2="0,15.8911067704007"
+                    Point3="4,15.8911067704007" />
+                  <mssgle:LineSegment
+                    End="37.2380900226898,15.8911067704007" />
+                  <mssgle:CubicBezierSegment
+                    Point1="37.2380900226898,15.8911067704007"
+                    Point2="41.2380900226898,15.8911067704007"
+                    Point3="41.2380900226898,19.8911067704007" />
+                  <mssgle:LineSegment
+                    End="41.2380900226898,24.2822135408014" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1542,6 +2399,75 @@ where [refTable].[ShipmentId] = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\RDMS to PSA (Trip)\Lookup new Voyage Id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Voyage]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\RDMS to PSA (Shipment)\Lookup Ship Id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Voyage]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\RDMS to PSA (Trip)\Lookup Ship Id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Ship]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

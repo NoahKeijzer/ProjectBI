@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{AACB3468-D83C-4364-A4E4-7D0EB2FDC835}">
+  DTS:VersionBuild="49"
+  DTS:VersionGUID="{204BCD40-0B62-4048-8060-07132E0265D4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -31,7 +31,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}"
-          SQLTask:SqlStatementSource="DELETE FROM dbo.Trip;&#xA;DELETE FROM dbo.Shipment;&#xA;DELETE FROM dbo.Containers;&#xA;DELETE FROM dbo.Item;&#xA;DELETE FROM dbo.Ship;&#xA;DELETE FROM dbo.Consignor;&#xA;DELETE FROM dbo.Port;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM dbo.Trip;&#xA;DELETE FROM dbo.Shipment;&#xA;DELETE FROM dbo.Containers;&#xA;DELETE FROM dbo.Item;&#xA;DELETE FROM dbo.Ship;&#xA;DELETE FROM dbo.Consignor;&#xA;DELETE FROM dbo.Voyage;&#xA;DELETE FROM dbo.Port;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -1807,13 +1807,13 @@
                       refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
                       cachedDataType="r8"
                       cachedName="Annual average CO₂ emissions per distance (kg CO₂ / n mile)"
-                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / mile)]"
                       lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]" />
                     <inputColumn
                       refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].Columns[Annual average Fuel consumption per distance (kg / n mile)]"
                       cachedDataType="r8"
                       cachedName="Annual average Fuel consumption per distance (kg / n mile)"
-                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      externalMetadataColumnId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / mile)]"
                       lineageId="Package\Load Ship\RDMS Ship Source.Outputs[OLE DB Source Output].Columns[Annual average Fuel consumption per distance (kg / n mile)]" />
                   </inputColumns>
                   <externalMetadataColumns
@@ -1855,13 +1855,13 @@
                       dataType="r8"
                       name="Annual Total time spent at sea (hours)" />
                     <externalMetadataColumn
-                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / n mile)]"
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average CO₂ emissions per distance (kg CO₂ / mile)]"
                       dataType="r8"
-                      name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" />
+                      name="Annual average CO₂ emissions per distance (kg CO₂ / mile)" />
                     <externalMetadataColumn
-                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / n mile)]"
+                      refId="Package\Load Ship\PSA Ship Dim Destination.Inputs[OLE DB Destination Input].ExternalColumns[Annual average Fuel consumption per distance (kg / mile)]"
                       dataType="r8"
-                      name="Annual average Fuel consumption per distance (kg / n mile)" />
+                      name="Annual average Fuel consumption per distance (kg / mile)" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -2181,6 +2181,1255 @@
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Voyage"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{71ACD593-A039-4DC3-AD2C-C2AB1C81A773}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Voyage"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Voyage\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input].Columns[NamePortFrom]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NamePortFrom"
+                      lineageId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output].Columns[NamePortFrom]" />
+                    <inputColumn
+                      refId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input].Columns[NamePortTo]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="NamePortTo"
+                      lineageId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output].Columns[NamePortTo]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Derived Column.Outputs[Derived Column Output].Columns[Voyage String]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="103"
+                      lineageId="Package\Load Voyage\Derived Column.Outputs[Derived Column Output].Columns[Voyage String]"
+                      name="Voyage String"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output].Columns[NamePortFrom]} + " - " + #{Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output].Columns[NamePortTo]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">NamePortFrom + " - " + NamePortTo</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\Lookup Dim Increment"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Dim Increment"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Voyage]) [refTable]
+where [refTable].[PortIdTo] = ? and [refTable].[PortIdFrom] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageString" dataType="DT_WSTR" length="150" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Voyage\344:invalid};#{Package\Load Voyage\345:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\Lookup Dim Increment.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdFrom</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PortIdTo</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\Lookup PortIdFrom"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup PortIdFrom"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Port]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Port]) [refTable]
+where [refTable].[Id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PortOrder" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DistanceFromOslo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DistanceFromPiraeus" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\Lookup PortIdFrom.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output].Columns[NamePortFrom]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="50"
+                      lineageId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output].Columns[NamePortFrom]"
+                      name="NamePortFrom"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Name</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\Lookup PortIdTo"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup PortIdTo"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Port]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Port]) [refTable]
+where [refTable].[Id] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PortOrder" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DistanceFromOslo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DistanceFromPiraeus" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\Lookup PortIdTo.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Id</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output].Columns[NamePortTo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Copy Column"
+                      length="50"
+                      lineageId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output].Columns[NamePortTo]"
+                      name="NamePortTo"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Name</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{48E2D7BC-2FAA-4E5D-A90D-CF503F5A76A1}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.PSA]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Voyage String]"
+                      cachedDataType="wstr"
+                      cachedLength="103"
+                      cachedName="Voyage String"
+                      externalMetadataColumnId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageString]"
+                      lineageId="Package\Load Voyage\Derived Column.Outputs[Derived Column Output].Columns[Voyage String]" />
+                    <inputColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]" />
+                    <inputColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
+                      dataType="i4"
+                      name="PortIdFrom" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
+                      dataType="i4"
+                      name="PortIdTo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageString]"
+                      dataType="wstr"
+                      length="150"
+                      name="VoyageString" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\RDMS Shipment"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Shipment"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Shipment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\RDMS Shipment.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]"
+                      name="PortIdTo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
+                      name="PortIdFrom"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
+                      dataType="i4"
+                      name="ConsignorId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
+                      dataType="i4"
+                      name="PortIdFrom" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
+                      dataType="i4"
+                      name="PortIdTo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].ExternalColumns[NumberContainers]"
+                      dataType="i4"
+                      name="NumberContainers" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
+                      name="PortIdTo" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
+                      name="PortIdFrom" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\RDMS Voyage"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="RDMS Voyage"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Voyage]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Voyage\RDMS Voyage.Connections[OleDbConnection]"
+                  connectionManagerID="{252365B0-6B7A-4928-BC46-07AE522642BD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.RDMS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdTo]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[PortIdStart]"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdTo]"
+                      name="PortIdTo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[PortIdEnd]"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
+                      name="PortIdFrom"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[Id]"
+                      dataType="i4"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
+                      dataType="i4"
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[DateDepart]"
+                      dataType="dbTimeStamp"
+                      name="DateDepart" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[PortIdStart]"
+                      dataType="i4"
+                      name="PortIdStart" />
+                    <externalMetadataColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].ExternalColumns[PortIdEnd]"
+                      dataType="i4"
+                      name="PortIdEnd" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[PortIdStart]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[PortIdStart]"
+                      name="PortIdStart" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[PortIdEnd]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[PortIdEnd]"
+                      name="PortIdEnd" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Sort.Inputs[Sort Input].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      lineageId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Voyage\Sort.Inputs[Sort Input].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      lineageId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdTo]"
+                      name="PortIdTo"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Sort.Outputs[Sort Output].Columns[PortIdFrom]"
+                      name="PortIdFrom"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Voyage\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Load Voyage\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Union All.Inputs[Union All Input 1].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Voyage\Union All.Inputs[Union All Input 1].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      lineageId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Load Voyage\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Voyage\Union All.Inputs[Union All Input 2].Columns[PortIdTo]"
+                      cachedDataType="i4"
+                      cachedName="PortIdTo"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Voyage\Union All.Inputs[Union All Input 2].Columns[PortIdFrom]"
+                      cachedDataType="i4"
+                      cachedName="PortIdFrom"
+                      lineageId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Load Voyage\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Voyage\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdTo]"
+                      name="PortIdTo" />
+                    <outputColumn
+                      refId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]"
+                      dataType="i4"
+                      lineageId="Package\Load Voyage\Union All.Outputs[Union All Output 1].Columns[PortIdFrom]"
+                      name="PortIdFrom" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Voyage.Paths[Derived Column Output]"
+              endId="Package\Load Voyage\Lookup Dim Increment.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\Load Voyage\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[Lookup Match Output]"
+              endId="Package\Load Voyage\Lookup PortIdTo.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Voyage\Lookup PortIdFrom.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[Lookup Match Output1]"
+              endId="Package\Load Voyage\Derived Column.Inputs[Derived Column Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Voyage\Lookup PortIdTo.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[Lookup No Match Output]"
+              endId="Package\Load Voyage\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Load Voyage\Lookup Dim Increment.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[OLE DB Source Output]"
+              endId="Package\Load Voyage\Union All.Inputs[Union All Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\Load Voyage\RDMS Voyage.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[OLE DB Source Output1]"
+              endId="Package\Load Voyage\Union All.Inputs[Union All Input 2]"
+              name="OLE DB Source Output"
+              startId="Package\Load Voyage\RDMS Shipment.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[Sort Output]"
+              endId="Package\Load Voyage\Lookup PortIdFrom.Inputs[Lookup Input]"
+              name="Sort Output"
+              startId="Package\Load Voyage\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\Load Voyage.Paths[Union All Output 1]"
+              endId="Package\Load Voyage\Sort.Inputs[Sort Input]"
+              name="Union All Output 1"
+              startId="Package\Load Voyage\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -2194,11 +3443,11 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{96EF420C-089C-4C7D-8299-29320CF00380}"
+      DTS:DTSID="{EA167EB8-47A8-4C0D-9C1E-B710FD78E40B}"
       DTS:From="Package\Load Port"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\Load Consignor" />
+      DTS:To="Package\Load Voyage" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -2223,6 +3472,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 4"
       DTS:To="Package\Load Item" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{7FBA61BD-ABCA-401C-ADD8-B2A09C34BE9E}"
+      DTS:From="Package\Load Voyage"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Load Consignor" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -2243,15 +3500,15 @@
         <NodeLayout
           Size="154.666666666667,42.6666666666667"
           Id="Package\Load Consignor"
-          TopLeft="377.499994374812,201.157898523141" />
+          TopLeft="384.999994263053,252.507897604931" />
         <NodeLayout
           Size="157.333333333334,42.6666666666667"
           Id="Package\Load Containers"
-          TopLeft="462.499993108213,276.42105783452" />
+          TopLeft="469.999992996454,327.77105691631" />
         <NodeLayout
           Size="126.666666666667,42.6666666666667"
           Id="Package\Load Item"
-          TopLeft="396.249994095416,359.263162737078" />
+          TopLeft="403.749993983657,410.613161818868" />
         <NodeLayout
           Size="125.333333333334,42.6666666666667"
           Id="Package\Load Port"
@@ -2259,7 +3516,11 @@
         <NodeLayout
           Size="128,42.6666666666667"
           Id="Package\Load Ship"
-          TopLeft="281.249995809048,281.894742148074" />
+          TopLeft="288.749995697289,333.244741229864" />
+        <NodeLayout
+          Size="140,42.6666666666667"
+          Id="Package\Load Voyage"
+          TopLeft="391.249994169921,183.383330578705" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="461.145827554477,78.2456147047732">
@@ -2284,18 +3545,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="457.812494221144,156.929826712124">
+          TopLeft="461.020827452031,156.929826712125">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44.2280718110166"
+              EndConnector="0,26.45350386658"
               Start="0,0"
-              End="0,36.7280718110166">
+              End="0,18.95350386658">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.7280718110166" />
+                    End="0,18.95350386658" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2306,7 +3567,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="454.833327708145,243.824565189807">
+          TopLeft="462.333327596386,295.174564271597">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2340,7 +3601,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="409.249995809048,300.49123332463">
+          TopLeft="416.749995697289,351.84123240642">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2362,7 +3623,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="541.16665977488,319.087724501187">
+          TopLeft="548.666659663121,370.437723582977">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2394,6 +3655,28 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="461.791660883154,226.049997245371">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.4579003595601"
+              Start="0,0"
+              End="0,18.9579003595601">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.9579003595601" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -2401,7 +3684,7 @@
     design-time-name="Package\Load Consignor">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="230.666666666667,42.6666666666667"
           Id="Package\Load Consignor\PSA Consignor Dim Destination"
@@ -2441,9 +3724,7 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2774,6 +4055,386 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load Ship\RDMS Ship Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Voyage">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="188,42.6666666666667"
+          Id="Package\Load Voyage\Lookup Dim Increment"
+          TopLeft="294.999995604158,336.649994874299" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Load Voyage\Lookup PortIdTo"
+          TopLeft="443.124993396923,204.333330776294" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Load Voyage\RDMS Shipment"
+          TopLeft="409.999993890524,1.18333322872716" />
+        <NodeLayout
+          Size="98.6666666666667,42.6666666666667"
+          Id="Package\Load Voyage\Sort"
+          TopLeft="338.749994952232,146.899997373223" />
+        <NodeLayout
+          Size="121.333333333334,42.6666666666667"
+          Id="Package\Load Voyage\Union All"
+          TopLeft="328.749995101243,79.2999985820055" />
+        <NodeLayout
+          Size="170.666666666667,42.6666666666667"
+          Id="Package\Load Voyage\Lookup PortIdFrom"
+          TopLeft="192.499997131527,199.549998291433" />
+        <NodeLayout
+          Size="172,43.3333333333334"
+          Id="Package\Load Voyage\OLE DB Destination"
+          TopLeft="306.249995436519,402.649993014634" />
+        <NodeLayout
+          Size="145.333333333334,42.6666666666667"
+          Id="Package\Load Voyage\RDMS Voyage"
+          TopLeft="226.249996628612,2.23333349605399" />
+        <NodeLayout
+          Size="154.666666666667,42.6666666666667"
+          Id="Package\Load Voyage\Derived Column"
+          TopLeft="311.249995362014,268.083328742286" />
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Union All Output 1]"
+          TopLeft="388.749995026738,121.966665248672">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.9333321245512"
+              Start="0,0"
+              End="0,17.4333321245512">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.4333321245512" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Sort Output]"
+          TopLeft="338.749994952232,168.233330706557">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-60.9166644873716,31.3166675848761"
+              Start="0,0"
+              End="-60.9166644873716,23.8166675848761">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-56.9166644873716,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-56.9166644873716,0"
+                    Point2="-60.9166644873716,0"
+                    Point3="-60.9166644873716,4" />
+                  <mssgle:LineSegment
+                    End="-60.9166644873716,23.8166675848761" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[OLE DB Source Output1]"
+          TopLeft="487.333327223857,43.8499998953938">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-79.0277765670581,35.4499986866117"
+              Start="0,0"
+              End="-79.0277765670581,27.9499986866117">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.993166250423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.993166250423"
+                    Point2="0,20.993166250423"
+                    Point3="-4,20.993166250423" />
+                  <mssgle:LineSegment
+                    End="-75.0277765670581,20.993166250423" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-75.0277765670581,20.993166250423"
+                    Point2="-79.0277765670581,20.993166250423"
+                    Point3="-79.0277765670581,24.993166250423" />
+                  <mssgle:LineSegment
+                    End="-79.0277765670581,27.9499986866117" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[OLE DB Source Output]"
+          TopLeft="298.916663295279,44.9000001627207">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.6111095837421,34.3999984192848"
+              Start="0,0"
+              End="71.6111095837421,26.8999984192848">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.371365658275" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.371365658275"
+                    Point2="0,20.371365658275"
+                    Point3="4,20.371365658275" />
+                  <mssgle:LineSegment
+                    End="67.6111095837421,20.371365658275" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.6111095837421,20.371365658275"
+                    Point2="71.6111095837421,20.371365658275"
+                    Point3="71.6111095837421,24.371365658275" />
+                  <mssgle:LineSegment
+                    End="71.6111095837421,26.8999984192848" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Lookup No Match Output]"
+          TopLeft="390.624995520338,379.316661540965">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23.3333314736684"
+              Start="0,0"
+              End="0,15.8333314736684">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8333314736684" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-64.6750390625,-0.083334263165824,129.350078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Lookup Match Output1]"
+          TopLeft="443.124993396923,231.444441887405">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-54.5416647015754,36.6388868548806"
+              Start="0,0"
+              End="-54.5416647015754,29.1388868548806">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-50.5416647015754,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-50.5416647015754,0"
+                    Point2="-54.5416647015754,0"
+                    Point3="-54.5416647015754,4" />
+                  <mssgle:LineSegment
+                    End="-54.5416647015754,29.1388868548806" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-102.733051420325,-17.609375,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Lookup Match Output]"
+          TopLeft="363.166663798193,220.386108978308">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="79.9583295987292,0"
+              Start="0,0"
+              End="72.4583295987292,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="72.4583295987292,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-11.9622219193854,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Voyage.Paths[Derived Column Output]"
+          TopLeft="388.791662149752,310.749995408952">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.8999994653462"
+              Start="0,0"
+              End="0,18.3999994653462">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.3999994653462" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\Lookup Dim Increment">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Voyage]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\Lookup PortIdTo">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Port]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\RDMS Shipment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\Lookup PortIdFrom">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Port]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Voyage\RDMS Voyage">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

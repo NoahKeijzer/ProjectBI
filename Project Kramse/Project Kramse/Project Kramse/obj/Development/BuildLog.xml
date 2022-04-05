@@ -8,12 +8,12 @@
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>Sources to RAW.dtsx</Name>
-      <LastWriteTime>2022-03-24T20:36:08.6672003Z</LastWriteTime>
+      <LastWriteTime>2022-03-29T14:21:38.3276879Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RAW to RDMS.dtsx</Name>
-      <LastWriteTime>2022-03-24T13:56:07.7429559Z</LastWriteTime>
+      <LastWriteTime>2022-03-30T13:10:48.7723212Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
@@ -23,22 +23,22 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RDMS to PSA (FactData).dtsx</Name>
-      <LastWriteTime>2022-03-24T23:09:29.6160778Z</LastWriteTime>
+      <LastWriteTime>2022-03-30T13:48:08.7038674Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>RDMS to PSA (DimData).dtsx</Name>
-      <LastWriteTime>2022-03-24T21:58:36.4027665Z</LastWriteTime>
+      <LastWriteTime>2022-03-30T13:31:25.7641785Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>PSA to ODS (DimData).dtsx</Name>
-      <LastWriteTime>2022-03-24T22:47:58.4993965Z</LastWriteTime>
+      <LastWriteTime>2022-03-30T19:25:30.3521677Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>PSA to ODS (FactData).dtsx</Name>
-      <LastWriteTime>2022-03-24T23:05:43.2538642Z</LastWriteTime>
+      <LastWriteTime>2022-03-30T19:33:50.1824251Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

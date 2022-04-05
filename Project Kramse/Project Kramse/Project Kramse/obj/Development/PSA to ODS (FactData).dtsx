@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{1564DCDF-D1AE-4C87-9151-BCFDF01AEBBF}">
+  DTS:VersionBuild="44"
+  DTS:VersionGUID="{E68AA2CF-61BC-4295-ADEB-0A6926366F98}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -32,6 +32,164 @@
           version="1">
           <components>
             <component
+              refId="Package\Load Shipment to ODS\Lookup Consignor Id"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Consignor Id"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Consignor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Consignor]) [refTable]
+where [refTable].[ConsignorId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ConsignorRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ConsignorId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Consignor" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Discount" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ConsignorId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Shipment to ODS\Lookup Consignor Id.Connections[OleDbConnection]"
+                  connectionManagerID="{408BA3AA-0342-421C-893C-89607BEB626C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.ODS]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input].Columns[ConsignorId]"
+                      cachedDataType="i4"
+                      cachedName="ConsignorId"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ConsignorId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">ConsignorId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Match Output].Columns[ConsignorRowId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Match Output].Columns[ConsignorRowId]"
+                      name="ConsignorRowId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ConsignorRowId</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\Load Shipment to ODS\Lookup Facts Increment"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
@@ -45,13 +203,13 @@
                   description="Specifies the SQL statement that generates the lookup table."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Shipment]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Shipment]</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Shipment]) [refTable]
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Shipment]) [refTable]
 where [refTable].[Id] = ?</property>
                 <property
                   dataType="System.Int32"
@@ -83,7 +241,7 @@ where [refTable].[Id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ItemRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerTypeId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerStart" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerEnd" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TotalContainers" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainersTEU" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Cubes" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="PricePerKmPerTonPerContainer" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipmentId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ConsignorId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Distance" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainersTEU" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ItemId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContainerTypeId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PricePerKmPerTonPerContainer" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -193,7 +351,7 @@ where [refTable].[Id] = ?</property>
                   expressionType="Notify"
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Item]) [refTable]
-where [refTable].[Id] = ?</property>
+where [refTable].[ItemId] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -224,7 +382,7 @@ where [refTable].[Id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ItemRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Description" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Category" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Manufacturer" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StorageType" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="HazardFlag" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ItemRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ItemId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ItemDescription" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Category" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Manufacturer" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StorageType" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="HazardFlag" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -261,7 +419,7 @@ where [refTable].[Id] = ?</property>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">Id</property>
+                          name="JoinToReferenceColumn">ItemId</property>
                         <property
                           dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
@@ -403,35 +561,11 @@ where [refTable].[Id] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
-                      cachedDataType="i4"
-                      cachedName="Id"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Id]" />
-                    <inputColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerTypeId]"
                       cachedDataType="i4"
                       cachedName="ContainerTypeId"
                       externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerTypeId]" />
-                    <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerStart]"
-                      cachedDataType="i4"
-                      cachedName="ContainerStart"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerStart]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerStart]" />
-                    <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainerEnd]"
-                      cachedDataType="i4"
-                      cachedName="ContainerEnd"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerEnd]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerEnd]" />
-                    <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TotalContainers]"
-                      cachedDataType="i4"
-                      cachedName="TotalContainers"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainers]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[TotalContainers]" />
                     <inputColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ContainersTEU]"
                       cachedDataType="r8"
@@ -439,37 +573,53 @@ where [refTable].[Id] = ?</property>
                       externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]" />
                     <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Cubes]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="Cubes"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Cubes]" />
-                    <inputColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PricePerKmPerTonPerContainer]"
                       cachedDataType="r8"
                       cachedName="PricePerKmPerTonPerContainer"
                       externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]" />
                     <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdFrom]"
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ShipId]"
                       cachedDataType="i4"
-                      cachedName="PortIdFrom"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]" />
+                      cachedName="ShipId"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipId]" />
                     <inputColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PortIdTo]"
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[VoyageId]"
                       cachedDataType="i4"
-                      cachedName="PortIdTo"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]" />
+                      cachedName="VoyageId"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]" />
                     <inputColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ItemRowId]"
                       cachedDataType="i4"
                       cachedName="ItemRowId"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemRowId]"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemId]"
                       lineageId="Package\Load Shipment to ODS\Lookup ItemId.Outputs[Lookup Match Output].Columns[ItemRowId]" />
+                    <inputColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ShipmentId]"
+                      cachedDataType="i4"
+                      cachedName="ShipmentId"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipmentId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipmentId]" />
+                    <inputColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ConsignorRowId]"
+                      cachedDataType="i4"
+                      cachedName="ConsignorRowId"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
+                      lineageId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Match Output].Columns[ConsignorRowId]" />
+                    <inputColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Distance]"
+                      cachedDataType="i4"
+                      cachedName="Distance"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Distance]" />
+                    <inputColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Id]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -478,47 +628,41 @@ where [refTable].[Id] = ?</property>
                       dataType="i4"
                       name="Id" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemRowId]"
-                      dataType="i4"
-                      name="ItemRowId" />
-                    <externalMetadataColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       dataType="i4"
                       name="ContainerTypeId" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerStart]"
-                      dataType="i4"
-                      name="ContainerStart" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerEnd]"
-                      dataType="i4"
-                      name="ContainerEnd" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainers]"
-                      dataType="i4"
-                      name="TotalContainers" />
                     <externalMetadataColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
                       dataType="r8"
                       name="ContainersTEU" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="Cubes" />
-                    <externalMetadataColumn
                       refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
                       dataType="r8"
                       name="PricePerKmPerTonPerContainer" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipId]"
                       dataType="i4"
-                      name="PortIdFrom" />
+                      name="ShipId" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
                       dataType="i4"
-                      name="PortIdTo" />
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipmentId]"
+                      dataType="i4"
+                      name="ShipmentId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemId]"
+                      dataType="i4"
+                      name="ItemId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorId]"
+                      dataType="i4"
+                      name="ConsignorId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -636,33 +780,6 @@ where [refTable].[Id] = ?</property>
                       name="ContainerTypeId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerStart]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerStart]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerStart]"
-                      name="ContainerStart"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerEnd]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerEnd]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainerEnd]"
-                      name="ContainerEnd"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[TotalContainers]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[TotalContainers]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[TotalContainers]"
-                      name="TotalContainers"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]"
                       dataType="r8"
                       errorOrTruncationOperation="Conversion"
@@ -670,17 +787,6 @@ where [refTable].[Id] = ?</property>
                       externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainersTEU]"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ContainersTEU]"
                       name="ContainersTEU"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Cubes]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[Cubes]"
-                      length="50"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Cubes]"
-                      name="Cubes"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PricePerKmPerTonPerContainer]"
@@ -692,22 +798,49 @@ where [refTable].[Id] = ?</property>
                       name="PricePerKmPerTonPerContainer"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ConsignorId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
-                      name="PortIdFrom"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ConsignorId]"
+                      name="ConsignorId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]"
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[PortIdTo]"
-                      name="PortIdTo"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipId]"
+                      name="ShipId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      name="VoyageId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipmentId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ShipmentId]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[ShipmentId]"
+                      name="ShipmentId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Distance]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].Columns[Distance]"
+                      name="Distance"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -725,39 +858,33 @@ where [refTable].[Id] = ?</property>
                       dataType="i4"
                       name="ContainerTypeId" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerStart]"
-                      dataType="i4"
-                      name="ContainerStart" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainerEnd]"
-                      dataType="i4"
-                      name="ContainerEnd" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[TotalContainers]"
-                      dataType="i4"
-                      name="TotalContainers" />
-                    <externalMetadataColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ContainersTEU]"
                       dataType="r8"
                       name="ContainersTEU" />
-                    <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[Cubes]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="Cubes" />
                     <externalMetadataColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[PricePerKmPerTonPerContainer]"
                       dataType="r8"
                       name="PricePerKmPerTonPerContainer" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
                       dataType="i4"
-                      name="PortIdFrom" />
+                      name="ConsignorId" />
                     <externalMetadataColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
                       dataType="i4"
-                      name="PortIdTo" />
+                      name="ShipId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[ShipmentId]"
+                      dataType="i4"
+                      name="ShipmentId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
+                      dataType="i4"
+                      name="Distance" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -771,57 +898,50 @@ where [refTable].[Id] = ?</property>
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[Id]"
                       name="Id" />
                     <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ShipmentId]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ShipmentId]"
+                      name="ShipmentId" />
+                    <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ItemId]"
                       dataType="i4"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ItemId]"
                       name="ItemId" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[Distance]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[Distance]"
+                      name="Distance" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ShipId]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ShipId]"
+                      name="ShipId" />
+                    <outputColumn
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      dataType="i4"
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      name="VoyageId" />
                     <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
                       dataType="i4"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerTypeId]"
                       name="ContainerTypeId" />
                     <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerStart]"
-                      dataType="i4"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerStart]"
-                      name="ContainerStart" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerEnd]"
-                      dataType="i4"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainerEnd]"
-                      name="ContainerEnd" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[TotalContainers]"
-                      dataType="i4"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[TotalContainers]"
-                      name="TotalContainers" />
-                    <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainersTEU]"
                       dataType="r8"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ContainersTEU]"
                       name="ContainersTEU" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[Cubes]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[Cubes]"
-                      name="Cubes" />
                     <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
                       dataType="r8"
                       lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PricePerKmPerTonPerContainer]"
                       name="PricePerKmPerTonPerContainer" />
                     <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
+                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
                       dataType="i4"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
-                      name="PortIdFrom" />
-                    <outputColumn
-                      refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
-                      dataType="i4"
-                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
-                      name="PortIdTo" />
+                      lineageId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
+                      name="ConsignorId" />
                     <outputColumn
                       refId="Package\Load Shipment to ODS\PSA Shipment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -843,9 +963,14 @@ where [refTable].[Id] = ?</property>
           <paths>
             <path
               refId="Package\Load Shipment to ODS.Paths[Lookup Match Output]"
-              endId="Package\Load Shipment to ODS\Lookup Facts Increment.Inputs[Lookup Input]"
+              endId="Package\Load Shipment to ODS\Lookup Consignor Id.Inputs[Lookup Input]"
               name="Lookup Match Output"
               startId="Package\Load Shipment to ODS\Lookup ItemId.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load Shipment to ODS.Paths[Lookup Match Output1]"
+              endId="Package\Load Shipment to ODS\Lookup Facts Increment.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\Load Shipment to ODS\Lookup Consignor Id.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Load Shipment to ODS.Paths[Lookup No Match Output]"
               endId="Package\Load Shipment to ODS\OLE DB Destination.Inputs[OLE DB Destination Input]"
@@ -875,164 +1000,6 @@ where [refTable].[Id] = ?</property>
           version="1">
           <components>
             <component
-              refId="Package\Load Trip to ODS\Lookup ConsignorId"
-              componentClassID="Microsoft.Lookup"
-              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
-              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup ConsignorId"
-              usesDispositions="true"
-              version="6">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Specifies the SQL statement that generates the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Consignor]</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Consignor]) [refTable]
-where [refTable].[Id] = ?</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the type of connection used to access the reference dataset."
-                  name="ConnectionType"
-                  typeConverter="LookupConnectionType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the cache type of the lookup table."
-                  name="CacheType"
-                  typeConverter="CacheType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
-                  name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
-                  name="NoMatchCachePercentage">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
-                  name="MaxMemoryUsage">25</property>
-                <property
-                  dataType="System.Int64"
-                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
-                  name="MaxMemoryUsage64">25</property>
-                <property
-                  dataType="System.String"
-                  description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ConsignorRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Consignor" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Discount" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
-                <property
-                  containsID="true"
-                  dataType="System.String"
-                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]};</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
-                  name="TreatDuplicateKeysAsError">false</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\Load Trip to ODS\Lookup ConsignorId.Connections[OleDbConnection]"
-                  connectionManagerID="{408BA3AA-0342-421C-893C-89607BEB626C}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[LocalHost.ODS]"
-                  description="Connection manager used to access lookup data."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input]"
-                  name="Lookup Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input].Columns[ConsignorId]"
-                      cachedDataType="i4"
-                      cachedName="ConsignorId"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">Id</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Match Output]"
-                  errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="Lookup Match Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Match Output].Columns[ConsignorRowId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Match Output].Columns[ConsignorRowId]"
-                      name="ConsignorRowId"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">ConsignorRowId</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup No Match Output]"
-                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
-                  exclusionGroup="1"
-                  name="Lookup No Match Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Lookup Error Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\Load Trip to ODS\Lookup Facts Increment"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
@@ -1046,14 +1013,14 @@ where [refTable].[Id] = ?</property>
                   description="Specifies the SQL statement that generates the lookup table."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Trip]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[Trip]</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Trip]) [refTable]
-where [refTable].[Id] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Trip]) [refTable]
+where [refTable].[TripId] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -1084,12 +1051,12 @@ where [refTable].[Id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdFrom" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PortIdTo" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ConsignorId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Distance" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CurrentNumberOfContainers" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Depart" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Arrival" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NextDepart" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DaysWait" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ConsignorRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TripId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="VoyageId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Distance" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Depart" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Arrival" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="NextDepart" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DaysWait" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CurrentNumberOfContainers" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaxTEU" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Id]};</property>
+                  name="ParameterMap">#{Package\Load Trip to ODS\332:invalid};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1113,15 +1080,15 @@ where [refTable].[Id] = ?</property>
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load Trip to ODS\Lookup Facts Increment.Inputs[Lookup Input].Columns[Id]"
+                      refId="Package\Load Trip to ODS\Lookup Facts Increment.Inputs[Lookup Input].Columns[TripId]"
                       cachedDataType="i4"
-                      cachedName="Id"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Id]">
+                      cachedName="TripId"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[TripId]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">Id</property>
+                          name="JoinToReferenceColumn">TripId</property>
                         <property
                           dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
@@ -1174,11 +1141,11 @@ where [refTable].[Id] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Load Trip to ODS\Lookup ShipId"
+              refId="Package\Load Trip to ODS\Lookup Ship Id"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
               description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup ShipId"
+              name="Lookup Ship Id"
               usesDispositions="true"
               version="6">
               <properties>
@@ -1194,7 +1161,7 @@ where [refTable].[Id] = ?</property>
                   expressionType="Notify"
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[Ship]) [refTable]
-where [refTable].[Id] = ?</property>
+where [refTable].[ShipId] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -1225,7 +1192,7 @@ where [refTable].[Id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ShipRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaxTEU" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKnots" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKm_H" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Yearcost" dataType="DT_NUMERIC" length="0" precision="38" scale="2" codePage="0"/&gt;&lt;referenceColumn name="Annual Total time spent at sea (hours)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average Fuel consumption per distance (kg / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ShipRowId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ShipId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Name" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MaxTEU" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKnots" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SpeedInKm_H" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Yearcost" dataType="DT_NUMERIC" length="0" precision="38" scale="2" codePage="0"/&gt;&lt;referenceColumn name="Annual Total time spent at sea (hours)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average CO₂ emissions per distance (kg CO₂ / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Annual average Fuel consumption per distance (kg / n mile)" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="START_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="END_DATE" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -1242,7 +1209,7 @@ where [refTable].[Id] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Load Trip to ODS\Lookup ShipId.Connections[OleDbConnection]"
+                  refId="Package\Load Trip to ODS\Lookup Ship Id.Connections[OleDbConnection]"
                   connectionManagerID="{408BA3AA-0342-421C-893C-89607BEB626C}:external"
                   connectionManagerRefId="Project.ConnectionManagers[LocalHost.ODS]"
                   description="Connection manager used to access lookup data."
@@ -1250,11 +1217,11 @@ where [refTable].[Id] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input]"
+                  refId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input]"
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input].Columns[ShipId]"
+                      refId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input].Columns[ShipId]"
                       cachedDataType="i4"
                       cachedName="ShipId"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ShipId]">
@@ -1262,7 +1229,7 @@ where [refTable].[Id] = ?</property>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">Id</property>
+                          name="JoinToReferenceColumn">ShipId</property>
                         <property
                           dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
@@ -1275,18 +1242,18 @@ where [refTable].[Id] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Match Output]"
+                  refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
                   errorRowDisposition="FailComponent"
                   exclusionGroup="1"
                   name="Lookup Match Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Match Output].Columns[ShipRowId]"
+                      refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipRowId]"
                       dataType="i4"
                       errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Match Output].Columns[ShipRowId]"
+                      lineageId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipRowId]"
                       name="ShipRowId"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -1300,30 +1267,30 @@ where [refTable].[Id] = ?</property>
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup No Match Output]"
+                  refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup No Match Output]"
                   description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
                   exclusionGroup="1"
                   name="Lookup No Match Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Error Output]"
+                  refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Lookup Error Output"
-                  synchronousInputId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1404,35 +1371,11 @@ where [refTable].[Id] = ?</property>
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[Id]"
-                      cachedDataType="i4"
-                      cachedName="Id"
-                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Id]" />
-                    <inputColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[PortIdFrom]"
-                      cachedDataType="i4"
-                      cachedName="PortIdFrom"
-                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]" />
-                    <inputColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[PortIdTo]"
-                      cachedDataType="i4"
-                      cachedName="PortIdTo"
-                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]" />
-                    <inputColumn
                       refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[Distance]"
                       cachedDataType="i4"
                       cachedName="Distance"
                       externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Distance]" />
-                    <inputColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[CurrentNumberOfContainers]"
-                      cachedDataType="i4"
-                      cachedName="CurrentNumberOfContainers"
-                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrentNumberOfContainers]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]" />
                     <inputColumn
                       refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[Depart]"
                       cachedDataType="dbTimeStamp"
@@ -1462,36 +1405,54 @@ where [refTable].[Id] = ?</property>
                       cachedDataType="i4"
                       cachedName="ShipRowId"
                       externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[ShipRowId]"
-                      lineageId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Match Output].Columns[ShipRowId]" />
+                      lineageId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Match Output].Columns[ShipRowId]" />
                     <inputColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[ConsignorRowId]"
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[TripId]"
                       cachedDataType="i4"
-                      cachedName="ConsignorRowId"
-                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorRowId]"
-                      lineageId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Match Output].Columns[ConsignorRowId]" />
+                      cachedName="TripId"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[TripId]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[TripId]" />
+                    <inputColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[VoyageId]"
+                      cachedDataType="i4"
+                      cachedName="VoyageId"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[VoyageId]" />
+                    <inputColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[CurrentNumberOfContainers]"
+                      cachedDataType="i4"
+                      cachedName="CurrentNumberOfContainers"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrentNumberOfContainers]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]" />
+                    <inputColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[MaxTEU]"
+                      cachedDataType="i4"
+                      cachedName="MaxTEU"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]" />
+                    <inputColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[kgCO2]"
+                      cachedDataType="numeric"
+                      cachedName="kgCO2"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[kgCO2]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgCO2]" />
+                    <inputColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].Columns[kgFuelConsumption]"
+                      cachedDataType="numeric"
+                      cachedName="kgFuelConsumption"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[kgFuelConsumption]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgFuelConsumption]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
-                      dataType="i4"
-                      name="Id" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdFrom]"
-                      dataType="i4"
-                      name="PortIdFrom" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[PortIdTo]"
-                      dataType="i4"
-                      name="PortIdTo" />
-                    <externalMetadataColumn
                       refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[Distance]"
                       dataType="i4"
                       name="Distance" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrentNumberOfContainers]"
-                      dataType="i4"
-                      name="CurrentNumberOfContainers" />
                     <externalMetadataColumn
                       refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[Depart]"
                       dataType="dbTimeStamp"
@@ -1513,9 +1474,29 @@ where [refTable].[Id] = ?</property>
                       dataType="i4"
                       name="ShipRowId" />
                     <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[ConsignorRowId]"
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[TripId]"
                       dataType="i4"
-                      name="ConsignorRowId" />
+                      name="TripId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[CurrentNumberOfContainers]"
+                      dataType="i4"
+                      name="CurrentNumberOfContainers" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[MaxTEU]"
+                      dataType="i4"
+                      name="MaxTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[kgCO2]"
+                      dataType="r8"
+                      name="kgCO2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input].ExternalColumns[kgFuelConsumption]"
+                      dataType="r8"
+                      name="kgFuelConsumption" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1606,15 +1587,6 @@ where [refTable].[Id] = ?</property>
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[Id]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Id]"
-                      name="Id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ShipId]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -1624,33 +1596,6 @@ where [refTable].[Id] = ?</property>
                       name="ShipId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdFrom]"
-                      name="PortIdFrom"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[PortIdTo]"
-                      name="PortIdTo"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[ConsignorId]"
-                      name="ConsignorId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Distance]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -1658,15 +1603,6 @@ where [refTable].[Id] = ?</property>
                       externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Distance]"
                       name="Distance"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentNumberOfContainers]"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]"
-                      name="CurrentNumberOfContainers"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[Depart]"
@@ -1704,37 +1640,75 @@ where [refTable].[Id] = ?</property>
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[DaysWait]"
                       name="DaysWait"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[VoyageId]"
+                      name="VoyageId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentNumberOfContainers]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[CurrentNumberOfContainers]"
+                      name="CurrentNumberOfContainers"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[MaxTEU]"
+                      name="MaxTEU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[TripId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[TripId]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[TripId]"
+                      name="TripId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgCO2]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[kgCO2]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgCO2]"
+                      name="kgCO2"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgFuelConsumption]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[kgFuelConsumption]"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].Columns[kgFuelConsumption]"
+                      name="kgFuelConsumption"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[Id]"
-                      dataType="i4"
-                      name="Id" />
                     <externalMetadataColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[ShipId]"
                       dataType="i4"
                       name="ShipId" />
                     <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[PortIdFrom]"
-                      dataType="i4"
-                      name="PortIdFrom" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[PortIdTo]"
-                      dataType="i4"
-                      name="PortIdTo" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[ConsignorId]"
-                      dataType="i4"
-                      name="ConsignorId" />
-                    <externalMetadataColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[Distance]"
                       dataType="i4"
                       name="Distance" />
-                    <externalMetadataColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentNumberOfContainers]"
-                      dataType="i4"
-                      name="CurrentNumberOfContainers" />
                     <externalMetadataColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[Depart]"
                       dataType="dbTimeStamp"
@@ -1751,6 +1725,34 @@ where [refTable].[Id] = ?</property>
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[DaysWait]"
                       dataType="i4"
                       name="DaysWait" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[VoyageId]"
+                      dataType="i4"
+                      name="VoyageId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[CurrentNumberOfContainers]"
+                      dataType="i4"
+                      name="CurrentNumberOfContainers" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[MaxTEU]"
+                      dataType="i4"
+                      name="MaxTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[TripId]"
+                      dataType="i4"
+                      name="TripId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[kgCO2]"
+                      dataType="numeric"
+                      name="kgCO2"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output].ExternalColumns[kgFuelConsumption]"
+                      dataType="numeric"
+                      name="kgFuelConsumption"
+                      precision="10"
+                      scale="2" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1759,30 +1761,20 @@ where [refTable].[Id] = ?</property>
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[Id]"
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[TripId]"
                       dataType="i4"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[Id]"
-                      name="Id" />
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[TripId]"
+                      name="TripId" />
                     <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ShipId]"
                       dataType="i4"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ShipId]"
                       name="ShipId" />
                     <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
                       dataType="i4"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[PortIdFrom]"
-                      name="PortIdFrom" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
-                      dataType="i4"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[PortIdTo]"
-                      name="PortIdTo" />
-                    <outputColumn
-                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
-                      dataType="i4"
-                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ConsignorId]"
-                      name="ConsignorId" />
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[VoyageId]"
+                      name="VoyageId" />
                     <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[Distance]"
                       dataType="i4"
@@ -1793,6 +1785,11 @@ where [refTable].[Id] = ?</property>
                       dataType="i4"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[CurrentNumberOfContainers]"
                       name="CurrentNumberOfContainers" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      dataType="i4"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[MaxTEU]"
+                      name="MaxTEU" />
                     <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[Depart]"
                       dataType="dbTimeStamp"
@@ -1814,6 +1811,20 @@ where [refTable].[Id] = ?</property>
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[DaysWait]"
                       name="DaysWait" />
                     <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[kgCO2]"
+                      dataType="numeric"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[kgCO2]"
+                      name="kgCO2"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[kgFuelConsumption]"
+                      dataType="numeric"
+                      lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[kgFuelConsumption]"
+                      name="kgFuelConsumption"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
                       refId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -1834,14 +1845,9 @@ where [refTable].[Id] = ?</property>
           <paths>
             <path
               refId="Package\Load Trip to ODS.Paths[Lookup Match Output]"
-              endId="Package\Load Trip to ODS\Lookup ConsignorId.Inputs[Lookup Input]"
-              name="Lookup Match Output"
-              startId="Package\Load Trip to ODS\Lookup ShipId.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\Load Trip to ODS.Paths[Lookup Match Output1]"
               endId="Package\Load Trip to ODS\Lookup Facts Increment.Inputs[Lookup Input]"
               name="Lookup Match Output"
-              startId="Package\Load Trip to ODS\Lookup ConsignorId.Outputs[Lookup Match Output]" />
+              startId="Package\Load Trip to ODS\Lookup Ship Id.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Load Trip to ODS.Paths[Lookup No Match Output]"
               endId="Package\Load Trip to ODS\ODS Trip Destination.Inputs[OLE DB Destination Input]"
@@ -1849,7 +1855,7 @@ where [refTable].[Id] = ?</property>
               startId="Package\Load Trip to ODS\Lookup Facts Increment.Outputs[Lookup No Match Output]" />
             <path
               refId="Package\Load Trip to ODS.Paths[OLE DB Source Output]"
-              endId="Package\Load Trip to ODS\Lookup ShipId.Inputs[Lookup Input]"
+              endId="Package\Load Trip to ODS\Lookup Ship Id.Inputs[Lookup Input]"
               name="OLE DB Source Output"
               startId="Package\Load Trip to ODS\PSA Trip.Outputs[OLE DB Source Output]" />
           </paths>
@@ -1884,296 +1890,166 @@ where [refTable].[Id] = ?</property>
     design-time-name="Package\Load Shipment to ODS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="149.333333333334,42.6666666666667"
-          Id="Package\Load Shipment to ODS\PSA Shipment"
-          TopLeft="533,89" />
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Load Shipment to ODS\OLE DB Destination"
-          TopLeft="685,304" />
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="146.666666666667,42.6666666666667"
           Id="Package\Load Shipment to ODS\Lookup ItemId"
-          TopLeft="588,155" />
+          TopLeft="548.50000026077,161.649999988377" />
+        <NodeLayout
+          Size="149.333333333334,42.6666666666667"
+          Id="Package\Load Shipment to ODS\PSA Shipment"
+          TopLeft="463.500000856817,95.4000000464916" />
+        <NodeLayout
+          Size="193.333333333334,42.6666666666667"
+          Id="Package\Load Shipment to ODS\Lookup Facts Increment"
+          TopLeft="592.625000884756,301.999998605252" />
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Load Shipment to ODS\OLE DB Destination"
+          TopLeft="643.375001201407,382.233332101305" />
+        <NodeLayout
+          Size="177.333333333334,42.6666666666667"
+          Id="Package\Load Shipment to ODS\Lookup Consignor Id"
+          TopLeft="571.249991487712,231.03333079954" />
         <EdgeLayout
           Id="Package\Load Shipment to ODS.Paths[OLE DB Source Output]"
-          TopLeft="607.666666666667,131.666666666667">
+          TopLeft="538.166667523484,138.066666713158">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="53.6666666666667,23.3333333333333"
+              EndConnector="83.6666660706197,23.5833332752187"
               Start="0,0"
-              End="53.6666666666667,15.8333333333333">
+              End="83.6666660706197,16.0833332752187">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,7.66666666666667" />
+                    End="0,7.79166663760937" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,7.66666666666667"
-                    Point2="0,11.6666666666667"
-                    Point3="4,11.6666666666667" />
+                    Point1="0,7.79166663760937"
+                    Point2="0,11.7916666376094"
+                    Point3="4,11.7916666376094" />
                   <mssgle:LineSegment
-                    End="49.6666666666667,11.6666666666667" />
+                    End="79.6666660706197,11.7916666376094" />
                   <mssgle:CubicBezierSegment
-                    Point1="49.6666666666667,11.6666666666667"
-                    Point2="53.6666666666667,11.6666666666667"
-                    Point3="53.6666666666667,15.6666666666667" />
+                    Point1="79.6666660706197,11.7916666376094"
+                    Point2="83.6666660706197,11.7916666376094"
+                    Point3="83.6666660706197,15.7916666376094" />
                   <mssgle:LineSegment
-                    End="53.6666666666667,15.8333333333333" />
+                    End="83.6666660706197,16.0833332752187" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="193.333333333334,42.6666666666667"
-          Id="Package\Load Shipment to ODS\Lookup Facts Increment"
-          TopLeft="650,232" />
-        <EdgeLayout
-          Id="Package\Load Shipment to ODS.Paths[Lookup Match Output]"
-          TopLeft="661.333333333333,197.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="85.3333333333334,34.3333333333334"
-              Start="0,0"
-              End="85.3333333333334,26.8333333333334">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,13.1666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13.1666666666667"
-                    Point2="0,17.1666666666667"
-                    Point3="4,17.1666666666667" />
-                  <mssgle:LineSegment
-                    End="81.3333333333334,17.1666666666667" />
-                  <mssgle:CubicBezierSegment
-                    Point1="81.3333333333334,17.1666666666667"
-                    Point2="85.3333333333334,17.1666666666667"
-                    Point3="85.3333333333334,21.1666666666667" />
-                  <mssgle:LineSegment
-                    End="85.3333333333334,26.8333333333334" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-5.52472005208332,22.1666666666667,96.3827734375,11.609375"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Load Shipment to ODS.Paths[Lookup No Match Output]"
-          TopLeft="746.666666666667,274.666666666667">
+          TopLeft="689.291667551423,344.666665271919">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="25.6666666666666,29.3333333333333"
+              EndConnector="41.4166669833178,37.5666668293863"
               Start="0,0"
-              End="25.6666666666666,21.8333333333333">
+              End="41.4166669833178,30.0666668293863">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.6666666666667" />
+                    End="0,14.7833334146931" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.6666666666667"
-                    Point2="0,14.6666666666667"
-                    Point3="4,14.6666666666667" />
+                    Point1="0,14.7833334146931"
+                    Point2="0,18.7833334146931"
+                    Point3="4,18.7833334146931" />
                   <mssgle:LineSegment
-                    End="21.6666666666666,14.6666666666667" />
+                    End="37.4166669833178,18.7833334146931" />
                   <mssgle:CubicBezierSegment
-                    Point1="21.6666666666666,14.6666666666667"
-                    Point2="25.6666666666666,14.6666666666667"
-                    Point3="25.6666666666666,18.6666666666667" />
+                    Point1="37.4166669833178,18.7833334146931"
+                    Point2="41.4166669833178,18.7833334146931"
+                    Point3="41.4166669833178,22.7833334146931" />
                   <mssgle:LineSegment
-                    End="25.6666666666666,21.8333333333333" />
+                    End="41.4166669833178,30.0666668293863" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-42.9730533854167,19.6666666666667,111.6127734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <TaskHost
-    design-time-name="Package\Load Trip to ODS">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="122.666666666667,42.6666666666667"
-          Id="Package\Load Trip to ODS\PSA Trip"
-          TopLeft="186.874997215346,62.9473696058807" />
-        <NodeLayout
-          Size="148,42.6666666666667"
-          Id="Package\Load Trip to ODS\Lookup ShipId"
-          TopLeft="229.374996582046,150.526318622758" />
-        <EdgeLayout
-          Id="Package\Load Trip to ODS.Paths[OLE DB Source Output]"
-          TopLeft="248.208330548679,105.614036272547">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="55.1666660333667,44.9122823502106"
-              Start="0,0"
-              End="55.1666660333667,37.4122823502106">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18.4561411751053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18.4561411751053"
-                    Point2="0,22.4561411751053"
-                    Point3="4,22.4561411751053" />
-                  <mssgle:LineSegment
-                    End="51.1666660333667,22.4561411751053" />
-                  <mssgle:CubicBezierSegment
-                    Point1="51.1666660333667,22.4561411751053"
-                    Point2="55.1666660333667,22.4561411751053"
-                    Point3="55.1666660333667,26.4561411751053" />
-                  <mssgle:LineSegment
-                    End="55.1666660333667,37.4122823502106" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Load Trip to ODS\Lookup ConsignorId"
-          TopLeft="278.749995846301,222.368425238166" />
-        <EdgeLayout
-          Id="Package\Load Trip to ODS.Paths[Lookup Match Output]"
-          TopLeft="303.374996582046,193.192985289425">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="62.7083325975887,29.1754399487409"
-              Start="0,0"
-              End="62.7083325975887,21.6754399487409">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.5877199743704" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.5877199743704"
-                    Point2="0,14.5877199743704"
-                    Point3="4,14.5877199743704" />
-                  <mssgle:LineSegment
-                    End="58.7083325975887,14.5877199743704" />
-                  <mssgle:CubicBezierSegment
-                    Point1="58.7083325975887,14.5877199743704"
-                    Point2="62.7083325975887,14.5877199743704"
-                    Point3="62.7083325975887,18.5877199743704" />
-                  <mssgle:LineSegment
-                    End="62.7083325975887,21.6754399487409" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-16.8372204199556,19.5877199743704,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="180,42.6666666666667"
-          Id="Package\Load Trip to ODS\ODS Trip Destination"
-          TopLeft="379.374994346872,364.385971557621" />
-        <NodeLayout
-          Size="193.333333333334,42.6666666666667"
-          Id="Package\Load Trip to ODS\Lookup Facts Increment"
-          TopLeft="339.999994933605,291.947372786887" />
-        <EdgeLayout
-          Id="Package\Load Trip to ODS.Paths[Lookup Match Output1]"
-          TopLeft="366.083329179635,265.035091904832">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="70.5833324206373,26.9122808820544"
-              Start="0,0"
-              End="70.5833324206373,19.4122808820544">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,9.4561404410272" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,9.4561404410272"
-                    Point2="0,13.4561404410272"
-                    Point3="4,13.4561404410272" />
-                  <mssgle:LineSegment
-                    End="66.5833324206373,13.4561404410272" />
-                  <mssgle:CubicBezierSegment
-                    Point1="66.5833324206373,13.4561404410272"
-                    Point2="70.5833324206373,13.4561404410272"
-                    Point3="70.5833324206373,17.4561404410272" />
-                  <mssgle:LineSegment
-                    End="70.5833324206373,19.4122808820544" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-12.8997205084314,18.4561404410272,96.3827734375,11.609375"
+              BoundingBox="-35.0980532270911,23.7833334146931,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load Trip to ODS.Paths[Lookup No Match Output]"
-          TopLeft="436.666661600272,334.614039453553">
+          Id="Package\Load Shipment to ODS.Paths[Lookup Match Output1]"
+          TopLeft="659.916658154379,273.699997466207">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="32.7083327466,29.7719321040674"
+              EndConnector="29.375009397044,28.3000011390453"
               Start="0,0"
-              End="32.7083327466,22.2719321040674">
+              End="29.375009397044,20.8000011390453">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,10.8859660520337" />
+                    End="0,10.1500005695227" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,10.8859660520337"
-                    Point2="0,14.8859660520337"
-                    Point3="4,14.8859660520337" />
+                    Point1="0,10.1500005695227"
+                    Point2="0,14.1500005695227"
+                    Point3="4,14.1500005695227" />
                   <mssgle:LineSegment
-                    End="28.7083327466,14.8859660520337" />
+                    End="25.375009397044,14.1500005695227" />
                   <mssgle:CubicBezierSegment
-                    Point1="28.7083327466,14.8859660520337"
-                    Point2="32.7083327466,14.8859660520337"
-                    Point3="32.7083327466,18.8859660520337" />
+                    Point1="25.375009397044,14.1500005695227"
+                    Point2="29.375009397044,14.1500005695227"
+                    Point3="29.375009397044,18.1500005695227" />
                   <mssgle:LineSegment
-                    End="32.7083327466,22.2719321040674" />
+                    End="29.375009397044,20.8000011390453" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-39.45222034545,19.8859660520337,111.6127734375,11.609375"
+              BoundingBox="-33.503882020228,19.1500005695227,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Shipment to ODS.Paths[Lookup Match Output]"
+          TopLeft="621.833333594103,204.316666655044">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38.0833245602753,26.7166641444963"
+              Start="0,0"
+              End="38.0833245602753,19.2166641444963">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.35833207224817" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.35833207224817"
+                    Point2="0,13.3583320722482"
+                    Point3="4,13.3583320722482" />
+                  <mssgle:LineSegment
+                    End="34.0833245602753,13.3583320722482" />
+                  <mssgle:CubicBezierSegment
+                    Point1="34.0833245602753,13.3583320722482"
+                    Point2="38.0833245602753,13.3583320722482"
+                    Point3="38.0833245602753,17.3583320722482" />
+                  <mssgle:LineSegment
+                    End="38.0833245602753,19.2166641444963" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-29.1497244386124,18.3583320722482,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2181,12 +2057,237 @@ where [refTable].[Id] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Trip to ODS\Lookup ShipId">
+    design-time-name="Package\Load Shipment to ODS\Lookup Facts Increment">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Shipment]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Shipment to ODS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Shipment to ODS\Lookup Consignor Id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Consignor]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Shipment to ODS\Lookup ItemId">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[Item]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Shipment to ODS\PSA Shipment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Trip to ODS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Trip to ODS\Lookup Ship Id"
+          TopLeft="315,229" />
+        <NodeLayout
+          Size="193.333333333334,42.6666666666667"
+          Id="Package\Load Trip to ODS\Lookup Facts Increment"
+          TopLeft="339.999994933605,297.947372786887" />
+        <NodeLayout
+          Size="178.666666666667,42.6666666666667"
+          Id="Package\Load Trip to ODS\ODS Trip Destination"
+          TopLeft="377.374994346872,368.385971557621" />
+        <NodeLayout
+          Size="122.666666666667,42.6666666666667"
+          Id="Package\Load Trip to ODS\PSA Trip"
+          TopLeft="250.874997215346,157.947369605881" />
+        <EdgeLayout
+          Id="Package\Load Trip to ODS.Paths[OLE DB Source Output]"
+          TopLeft="312.208330548679,200.614036272547">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="78.1250027846539,28.3859637274527"
+              Start="0,0"
+              End="78.1250027846539,20.8859637274527">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.1929818637263" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.1929818637263"
+                    Point2="0,14.1929818637263"
+                    Point3="4,14.1929818637263" />
+                  <mssgle:LineSegment
+                    End="74.1250027846539,14.1929818637263" />
+                  <mssgle:CubicBezierSegment
+                    Point1="74.1250027846539,14.1929818637263"
+                    Point2="78.1250027846539,14.1929818637263"
+                    Point3="78.1250027846539,18.1929818637263" />
+                  <mssgle:LineSegment
+                    End="78.1250027846539,20.8859637274527" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Trip to ODS.Paths[Lookup No Match Output]"
+          TopLeft="436.666661600272,340.614039453554">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.0416660799336,27.7719321040673"
+              Start="0,0"
+              End="30.0416660799336,20.2719321040673">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.88596605203367" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.88596605203367"
+                    Point2="0,13.8859660520337"
+                    Point3="4,13.8859660520337" />
+                  <mssgle:LineSegment
+                    End="26.0416660799336,13.8859660520337" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.0416660799336,13.8859660520337"
+                    Point2="30.0416660799336,13.8859660520337"
+                    Point3="30.0416660799336,17.8859660520337" />
+                  <mssgle:LineSegment
+                    End="30.0416660799336,20.2719321040673" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.7855536787832,18.8859660520337,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Trip to ODS.Paths[Lookup Match Output]"
+          TopLeft="390.333333333333,271.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="46.3333282669384,26.2807061202203"
+              Start="0,0"
+              End="46.3333282669384,18.7807061202203">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.14035306011013" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.14035306011013"
+                    Point2="0,13.1403530601101"
+                    Point3="4,13.1403530601101" />
+                  <mssgle:LineSegment
+                    End="42.3333282669384,13.1403530601101" />
+                  <mssgle:CubicBezierSegment
+                    Point1="42.3333282669384,13.1403530601101"
+                    Point2="46.3333282669384,13.1403530601101"
+                    Point3="46.3333282669384,17.1403530601101" />
+                  <mssgle:LineSegment
+                    End="46.3333282669384,18.7807061202203" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.0247225852808,18.1403530601101,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Trip to ODS\Lookup Ship Id">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2204,35 +2305,22 @@ where [refTable].[Id] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Trip to ODS\PSA Trip">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Trip to ODS\Lookup ConsignorId">
+    design-time-name="Package\Load Trip to ODS\Lookup Facts Increment">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
         <Value
-          type="q3:string">[dbo].[Consignor]</Value>
+          type="q3:string">[dbo].[Trip]</Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2253,30 +2341,7 @@ where [refTable].[Id] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Load Trip to ODS\Lookup Facts Increment">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string"></Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Shipment to ODS\PSA Shipment">
+    design-time-name="Package\Load Trip to ODS\PSA Trip">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2285,65 +2350,6 @@ where [refTable].[Id] = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Shipment to ODS\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Shipment to ODS\Lookup ItemId">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[Item]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Shipment to ODS\Lookup Facts Increment">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string"></Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

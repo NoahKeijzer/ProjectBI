@@ -11,8 +11,8 @@
   DTS:LocaleID="1043"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="149"
-  DTS:VersionGUID="{FB9D391D-F987-4253-93E1-CE8E80744914}">
+  DTS:VersionBuild="165"
+  DTS:VersionGUID="{50AB457D-BEF4-4455-862A-557A925E5226}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -6642,11 +6642,6 @@ where [refTable].[UpperShipName] = ?</property>
                       cachedName="Total Containers"
                       lineageId="Package\ShipmentDetail RAW to RDMS\Calucate total containers of one type.Outputs[Derived Column Output].Columns[Total Containers]" />
                     <inputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Inputs[Derived Column Input].Columns[Copy of Length]"
-                      cachedDataType="r4"
-                      cachedName="Copy of Length"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Length]" />
-                    <inputColumn
                       refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Inputs[Derived Column Input].Columns[Copy of Cubes]"
                       cachedDataType="r4"
                       cachedName="Copy of Cubes"
@@ -6656,6 +6651,11 @@ where [refTable].[UpperShipName] = ?</property>
                       cachedDataType="r4"
                       cachedName="Copy of EuroPricePerKm"
                       lineageId="Package\ShipmentDetail RAW to RDMS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of EuroPricePerKm]" />
+                    <inputColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Inputs[Derived Column Input].Columns[Copy of Length]"
+                      cachedDataType="r4"
+                      cachedName="Copy of Length"
+                      lineageId="Package\ShipmentDetail RAW to RDMS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Length]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -6668,28 +6668,6 @@ where [refTable].[UpperShipName] = ?</property>
                   name="Derived Column Output"
                   synchronousInputId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Inputs[Derived Column Input]">
                   <outputColumns>
-                    <outputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[TEU]"
-                      dataType="r4"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[TEU]"
-                      name="TEU"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">(#{Package\ShipmentDetail RAW to RDMS\Calucate total containers of one type.Outputs[Derived Column Output].Columns[Total Containers]} * (#{Package\ShipmentDetail RAW to RDMS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Length]} / 6.1)) / 100</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">([Total Containers] * ([Copy of Length] / 6.1)) / 100</property>
-                      </properties>
-                    </outputColumn>
                     <outputColumn
                       refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[Calculated Cubes]"
                       dataType="r4"
@@ -6732,6 +6710,28 @@ where [refTable].[UpperShipName] = ?</property>
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
                           name="FriendlyExpression">([Copy of EuroPricePerKm] / 30.48) / 100</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[ContainersTEU]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[ContainersTEU]"
+                      name="ContainersTEU"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(#{Package\ShipmentDetail RAW to RDMS\Calucate total containers of one type.Outputs[Derived Column Output].Columns[Total Containers]} * (#{Package\ShipmentDetail RAW to RDMS\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Length]} / 6.1)) / 100</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">([Total Containers] * ([Copy of Length] / 6.1)) / 100</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -7384,12 +7384,6 @@ where [refTable].[Id] = ?</property>
                       externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainerTypeId]"
                       lineageId="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW.Outputs[OLE DB Source Output].Columns[ContainerTypeId]" />
                     <inputColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[TEU]"
-                      cachedDataType="r4"
-                      cachedName="TEU"
-                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
-                      lineageId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[TEU]" />
-                    <inputColumn
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[Calculated Cubes]"
                       cachedDataType="r4"
                       cachedName="Calculated Cubes"
@@ -7401,6 +7395,12 @@ where [refTable].[Id] = ?</property>
                       cachedName="PricePerKmPerTon"
                       externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
                       lineageId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[PricePerKmPerTon]" />
+                    <inputColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].Columns[ContainersTEU]"
+                      cachedDataType="r4"
+                      cachedName="ContainersTEU"
+                      externalMetadataColumnId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainersTEU]"
+                      lineageId="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton.Outputs[Derived Column Output].Columns[ContainersTEU]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -7429,10 +7429,6 @@ where [refTable].[Id] = ?</property>
                       dataType="i4"
                       name="ContainerTypeId" />
                     <externalMetadataColumn
-                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[ContainersTEU]"
-                      dataType="r8"
-                      name="ContainersTEU" />
-                    <externalMetadataColumn
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cubes]"
                       dataType="r8"
                       name="Cubes" />
@@ -7440,6 +7436,10 @@ where [refTable].[Id] = ?</property>
                       refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[PricePerKmPerTonPerContainer]"
                       dataType="r8"
                       name="PricePerKmPerTonPerContainer" />
+                    <externalMetadataColumn
+                      refId="Package\ShipmentDetail RAW to RDMS\RDMS Destination.Inputs[OLE DB Destination Input].ExternalColumns[TotalContainersTEU]"
+                      dataType="r8"
+                      name="TotalContainersTEU" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -9999,11 +9999,11 @@ where [refTable].[Id] = ?</property>
         <NodeLayout
           Size="129.333333333334,42.6666666666667"
           Id="Package\Ship RAW to RDMS\Ship RAW"
-          TopLeft="446,86.6666666666667" />
+          TopLeft="436,95.6666666666667" />
         <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\Ship RAW to RDMS\RDMS Destination"
-          TopLeft="666.875000121072,406.631579166304" />
+          TopLeft="683.875000121072,410.631579166304" />
         <NodeLayout
           Size="156,42.6666666666667"
           Id="Package\Ship RAW to RDMS\Derived Column"
@@ -10013,65 +10013,31 @@ where [refTable].[Id] = ?</property>
           Id="Package\Ship RAW to RDMS\Data Conversion"
           TopLeft="629.624999990687,335.210526470332" />
         <EdgeLayout
-          Id="Package\Ship RAW to RDMS.Paths[Data Conversion Output]"
-          TopLeft="708.95833332402,377.877193136999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="41.916666797052,28.7543860293051"
-              Start="0,0"
-              End="41.916666797052,21.2543860293051">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,10.3771930146525" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,10.3771930146525"
-                    Point2="0,14.3771930146525"
-                    Point3="4,14.3771930146525" />
-                  <mssgle:LineSegment
-                    End="37.916666797052,14.3771930146525" />
-                  <mssgle:CubicBezierSegment
-                    Point1="37.916666797052,14.3771930146525"
-                    Point2="41.916666797052,14.3771930146525"
-                    Point3="41.916666797052,18.3771930146525" />
-                  <mssgle:LineSegment
-                    End="41.916666797052,21.2543860293051" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
           Id="Package\Ship RAW to RDMS.Paths[OLE DB Source Output]"
-          TopLeft="510.666666666667,129.333333333333">
+          TopLeft="500.666666666667,138.333333333333">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="52.3333333333334,46.6666666666666"
+              EndConnector="62.3333333333333,37.6666666666666"
               Start="0,0"
-              End="52.3333333333334,39.1666666666666">
+              End="62.3333333333333,30.1666666666666">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,19.3333333333333" />
+                    End="0,14.8333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,19.3333333333333"
-                    Point2="0,23.3333333333333"
-                    Point3="4,23.3333333333333" />
+                    Point1="0,14.8333333333333"
+                    Point2="0,18.8333333333333"
+                    Point3="4,18.8333333333333" />
                   <mssgle:LineSegment
-                    End="48.3333333333334,23.3333333333333" />
+                    End="58.3333333333333,18.8333333333333" />
                   <mssgle:CubicBezierSegment
-                    Point1="48.3333333333334,23.3333333333333"
-                    Point2="52.3333333333334,23.3333333333333"
-                    Point3="52.3333333333334,27.3333333333333" />
+                    Point1="58.3333333333333,18.8333333333333"
+                    Point2="62.3333333333333,18.8333333333333"
+                    Point3="62.3333333333333,22.8333333333333" />
                   <mssgle:LineSegment
-                    End="52.3333333333334,39.1666666666666" />
+                    End="62.3333333333333,30.1666666666666" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10150,6 +10116,40 @@ where [refTable].[Id] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Ship RAW to RDMS.Paths[Data Conversion Output]"
+          TopLeft="708.95833332402,377.877193136999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="58.9166667970518,32.7543860293054"
+              Start="0,0"
+              End="58.9166667970518,25.2543860293054">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.3771930146527" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.3771930146527"
+                    Point2="0,16.3771930146527"
+                    Point3="4,16.3771930146527" />
+                  <mssgle:LineSegment
+                    End="54.9166667970518,16.3771930146527" />
+                  <mssgle:CubicBezierSegment
+                    Point1="54.9166667970518,16.3771930146527"
+                    Point2="58.9166667970518,16.3771930146527"
+                    Point3="58.9166667970518,20.3771930146527" />
+                  <mssgle:LineSegment
+                    End="58.9166667970518,25.2543860293054" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -10206,7 +10206,7 @@ where [refTable].[Id] = ?</property>
     design-time-name="Package\Shipment RAW to RDMS">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="152,42.6666666666667"
           Id="Package\Shipment RAW to RDMS\Shipment RAW"
@@ -10246,9 +10246,7 @@ where [refTable].[Id] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10260,17 +10258,21 @@ where [refTable].[Id] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="134,42.6666666666667"
+          Id="Package\ShipmentDetail RAW to RDMS\String to Int"
+          TopLeft="667.125000176951,223.631578676919" />
+        <NodeLayout
           Size="232,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\Container Start &amp; Container End"
           TopLeft="579.50000026077,156.368420833696" />
         <NodeLayout
           Size="212,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\Lookup for Length container"
-          TopLeft="796,385" />
+          TopLeft="784,368" />
         <NodeLayout
           Size="158.666666666667,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\Data Conversion"
-          TopLeft="894,466" />
+          TopLeft="878,443" />
         <NodeLayout
           Size="180,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\ShipmentDetail RAW"
@@ -10278,87 +10280,15 @@ where [refTable].[Id] = ?</property>
         <NodeLayout
           Size="168,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\RDMS Destination"
-          TopLeft="1072.74999994412,629.22807034286" />
+          TopLeft="1044.74999994412,603.22807034286" />
+        <NodeLayout
+          Size="321.333333333334,42.6666666666667"
+          Id="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton"
+          TopLeft="887.000000968576,518.368421078388" />
         <NodeLayout
           Size="252,42.6666666666667"
           Id="Package\ShipmentDetail RAW to RDMS\Calucate total containers of one type"
           TopLeft="679.375000158325,293.526315441752" />
-        <NodeLayout
-          Size="327.333333333334,42.6666666666667"
-          Id="Package\ShipmentDetail RAW to RDMS\Calculate TEU and Cubes and Price per Km per Ton"
-          TopLeft="923.375000977889,549.368421078388" />
-        <NodeLayout
-          Size="134,42.6666666666667"
-          Id="Package\ShipmentDetail RAW to RDMS\String to Int"
-          TopLeft="667.125000176951,223.631578676919" />
-        <EdgeLayout
-          Id="Package\ShipmentDetail RAW to RDMS.Paths[Data Conversion Output1]"
-          TopLeft="973.333333333333,508.666666666667">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="113.708334311222,40.7017544117213"
-              Start="0,0"
-              End="113.708334311222,33.2017544117213">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,16.3508772058607" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,16.3508772058607"
-                    Point2="0,20.3508772058607"
-                    Point3="4,20.3508772058607" />
-                  <mssgle:LineSegment
-                    End="109.708334311222,20.3508772058607" />
-                  <mssgle:CubicBezierSegment
-                    Point1="109.708334311222,20.3508772058607"
-                    Point2="113.708334311222,20.3508772058607"
-                    Point3="113.708334311222,24.3508772058607" />
-                  <mssgle:LineSegment
-                    End="113.708334311222,33.2017544117213" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\ShipmentDetail RAW to RDMS.Paths[Data Conversion Output]"
-          TopLeft="734.125000176951,266.298245343585">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="71.2499999813734,27.2280700981673"
-              Start="0,0"
-              End="71.2499999813734,19.7280700981673">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,9.61403504908364" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,9.61403504908364"
-                    Point2="0,13.6140350490836"
-                    Point3="4,13.6140350490836" />
-                  <mssgle:LineSegment
-                    End="67.2499999813734,13.6140350490836" />
-                  <mssgle:CubicBezierSegment
-                    Point1="67.2499999813734,13.6140350490836"
-                    Point2="71.2499999813734,13.6140350490836"
-                    Point3="71.2499999813734,17.6140350490836" />
-                  <mssgle:LineSegment
-                    End="71.2499999813734,19.7280700981673" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\ShipmentDetail RAW to RDMS.Paths[OLE DB Source Output]"
           TopLeft="589,122.666666666667">
@@ -10395,72 +10325,74 @@ where [refTable].[Id] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ShipmentDetail RAW to RDMS.Paths[Lookup Match Output]"
-          TopLeft="902,427.666666666667">
+          TopLeft="890,410.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="71.3333333333335,38.3333333333334"
+              EndConnector="67.3333333333333,32.3333333333333"
               Start="0,0"
-              End="71.3333333333335,30.8333333333334">
+              End="67.3333333333333,24.8333333333333">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,15.1666666666667" />
+                    End="0,12.1666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,15.1666666666667"
-                    Point2="0,19.1666666666667"
-                    Point3="4,19.1666666666667" />
+                    Point1="0,12.1666666666667"
+                    Point2="0,16.1666666666667"
+                    Point3="4,16.1666666666667" />
                   <mssgle:LineSegment
-                    End="67.3333333333335,19.1666666666667" />
+                    End="63.3333333333333,16.1666666666667" />
                   <mssgle:CubicBezierSegment
-                    Point1="67.3333333333335,19.1666666666667"
-                    Point2="71.3333333333335,19.1666666666667"
-                    Point3="71.3333333333335,23.1666666666667" />
+                    Point1="63.3333333333333,16.1666666666667"
+                    Point2="67.3333333333333,16.1666666666667"
+                    Point3="67.3333333333333,20.1666666666667" />
                   <mssgle:LineSegment
-                    End="71.3333333333335,30.8333333333334" />
+                    End="67.3333333333333,24.8333333333333" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-12.5247200520833,24.1666666666667,96.3827734375,11.609375"
+              BoundingBox="-14.5247200520834,21.1666666666667,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\ShipmentDetail RAW to RDMS.Paths[Derived Column Output2]"
-          TopLeft="1087.04166764456,592.035087745055">
+          TopLeft="1047.66666763524,561.035087745055">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="69.7083322995645,37.1929825978053"
+              EndConnector="81.0833323088775,42.1929825978053"
               Start="0,0"
-              End="69.7083322995645,29.6929825978053">
+              End="81.0833323088775,34.6929825978053">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14.5964912989027" />
+                    End="0,17.0964912989027" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,14.5964912989027"
-                    Point2="0,18.5964912989027"
-                    Point3="4,18.5964912989027" />
+                    Point1="0,17.0964912989027"
+                    Point2="0,21.0964912989027"
+                    Point3="4,21.0964912989027" />
                   <mssgle:LineSegment
-                    End="65.7083322995645,18.5964912989027" />
+                    End="77.0833323088775,21.0964912989027" />
                   <mssgle:CubicBezierSegment
-                    Point1="65.7083322995645,18.5964912989027"
-                    Point2="69.7083322995645,18.5964912989027"
-                    Point3="69.7083322995645,22.5964912989027" />
+                    Point1="77.0833323088775,21.0964912989027"
+                    Point2="81.0833323088775,21.0964912989027"
+                    Point3="81.0833323088775,25.0964912989027" />
                   <mssgle:LineSegment
-                    End="69.7083322995645,29.6929825978053" />
+                    End="81.0833323088775,34.6929825978053" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="32.5416661544388,26.0964912989027,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10469,26 +10401,26 @@ where [refTable].[Id] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="96.6249998416752,48.8070178915809"
+              EndConnector="84.624999841675,31.8070178915813"
               Start="0,0"
-              End="96.6249998416752,41.3070178915809">
+              End="84.624999841675,24.3070178915813">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.4035089457904" />
+                    End="0,11.9035089457907" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.4035089457904"
-                    Point2="0,24.4035089457904"
-                    Point3="4,24.4035089457904" />
+                    Point1="0,11.9035089457907"
+                    Point2="0,15.9035089457907"
+                    Point3="4,15.9035089457907" />
                   <mssgle:LineSegment
-                    End="92.6249998416752,24.4035089457904" />
+                    End="80.624999841675,15.9035089457907" />
                   <mssgle:CubicBezierSegment
-                    Point1="92.6249998416752,24.4035089457904"
-                    Point2="96.6249998416752,24.4035089457904"
-                    Point3="96.6249998416752,28.4035089457904" />
+                    Point1="80.624999841675,15.9035089457907"
+                    Point2="84.624999841675,15.9035089457907"
+                    Point3="84.624999841675,19.9035089457907" />
                   <mssgle:LineSegment
-                    End="96.6249998416752,41.3070178915809" />
+                    End="84.624999841675,24.3070178915813" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10523,6 +10455,74 @@ where [refTable].[Id] = ?</property>
                     Point3="38.6249999161811,16.2982455882779" />
                   <mssgle:LineSegment
                     End="38.6249999161811,17.0964911765558" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ShipmentDetail RAW to RDMS.Paths[Data Conversion Output1]"
+          TopLeft="957.333333333333,485.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="90.3333343019091,32.7017544117213"
+              Start="0,0"
+              End="90.3333343019091,25.2017544117213">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.3508772058607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.3508772058607"
+                    Point2="0,16.3508772058607"
+                    Point3="4,16.3508772058607" />
+                  <mssgle:LineSegment
+                    End="86.3333343019091,16.3508772058607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="86.3333343019091,16.3508772058607"
+                    Point2="90.3333343019091,16.3508772058607"
+                    Point3="90.3333343019091,20.3508772058607" />
+                  <mssgle:LineSegment
+                    End="90.3333343019091,25.2017544117213" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ShipmentDetail RAW to RDMS.Paths[Data Conversion Output]"
+          TopLeft="734.125000176951,266.298245343585">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.2499999813734,27.2280700981673"
+              Start="0,0"
+              End="71.2499999813734,19.7280700981673">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.61403504908364" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.61403504908364"
+                    Point2="0,13.6140350490836"
+                    Point3="4,13.6140350490836" />
+                  <mssgle:LineSegment
+                    End="67.2499999813734,13.6140350490836" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.2499999813734,13.6140350490836"
+                    Point2="71.2499999813734,13.6140350490836"
+                    Point3="71.2499999813734,17.6140350490836" />
+                  <mssgle:LineSegment
+                    End="71.2499999813734,19.7280700981673" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
